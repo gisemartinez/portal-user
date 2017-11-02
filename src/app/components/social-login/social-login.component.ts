@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SocialLoginComponent implements OnInit {
 
+  portalClient = "Tienda León"
+
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

@@ -1,3 +1,20 @@
-<p>
-  social-login works!
-</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      {{portalClient}}
+    </mat-card-title>
+    <mat-card-subtitle>
+      Si desea comenzar a navegar, <p> elija algún tipo de autenticación a continuación
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content></mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="googleLogin()" class="btn-google">
+      <span class="fa fa-google"></span> Sign in with Google
+    </button>
+    <button mat-raised-button color="accent" (click)="facebookLogin()" class="btn-facebook">
+      <span class="fa fa-facebook"></span> Sign in with Facebook
+    </button>
+
+  </mat-card-actions>
+</mat-card>

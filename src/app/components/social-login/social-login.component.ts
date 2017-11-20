@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {SocialLoginService} from "../../services/social-login.service";
 
 @Component({
   selector: 'app-social-login',
@@ -7,12 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SocialLoginComponent implements OnInit {
 
-  portalClient = "Tienda León"
+  ngOnInit(): void {}
 
-  constructor() { }
+  @Input()
+  authConfig: any;
 
-  ngOnInit() {
+  portalClient = "Tienda León";
 
+  constructor(public socialAuthService:SocialLoginService) {
+    console.log(socialAuthService);
+  }
+
+  linkedinLogin() {
+    this.socialAuthService.auth('linkedin',this.authConfig);
+  }
+  facebookLogin(){
+    this.socialAuthService.auth('facebook',this.authConfig);
+  }
+  googleLogin(){
+    this.socialAuthService.auth('google',this.authConfig);
   }
 
 }

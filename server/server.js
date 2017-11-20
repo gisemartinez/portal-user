@@ -3,9 +3,20 @@ const express    = require('express');
 const path       = require('path');
 const http       = require('http');
 const fs         = require('fs');
+const promise = require('bluebird');
 const bodyParser = require('body-parser');
 let   router     = express.Router();
 const app = express();
+
+const { Pool, Client } = require('pg')
+
+const pool = new Pool({
+  user: 'dbuser',
+  host: 'database.server.com',
+  database: 'mydb',
+  password: 'secretpassword',
+  port: 3211,
+});
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -34,6 +45,8 @@ app.get('*', (req, res) => {
  */
 const port = process.env.PORT || '3000';
 app.set('port', port);
+require('./db/mysql-service.js')(app);
+require('./routes.js')(app);
 
 /**
  * Create HTTP server.
@@ -49,18 +62,18 @@ server.listen(port, () => console.log(`Express server running on localhost:${por
 let io = require('socket.io')(server);
 io.on('connect', (socket) => {
     console.log('user connected');
-    
+
     socket.on('connect', () => {
         console.log('connected')
-    })
-    
+    });
+
     socket.on('client init', function(){
-        console.log('client init')
+        console.log('client init');
         socket.emit('connection', { success : true})
-    })
+    });
 
     socket.on('disconnect', function(){
       console.log('user disconnected');
     });
-    
+
 });

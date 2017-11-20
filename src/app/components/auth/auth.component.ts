@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { social_keys } from '../../constants/social_login_keys.const';
+import {social_keys, social_urls} from '../../constants/social_login_keys.const';
 import { authServerBaseUrl } from '../../constants/misc.const';
 import {ActivatedRoute} from "@angular/router";
 
@@ -15,25 +15,25 @@ export class AuthComponent implements OnInit {
   constructor(private route:ActivatedRoute){}
 
   ngOnInit() {
-    console.log(this.route)
+    console.log(this.route.snapshot.paramMap.keys)
   }
 
 
   private config = {
     "loginRoute":"login",
-    "instagram":{
+    "linkedin":{
       "authEndpoint": authServerBaseUrl + "/auth/linkedin",
-      "clientId": social_keys.instagram.api_key,
+      "clientId": social_urls["linkedin"].clientId,
       "redirectURI" : authServerBaseUrl + "/admin"
     },
     "facebook":{
       "authEndpoint": authServerBaseUrl+"/auth/facebook",
-      "clientId":social_keys.facebook.api_key,
+      "clientId": social_urls["facebook"].clientId,
       "redirectURI" : authServerBaseUrl+"/admin"
     },
     "google":{
       "authEndpoint": authServerBaseUrl+"/auth/google",
-      "clientId":social_keys.google.api_key,
+      "clientId": social_urls["google"].clientId,
       "redirectURI" : authServerBaseUrl+"/admin"
     }
   }

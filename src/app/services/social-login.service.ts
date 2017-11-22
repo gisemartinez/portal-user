@@ -38,8 +38,8 @@ export class SocialLoginService {
       let configObj = JSON.parse(localStorageItems.config);
       socialLoginconfig.clientId = configObj[localStorageItems.provider].clientId;
       socialLoginconfig.redirectURI = configObj[localStorageItems.provider].redirectURI;
-      this.authEndpoint = configObj.authEndpoint;
-      this.loginURI = configObj.loginRoute;
+      this.authEndpoint = configObj[localStorageItems.provider].authEndpoint;
+      this.loginURI = configObj[localStorageItems.provider].loginRoute;
     }
 
     if (!_.isEmpty(localStorageItems.provider)) {
@@ -51,7 +51,7 @@ export class SocialLoginService {
     }
 
 
-    if (!_.isEmpty(this.code)) {
+    if (!_.isEmpty(socialLoginconfig.code)) {
       this.login(socialLoginconfig, this.authEndpoint)
         .subscribe((data: any) => {
             this.loading = false;

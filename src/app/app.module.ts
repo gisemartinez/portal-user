@@ -8,6 +8,7 @@ import { TwitterFeedsComponent } from './components/twitter-feeds/twitter-feeds.
 import {AuthRoutingModule} from "./modules/auth-routing/auth-routing.module";
 import {AuthComponent} from "./components/auth/auth.component";
 import {HttpModule} from "@angular/http";
+import {ConfiguredMainComponent} from "./components/configured-main/configured-main.component";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {HttpModule} from "@angular/http";
     AppComponent,
     SocialLoginComponent,
     AuthComponent,
-    TwitterFeedsComponent
+    TwitterFeedsComponent,
+    ConfiguredMainComponent
   ],
   imports: [
     BrowserModule,

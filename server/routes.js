@@ -1,14 +1,14 @@
 /**
  * Created by gmartinez on 11/15/17.
  */
-import SOCIAL_LOGIN_URLS from './const'
+let SOCIAL_LOGIN_URLS = require('./const')
 
 module.exports = function ( app ){
 
   function createTokenRequest( params ){
     return 'code=' + params.code +
       '&client_id=' + params.client_id +
-      '&client_secret=' + SOCIAL_LOGIN_URLS.google.secret_key +
+      '&client_secret=' + so.google.secret_key +
       '&redirect_uri=' + params.redirect_uri +
       '&grant_type=authorization_code';
   }

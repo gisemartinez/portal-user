@@ -11,6 +11,6 @@ let SOCIAL_LOGIN_STATIC_INFO =
   };
 
 
-export default {
+module.exports = {
   SOCIAL_LOGIN: SOCIAL_LOGIN_STATIC_INFO
-}
+};

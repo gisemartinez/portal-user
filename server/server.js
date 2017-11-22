@@ -8,15 +8,6 @@ const bodyParser = require('body-parser');
 let   router     = express.Router();
 const app = express();
 
-const { Pool, Client } = require('pg')
-
-const pool = new Pool({
-  user: 'dbuser',
-  host: 'database.server.com',
-  database: 'mydb',
-  password: 'secretpassword',
-  port: 3211,
-});
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -30,14 +21,14 @@ app.use(function(req, res, next) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // Point static path to dist
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 app.get('/assets/:file', (req, res) => {
-    res.sendFile(path.join(__dirname, 'assets/'+req.params.file));
+    res.sendFile(path.join(__dirname, '../assets/'+req.params.file));
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist/index.html'));
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 /**

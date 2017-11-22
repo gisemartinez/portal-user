@@ -6,6 +6,7 @@ import {PreloadSelectedModules} from "./selective-preload-strategy";
 import {SocialLoginService} from "../../services/social-login.service";
 import {AlertService} from "../../services/alert.service";
 import {AppComponent} from "../../app.component";
+import {ConfiguredMainComponent} from "../../components/configured-main/configured-main.component";
 
 
 /*CuppaLabs*/
@@ -19,6 +20,11 @@ const appRoutes: Routes = [
     path: 'userLogged',
     canActivate: [AuthInterceptorGuard],
     component: AuthComponent
+  },
+  {
+    path: 'admin',
+    component: ConfiguredMainComponent,
+    canActivate: [SocialLoginService]
   }
 ];
 

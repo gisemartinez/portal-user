@@ -28,10 +28,10 @@ export const social_urls:{[key:string]:SocialLoginInfo }= {
   },
   'facebook': {
     code:'',
-    clientId:'1551783681531253',
+    clientId:'131065570894352',
     redirectURI: authServerBaseUrl + '/admin',
-    secret: '3f2d363fbf1d2d925e9c098b4f60f06e',
-    url: 'https://www.facebook.com/v2.8/dialog/oauth?client_id=',
+    secret: 'a74151d55bae152570b3a0e8874086db',
+    url: 'https://www.facebook.com/v2.11/dialog/oauth?client_id=',
     urlSuffix:'&scope=email'
   },
   'linkedin' : {

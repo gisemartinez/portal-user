@@ -37,8 +37,9 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || '3000';
 app.set('port', port);
 require('./db/mysql-service.js')(app);
-require('./routes.js')(app);
+let auth = require('./google_auth.js');
 
+app.use('/auth',auth);
 /**
  * Create HTTP server.
  */

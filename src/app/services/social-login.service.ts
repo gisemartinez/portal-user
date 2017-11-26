@@ -98,10 +98,10 @@ export class SocialLoginService {
     };
     var body2 = socialLoginInfo;
 
-    return this.http.post(authEndpoint, body2)
+    return this.http.post(authEndpoint, body)
       .map((r: Response) => {
         localStorage.setItem('isLoggedIn', "true");
-        localStorage.setItem('token', r.json().token);
+        //localStorage.setItem('token', r.json().token);
         return r.json()
       });
 

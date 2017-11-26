@@ -13,7 +13,7 @@ import {ConfiguredMainComponent} from "../../components/configured-main/configur
 
 const appRoutes: Routes = [
   {
-    path: 'route/:mac/:ipUser/:ipRouter',
+    path: 'route',
     component: AuthComponent
   },
   {

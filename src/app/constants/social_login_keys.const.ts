@@ -20,7 +20,7 @@ export const social_keys = {
 export const social_urls:{[key:string]:SocialLoginInfo }= {
   'google' : {
     code:'',
-    clientId:'612883061882-hkbrnj033g9eg59t9iaoo4dernuiv7vf.apps.googleusercontent.com	',
+    clientId:'612883061882-hkbrnj033g9eg59t9iaoo4dernuiv7vf.apps.googleusercontent.com',
     redirectURI:  authServerBaseUrl + '/admin',
     secret: '6MaQVEA21221qQoi-yDrD5k8',
     url: 'https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=',

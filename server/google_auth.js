@@ -1,31 +1,30 @@
-/**
- * Created by gmartinez on 11/15/17.
- */
-
 let db = require('./db/index');
 let express = require('express');
 let router = express.Router();
 let request = require('request');
 let async = require('async');
 let jwt = require('jwt-simple');
+let urls = require('./const');
 let social_urls = require('../dist/out-tsc/src/app/constants/social_login_keys.const');
-function createTokenRequest( params ){
-  return { code:   params.code ,
-    client_id: params.client_id,
-    client_secret : params.client_secret,
-    redirect_uri: params.redirect_uri,
-    grant_type: params.authorization_code
+
+function createTokenRequest( body ){
+  return {
+    code: body.code,
+    client_id: body.clientId,
+    client_secret: social_urls.social_urls.google.secret,
+    redirect_uri: body.redirectUri,
+    grant_type: 'authorization_code'
   }
 }
 
 function createHeaderWithToken( token ){
   let accessToken = JSON.parse(token).access_token;
-  let headers = { Authorization: 'Bearer ' + accessToken };
+  let headers = { 'authorization': 'Bearer ' + accessToken };
   return headers;
 }
 
-function createJWT(user) {
-  var payload = {
+function createJWT( user ){
+  let payload = {
     sub: user._id,
     iat: moment().unix(),
     exp: moment().add(14, 'days').unix()
@@ -34,10 +33,14 @@ function createJWT(user) {
 }
 
 let findOneUser = function ( profile, res ){
+  db.query(
+
+  );
   User.findOne({ email: profile.email }, function ( err, existingUser ){
     if ( existingUser && existingUser.provider == "google" ){
-      var token = createJWT(existingUser);
-      res.send({ token: token });
+      let token = createJWT(existingUser);
+      return { token: token };
+      //res.send({ token: token });
     }
     else if ( existingUser && existingUser.provider != "google" ){
       var user = {};
@@ -48,7 +51,8 @@ let findOneUser = function ( profile, res ){
       user.displayName = profile.name;
       User.findOneAndUpdate({ email: existingUser.email }, user, function ( err ){
         var token = createJWT(existingUser);
-        res.send({ token: token });
+        return { token: token };
+        //res.send({ token: token });
       });
     }
     else {
@@ -60,7 +64,8 @@ let findOneUser = function ( profile, res ){
       user.displayName = profile.name;
       user.save(function ( err ){
         var token = createJWT(user);
-        res.send({ token: token });
+        return { token: token };
+        //res.send({ token: token });
       });
     }
     // var token = req.header('Authorization').split(' ')[1];
@@ -69,51 +74,82 @@ let findOneUser = function ( profile, res ){
 };
 
 
-router.post('/google', function authWithGoogle( req, res, next ){
-  let params = {
-    code: req.body.code,
-    client_id: req.body.clientId,
-    client_secret: social_urls.social_urls.google.secret,
-    redirect_uri: req.body.redirectUri,
-    grant_type: 'authorization_code'
-  };
-
-  let token_request = createTokenRequest(params);
-
-  let bodyToAuth = {
-    body: token_request,
-    headers: { 'Content-type': 'application/x-www-form-urlencoded' }
-  };
-
-  // Step 1. Exchange authorization code for access token.
-  
-
-
-  request.post({
-      headers: bodyToAuth.headers,
-      uri:social_urls.social_urls.google.accessTokenUrl,
-      json: true,
-      form: bodyToAuth.body},
+// Step 1. Exchange authorization code for access token.
+function authWithGoogle( req, res, next ){
+  request.post(
+    urls.google.accessTokenUrl,
+    {
+      form: createTokenRequest(req.body)
+    },
     function obtainAccessToken( err, response, token ){
-      if(err){
+      if ( err ){
         return res.status(500).send({ message: err });
+      } else {
+        req.token = token;
+        return next();
+      }
+    });
+}
+
+
+// Step 2. Retrieve profile information about the current user.
+function getInfoFromUser( req, res, next ){
+
+  request.get(
+    urls.google.peopleApiUrl,
+    {
+      qs: {
+        fields: 'email,family_name,gender,given_name,hd,id,link,locale,name,picture,verified_email'
+      },
+      headers: createHeaderWithToken(req.token)
+    },
+    function getUser( err, response, profile ){
+      if ( err ){
+        return res.status(500).send({ message: err });
+      } else if ( profile.error ){
+        return res.status(500).send({ message: profile.error });
+      }
+      req.oauthProfile = JSON.parse(profile);
+      return next();
+    }
+  );
+
+}
+
+// Step 3. Retrieve G++ profile information about the current user.
+function getGooglePlusInfoFromUser( req, res, next ){
+
+  request.get(
+    urls.google.googlePlus + req.oauthProfile.id,
+    {
+      headers: createHeaderWithToken(req.token)
+    },
+    function getUser( err, response, profile ){
+      if ( err ){
+        req.googlePlusInfo = { error: err };
       }
 
-      let headers = createHeaderWithToken(token);
+      req.googlePlusInfo = JSON.parse(profile);
 
-      // Step 2. Retrieve profile information about the current user.
+      return next();
+    }
+  );
 
-      request.get({
-        uri: social_urls.social_urls.google.peopleApiUrl,
-        headers: headers,
-        json: true
-      }, function getUser( err, response, profile ){
-        if ( profile.error ){
-          return res.status(500).send({ message: profile.error.message });
-        }
-        findOneUser(profile, res);
-      });
-    });
-});
+}
+
+
+router.post('/google',
+  authWithGoogle,
+  getInfoFromUser,
+  getGooglePlusInfoFromUser,
+  function ( req, res ){
+    if ( req.googlePlusInfo.error ){
+      res.send(req.oauthProfile);
+    } else {
+      res.send(req.googlePlusInfo)
+    }
+  });
+
+
 module.exports = router;
 

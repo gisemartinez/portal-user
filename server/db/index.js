@@ -38,7 +38,7 @@ connection.connect(function(err){
 
 
 module.exports = {
-  query: (text, params) => pool.query(text, params),
+  query: (text, params) => pool.query(text, params,callback),
   pool: mysql_pool,
   connection : connection
 };

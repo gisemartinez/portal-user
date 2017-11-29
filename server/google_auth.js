@@ -31,12 +31,41 @@ function createJWT( user ){
   };
   return jwt.encode(payload, config.TOKEN_SECRET);
 }
+function createOneUser( req,res,next ){
+  request.post(
+    'http://localhost:3003/mocked-admin/user',
+    {
+      json:true,
+      body:req.profile
+    },
+    function ( err,res, user_token ){
+      if (err){
+        //todo
+        console.log(err);
 
-let findOneUser = function ( profile, res ){
-  db.query(
+      }
+      req.token = user_token;
+      next();
+    }
+  );
+}
+let findOneUser = function ( req, res,next ){
 
+  let profile = req.profile;
+
+  request.get(
+    'http://localhost:3003/mocked-admin/user'+profile.email,
+    function ( err,response, user_token ){
+      if (err){
+        console.log(err);
+        createOneUser(req,res,next);
+      }
+      req.token = user_token;
+      next();
+    }
   );
   User.findOne({ email: profile.email }, function ( err, existingUser ){
+
     if ( existingUser && existingUser.provider == "google" ){
       let token = createJWT(existingUser);
       return { token: token };

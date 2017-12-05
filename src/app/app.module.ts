@@ -9,6 +9,8 @@ import {AuthRoutingModule} from "./modules/auth-routing/auth-routing.module";
 import {AuthComponent} from "./components/auth/auth.component";
 import {HttpModule} from "@angular/http";
 import {ConfiguredMainComponent} from "./components/configured-main/configured-main.component";
+import {WaitingExternalValidationComponent} from "./components/waiting-external-validation/waiting-external-validation.component";
+import {RadiusRedirectComponent} from "./components/radius-redirect/radius-redirect.component";
 
 
 @NgModule({
@@ -17,7 +19,9 @@ import {ConfiguredMainComponent} from "./components/configured-main/configured-m
     SocialLoginComponent,
     AuthComponent,
     TwitterFeedsComponent,
-    ConfiguredMainComponent
+    ConfiguredMainComponent,
+    RadiusRedirectComponent,
+    WaitingExternalValidationComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,6 @@
+/**
+ * Created by gmartinez on 12/4/17.
+ */
 let db = require('./db/index');
 let express = require('express'),
   router = express.Router(),
@@ -14,7 +17,7 @@ function createTokenRequest( body ){
   return {
     code: body.code,
     client_id: body.clientId,
-    client_secret: social_urls.social_urls.google.secret,
+    client_secret: social_urls.social_urls.facebook.secret,
     redirect_uri: body.redirectUri,
     grant_type: 'authorization_code'
   }
@@ -67,7 +70,6 @@ function createOneUser( req, res, next ){
       if ( err ){
         req.lostInfoForAdmin = true;
       }
-
       next();
 
 
@@ -79,7 +81,7 @@ function createOneUser( req, res, next ){
 // Step 1. Exchange authorization code for access token.
 function requestOauthToken( req, res, next ){
   request.post(
-    urls.google.accessTokenUrl,
+    urls.facebook.accessTokenUrl,
     {
       form: createTokenRequest(req.body)
     },
@@ -98,7 +100,7 @@ function requestOauthToken( req, res, next ){
 function getPublicProfile( req, res, next ){
 
   request.get(
-    urls.google.peopleApiUrl,
+    urls.facebook.peopleApiUrl,
     {
       qs: {
         fields: 'email,family_name,gender,given_name,hd,id,link,locale,name,picture,verified_email'

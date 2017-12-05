@@ -10,9 +10,11 @@ const config = {
       user:'admin',
       password:'pass',
       schema: 'database'
-    }
+    },
+    adminDashboard: 'http://localhost:3003/mock-admin/',
+    TOKEN_SECRET: 'secret'
   }
 };
 
 let env = process.env.NODE_ENV || 'development';
-module.exports = Object.assign(config[env], defaults);
+module.exports = Object.assign(config[env]);

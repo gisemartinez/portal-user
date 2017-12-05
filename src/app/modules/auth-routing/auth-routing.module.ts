@@ -7,6 +7,10 @@ import {SocialLoginService} from "../../services/social-login.service";
 import {AlertService} from "../../services/alert.service";
 import {AppComponent} from "../../app.component";
 import {ConfiguredMainComponent} from "../../components/configured-main/configured-main.component";
+import {WaitingExternalValidationComponent} from "../../components/waiting-external-validation/waiting-external-validation.component";
+import {RadiusRedirectComponent} from "../../components/radius-redirect/radius-redirect.component";
+import {RadiusAuthGuard} from "../../guards/radius-auth.guard";
+import {RadiusService} from "../../services/radius.service";
 
 
 /*CuppaLabs*/
@@ -14,17 +18,21 @@ import {ConfiguredMainComponent} from "../../components/configured-main/configur
 const appRoutes: Routes = [
   {
     path: 'route',
-    component: AuthComponent
-  },
-  {
-    path: 'userLogged',
     canActivate: [AuthInterceptorGuard],
+    component: RadiusRedirectComponent
+  },
+  {
+    path: 'main',
+    canActivate: [AuthInterceptorGuard,RadiusAuthGuard],
+    component: ConfiguredMainComponent
+  },
+  {
+    path: 'login',
     component: AuthComponent
   },
   {
-    path: 'admin',
-    component: ConfiguredMainComponent,
-    canActivate: [SocialLoginService]
+    path: 'waiting',
+    component: WaitingExternalValidationComponent
   }
 ];
 
@@ -35,6 +43,8 @@ const appRoutes: Routes = [
   ],
   exports: [RouterModule],
   providers: [PreloadSelectedModules,
+    AuthInterceptorGuard,
+    RadiusService,
     SocialLoginService,
     AlertService
   ],

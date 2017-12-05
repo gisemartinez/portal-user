@@ -12,7 +12,6 @@ import {social_urls} from "../constants/social_login_keys.const";
 @Injectable()
 export class SocialLoginService {
 
-  private configObj = {"authEndpoint": "", "clientId": "", "redirectURI": ""};
   private code: string;
   private cachedURL: string;
   private loginProvider: string;
@@ -37,7 +36,7 @@ export class SocialLoginService {
     if (!_.isEmpty(localStorageItems.config) && localStorageItems.config != "undefined") {
       let configObj = JSON.parse(localStorageItems.config);
       socialLoginconfig.clientId = configObj[localStorageItems.provider].clientId;
-      socialLoginconfig.redirectURI = configObj[localStorageItems.provider].redirectURI;
+      socialLoginconfig.redirectUri = configObj[localStorageItems.provider].redirectUri;
       this.authEndpoint = configObj[localStorageItems.provider].authEndpoint;
       this.loginURI = configObj[localStorageItems.provider].loginRoute;
     }
@@ -55,7 +54,7 @@ export class SocialLoginService {
       this.login(socialLoginconfig, this.authEndpoint)
         .subscribe((data: any) => {
             this.loading = false;
-            this.router.navigate([this.cachedURL]);
+            window.location.href = this.cachedURL;
             return true;
           },
           error => {
@@ -91,17 +90,10 @@ export class SocialLoginService {
 
   login(socialLoginInfo: SocialLoginInfo, authEndpoint: any) {
 
-    var body = {
-      "code": socialLoginInfo.code,
-      "clientId": socialLoginInfo.clientId,
-      "redirectUri": socialLoginInfo.redirectURI
-    };
-    var body2 = socialLoginInfo;
-
-    return this.http.post(authEndpoint, body)
+    return this.http.post(authEndpoint, socialLoginInfo)
       .map((r: Response) => {
         localStorage.setItem('isLoggedIn', "true");
-        //localStorage.setItem('token', r.json().token);
+        localStorage.setItem('token', r.json().token);
         return r.json()
       });
 
@@ -119,11 +111,12 @@ export class SocialLoginService {
     localStorage.removeItem('provider');
     this.router.navigate([this.loginURI]);
   }
+  //TODO : OBSERVE IF ITS NECESSARY THIS STEP
 
   verifyLogin(url): boolean {
 
     if (!this.isLoggedIn() && this.code == null) {
-      localStorage.setItem('cachedurl', url);
+      //localStorage.setItem('cachedurl', url);
       this.router.navigate([this.loginURI]);
       return false;
     }
@@ -133,7 +126,7 @@ export class SocialLoginService {
     else if (!this.isLoggedIn() && this.code != null) {
       let params = new URLSearchParams(this.location.path(false).split('?')[1]);
       if (params.get('code') && (localStorage.getItem('cachedurl') == "" || localStorage.getItem('cachedurl') == undefined)) {
-        localStorage.setItem('cachedurl', this.location.path(false).split('?')[0]);
+        //localStorage.setItem('cachedurl', this.location.path(false).split('?')[0]);
       }
       if (this.cachedURL != null || this.cachedURL != "") {
         this.cachedURL = localStorage.getItem('cachedurl');
@@ -161,10 +154,10 @@ export class SocialLoginService {
       window.location.href = social_urls[provider].url +
         social_urls[provider].clientId +
         '&redirect_uri=' +
-        social_urls[provider].redirectURI +
+        social_urls[provider].redirectUri +
         social_urls[provider].urlSuffix
     } else {
-      this.router.navigate([this.cachedURL]);
+      window.location.href = this.cachedURL;
     }
   }
 

@@ -3,7 +3,7 @@ export class RadiusSearchparams {
   macClient:string;
   device:string;
   ip:string;
-  username:string;
+  ipRadius:string;
   linkLogin:string;
   linkOrig:string;
   error:string;

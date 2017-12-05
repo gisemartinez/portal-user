@@ -5,8 +5,12 @@ const http       = require('http');
 const fs         = require('fs');
 const promise = require('bluebird');
 const bodyParser = require('body-parser');
-let   router     = express.Router();
 const app = express();
+const server = http.createServer(app);
+let io = require('socket.io')(server);
+let radiusCall = require('./radius_validator.js')(io);
+let auth = require('./google_auth.js');
+require('./db/mysql-service.js')(app);
 
 
 app.use(function(req, res, next) {
@@ -27,6 +31,9 @@ app.get('/assets/:file', (req, res) => {
     res.sendFile(path.join(__dirname, '../assets/'+req.params.file));
 });
 
+app.use('/auth',auth);
+app.use('/radiuscall',radiusCall);
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
@@ -36,14 +43,12 @@ app.get('*', (req, res) => {
  */
 const port = process.env.PORT || '3000';
 app.set('port', port);
-require('./db/mysql-service.js')(app);
-let auth = require('./google_auth.js');
 
-app.use('/auth',auth);
+
 /**
  * Create HTTP server.
  */
-const server = http.createServer(app);
+
 
 
 /**
@@ -51,7 +56,7 @@ const server = http.createServer(app);
  */
 server.listen(port, () => console.log(`Express server running on localhost:${port}`));
 
-let io = require('socket.io')(server);
+
 io.on('connect', (socket) => {
     console.log('user connected');
 

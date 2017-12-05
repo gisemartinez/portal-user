@@ -32,11 +32,10 @@ router.post('/user', function ( req, res ){
 
 });
 
-router.get('user/:profileEmail', function ( req, res ){
-  if(req.params.profileEmail == "inexistent_profile"){
+router.get('/user/:profileEmail', function ( req, res ){
+  if(req.params.profileEmail == "gise.cpna@gmail.com"){
     setTimeout(function(){
-      res.send(token);
-      res.status(503).send(req.params);
+      res.send(req.params);
     },1000);
   } else {
     setTimeout(function(){

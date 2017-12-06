@@ -23,7 +23,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'main',
-    canActivate: [AuthInterceptorGuard,RadiusAuthGuard],
+    canActivate: [RadiusAuthGuard],
     component: ConfiguredMainComponent
   },
   {
@@ -44,6 +44,7 @@ const appRoutes: Routes = [
   exports: [RouterModule],
   providers: [PreloadSelectedModules,
     AuthInterceptorGuard,
+    RadiusAuthGuard,
     RadiusService,
     SocialLoginService,
     AlertService

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import * as _ from "lodash";
+import {LocalStorageHandler} from "./local-storage-handler";
 
 
 @Injectable()
@@ -13,31 +14,25 @@ export class AuthInterceptorGuard implements CanActivate {
   canActivate(next: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): boolean {
 
-    localStorage.setItem('cachedurl', state.url);
+    if (_.isEmpty(LocalStorageHandler.getCalledUrlWithParameters())) {
+      LocalStorageHandler.setCalledUrlWithParameters(state.url);
+    }
 
-    if ( this.validateLogin() ) {
-      if ( this.validateRadiusCall() ) {
+    if (LocalStorageHandler.validateLogin()) {
+      if (LocalStorageHandler.validateRadiusCall()) {
+        //This result from navigating trough portal after the radius first call, before radius give internet access
         this.router.navigate(['/waiting']);
-
         return false;
 
       } else {
-        localStorage.setItem('isRadiusCalled',"true")
+        LocalStorageHandler.ackRadiusCall();
         return true;
       }
     } else {
 
       this.router.navigate(['/login']);
-
       return false;
 
     }
-  }
-  private validateLogin(): boolean {
-    return localStorage.getItem('isLoggedIn') == "true" && !_.isEmpty(localStorage.getItem('token'))
-  }
-
-  private validateRadiusCall(): boolean {
-    return localStorage.getItem('isRadiusCalled') == "true"
   }
 }

@@ -1,20 +1,7 @@
 
 import { SocialLoginInfo} from "../models/social-login-info";
 import {authServerBaseUrl} from "./misc.const";
-export const social_keys = {
-  twitter: {
-    api_key:""
-  },
-  facebook: {
-    api_key:""
-  },
-  google: {
-    api_key:""
-  },
-  instagram: {
-    api_key:""
-  }
-};
+
 
 
 export const social_urls:{[key:string]:SocialLoginInfo }= {

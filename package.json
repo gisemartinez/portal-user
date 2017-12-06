@@ -4,11 +4,9 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "start": "node server/server.js",
+    "build": "npm run clean && ng build —env=prod && tsc",
+    "clean": "rm -rf dist"
   },
   "private": true,
   "dependencies": {

@@ -8,6 +8,7 @@ import {AlertService} from "./alert.service";
 import * as _ from "lodash";
 import {SocialLoginInfo} from "../models/social-login-info";
 import {social_urls} from "../constants/social_login_keys.const";
+import {LocalStorageHandler} from "../guards/local-storage-handler";
 
 @Injectable()
 export class SocialLoginService {
@@ -92,8 +93,10 @@ export class SocialLoginService {
 
     return this.http.post(authEndpoint, socialLoginInfo)
       .map((r: Response) => {
-        localStorage.setItem('isLoggedIn', "true");
-        localStorage.setItem('token', r.json().token);
+
+        LocalStorageHandler.ackSocialLogin();
+        LocalStorageHandler.setToken( r.json().token);
+        LocalStorageHandler.setUsername( r.json().username);
         return r.json()
       });
 

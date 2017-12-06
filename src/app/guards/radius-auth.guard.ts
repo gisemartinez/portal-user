@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import {LocalStorageHandler} from "./local-storage-handler";
 
 @Injectable()
 export class RadiusAuthGuard implements CanActivate {
@@ -11,11 +12,24 @@ export class RadiusAuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot):  boolean {
 
-    if( localStorage.getItem('isRadiusAccepted') == "true"){
-      return true;
-    }
+    if (LocalStorageHandler.validateLogin()) {
+      if (LocalStorageHandler.validateRadiusCall()) {
+        if (LocalStorageHandler.validateRadiusLoginChecked()){
+          return true;
+        } else {
+          this.router.navigate(['/waiting']);
+          return false;
+        }
 
-    this.router.navigate(['/waiting'], { queryParams: { returnUrl: state.url }});
-    return false;
+      } else {
+        this.router.navigate(['/login']);
+        return false;
+      }
+    } else {
+
+      this.router.navigate(['/login']);
+      return false;
+
+    }
   }
 }

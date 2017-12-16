@@ -9,7 +9,8 @@ const app = express();
 const server = http.createServer(app);
 let io = require('socket.io')(server);
 let radiusCall = require('./radius_validator.js')(io);
-let auth = require('./google_auth.js');
+let google_auth = require('./google_auth.js');
+let facebook_auth = require('./fb_auth.js');
 require('./db/mysql-service.js')(app);
 
 
@@ -31,7 +32,8 @@ app.get('/assets/:file', (req, res) => {
     res.sendFile(path.join(__dirname, '../assets/'+req.params.file));
 });
 
-app.use('/auth',auth);
+app.use('/auth/google',google_auth);
+app.use('/auth/facebook',facebook_auth);
 app.use('/radiuscall',radiusCall);
 
 app.get('*', (req, res) => {

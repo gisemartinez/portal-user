@@ -153,7 +153,7 @@ function persistUserInRadiusDB( req, res, next ){
   });
 }
 
-router.post('/google',
+router.post('/',
   requestOauthToken,
   getPublicProfile,
   sendProfileInfoToAdmin,

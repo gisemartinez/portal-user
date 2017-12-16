@@ -18,8 +18,7 @@ function createTokenRequest( body ){
     code: body.code,
     client_id: body.clientId,
     client_secret: social_urls.social_urls.facebook.secret,
-    redirect_uri: body.redirectUri,
-    grant_type: 'authorization_code'
+    redirect_uri: body.redirectUri
   }
 }
 
@@ -80,10 +79,12 @@ function createOneUser( req, res, next ){
 
 // Step 1. Exchange authorization code for access token.
 function requestOauthToken( req, res, next ){
-  request.post(
+  request.get(
     urls.facebook.accessTokenUrl,
     {
-      form: createTokenRequest(req.body)
+      qs: {
+        fields: createTokenRequest(req.body)
+      }
     },
     function obtainAccessToken( err, response, token ){
       if ( err ){
@@ -103,7 +104,7 @@ function getPublicProfile( req, res, next ){
     urls.facebook.peopleApiUrl,
     {
       qs: {
-        fields: 'email,family_name,gender,given_name,hd,id,link,locale,name,picture,verified_email'
+        fields: 'email,first_name,gender,last_name,hd,id,link,locale,name,picture.type(large),verified_email'
       },
       headers: createHeaderWithToken(req.token)
     },
@@ -155,7 +156,7 @@ function persistUserInRadiusDB( req, res, next ){
   });
 }
 
-router.post('/google',
+router.post('/',
   requestOauthToken,
   getPublicProfile,
   sendProfileInfoToAdmin,

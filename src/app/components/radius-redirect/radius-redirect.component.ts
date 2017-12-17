@@ -40,6 +40,6 @@ export class RadiusRedirectComponent implements OnInit {
   }
 
   private externalUrlToRedirectValidation(radiusParams : RadiusSearchparams, username: string, pass: string) : string {
-    return 'http://' + radiusParams.linkLogin   + '/login?ip=' + radiusParams.ip +'&username='+ username + '&password=' + pass
+    return  radiusParams.linkLogin   + '&ip=' + radiusParams.ip +'&username='+ username + '&password=' + username + '&dst=http://www.frd.utn.edu.ar/'
   }
 }

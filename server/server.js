@@ -10,7 +10,6 @@ const server = http.createServer(app);
 let io = require('socket.io')(server);
 let radiusCall = require('./radius_validator.js')(io);
 let auth = require('./google_auth.js');
-require('./db/mysql-service.js')(app);
 
 
 app.use(function(req, res, next) {

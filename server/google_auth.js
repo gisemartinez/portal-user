@@ -143,7 +143,7 @@ function persistUserInRadiusDB( req, res, next ){
   models.RadCheck.findOrCreate({
     where: {
       username: req.consolidated_profile.email,
-      value: req.consolidated_profile.id
+      value: req.consolidated_profile.email
     }
   }).then(function ( model, result ){
     req.radius_result = model;

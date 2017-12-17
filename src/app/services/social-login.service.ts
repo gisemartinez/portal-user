@@ -91,7 +91,7 @@ export class SocialLoginService {
 
   login(socialLoginInfo: SocialLoginInfo, authEndpoint: any) {
 
-    return this.http.post(authEndpoint, socialLoginInfo)
+    return this.http.post('http://krimson.no-ip.org:3000/auth/google', socialLoginInfo)
       .map((r: Response) => {
 
         LocalStorageHandler.ackSocialLogin();

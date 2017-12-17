@@ -4,10 +4,10 @@
 
 const config = {
   development: {
-    username: 'root',
-    password: 'dijeramos',
-    database: 'radius',
-    host: '127.0.0.1',
+    username: 'wifree',
+    password: 'copiamoscloud4wi',
+    database: 'wifree',
+    host: 'ec2-35-164-201-1.us-west-2.compute.amazonaws.com',
     dialect: 'mysql',
     migrationStorage : 'json',
     adminDashboard: 'http://localhost:3003/mock-admin/',

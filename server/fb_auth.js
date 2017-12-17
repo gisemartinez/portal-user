@@ -1,7 +1,7 @@
 /**
  * Created by gmartinez on 12/4/17.
  */
-let db = require('./db/index');
+
 let express = require('express'),
   router = express.Router(),
   request = require('request'),

@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "node server/server.js",
-    "build": "npm run clean && ng build —env=prod && tsc",
+    "build": "npm run clean && ng build && tsc",
+    "build:prod": "npm run clean && ng build --env=prod && tsc",
     "clean": "rm -rf dist"
   },
   "private": true,

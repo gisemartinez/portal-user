@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import * as io from 'socket.io-client';
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class RadiusService {
 
-  private url = 'http://localhost:3000';
+  private url = environment.server;
   private socket;
 
   radiusValidation() {

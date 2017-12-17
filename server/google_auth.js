@@ -1,4 +1,3 @@
-let db = require('./db/index');
 let express = require('express'),
   router = express.Router(),
   request = require('request'),

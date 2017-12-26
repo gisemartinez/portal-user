@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "node server/server.js",
     "build": "npm run clean && ng build && tsc",
-    "build:prod": "npm run clean && ng build --env=prod && tsc",
+    "build:prod": "npm run clean && ng build --environment=prod && tsc",
     "clean": "rm -rf dist"
   },
   "private": true,

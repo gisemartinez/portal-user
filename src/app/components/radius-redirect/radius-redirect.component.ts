@@ -36,7 +36,6 @@ export class RadiusRedirectComponent implements OnInit {
 
     console.log(routerSearchParams);
     window.location.href = this.externalUrlToRedirectValidation(routerSearchParams,username,password);
-    //window.location.href = 'https://www.google.com'
   }
 
   private externalUrlToRedirectValidation(radiusParams : RadiusSearchparams, username: string, pass: string) : string {

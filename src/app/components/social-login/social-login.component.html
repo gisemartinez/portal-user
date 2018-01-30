@@ -10,10 +10,22 @@
   <mat-card-content></mat-card-content>
   <mat-card-actions>
     <button mat-raised-button color="primary" (click)="googleLogin()" class="btn-google">
-      <span class="fa fa-google"></span> Sign in with Google
+      Sign in with <mat-icon svgIcon="google"></mat-icon>
     </button>
     <button mat-raised-button color="accent" (click)="facebookLogin()" class="btn-facebook">
-      <span class="fa fa-facebook"></span> Sign in with Facebook
+      Sign in with <mat-icon svgIcon="fb"></mat-icon>
+    </button>
+    <button mat-raised-button color="accent" (click)="facebookLogin()" class="btn-facebook">
+      Sign in with <mat-icon svgIcon="instagram"></mat-icon>
+    </button>
+    <button mat-raised-button color="accent" (click)="facebookLogin()" class="btn-facebook">
+      Sign in with <mat-icon svgIcon="pinterest"></mat-icon>
+    </button>
+    <button mat-raised-button color="accent" (click)="facebookLogin()" class="btn-facebook">
+      Sign in with <mat-icon svgIcon="google"></mat-icon>
+    </button>
+    <button mat-raised-button color="accent" (click)="logout()" class="btn-facebook">
+       Forget me
     </button>
 
   </mat-card-actions>

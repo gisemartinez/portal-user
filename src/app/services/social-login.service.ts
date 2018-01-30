@@ -74,21 +74,6 @@ export class SocialLoginService {
     };
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    let url: string = state.url;
-    return this.verifyLogin(url);
-  }
-
-  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    return this.canActivate(route, state);
-  }
-
-  canLoad(route: Route): boolean {
-    let url = `/${route.path}`;
-
-    return this.verifyLogin(url);
-  }
-
   login(socialLoginInfo: SocialLoginInfo, authEndpoint: any) {
 
     return this.http.post(authEndpoint, socialLoginInfo)
@@ -113,28 +98,6 @@ export class SocialLoginService {
     localStorage.removeItem('cachedurl');
     localStorage.removeItem('provider');
     this.router.navigate([this.loginURI]);
-  }
-  //TODO : OBSERVE IF ITS NECESSARY THIS STEP
-
-  verifyLogin(url): boolean {
-
-    if (!this.isLoggedIn() && this.code == null) {
-      //localStorage.setItem('cachedurl', url);
-      this.router.navigate([this.loginURI]);
-      return false;
-    }
-    else if (this.isLoggedIn()) {
-      return true;
-    }
-    else if (!this.isLoggedIn() && this.code != null) {
-      let params = new URLSearchParams(this.location.path(false).split('?')[1]);
-      if (params.get('code') && (localStorage.getItem('cachedurl') == "" || localStorage.getItem('cachedurl') == undefined)) {
-        //localStorage.setItem('cachedurl', this.location.path(false).split('?')[0]);
-      }
-      if (this.cachedURL != null || this.cachedURL != "") {
-        this.cachedURL = localStorage.getItem('cachedurl');
-      }
-    }
   }
 
   private isLoggedIn(): boolean {

@@ -9,24 +9,40 @@
   </mat-card-header>
   <mat-card-content></mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="googleLogin()" class="btn-google">
+    <button *ngIf="loginEntities.google.activated"
+            mat-raised-button
+            color="{{loginEntities.google.color}}"
+            (click)="loginWith('google')" >
       Sign in with <mat-icon svgIcon="google"></mat-icon>
     </button>
-    <button mat-raised-button color="accent" (click)="facebookLogin()" class="btn-facebook">
+    <button *ngIf="loginEntities.facebook.activated"
+            mat-raised-button
+            color="{{loginEntities.facebook.color}}"
+            (click)="loginWith('facebook')" >
       Sign in with <mat-icon svgIcon="fb"></mat-icon>
     </button>
-    <button mat-raised-button color="accent" (click)="facebookLogin()" class="btn-facebook">
+    <button *ngIf="loginEntities.instagram.activated"
+            mat-raised-button
+            color="{{loginEntities.instagram.color}}"
+            (click)="loginWith('instagram')" >
       Sign in with <mat-icon svgIcon="instagram"></mat-icon>
     </button>
-    <button mat-raised-button color="accent" (click)="facebookLogin()" class="btn-facebook">
+    <button *ngIf="loginEntities.pinterest.activated"
+            mat-raised-button color="{{loginEntities.pinterest.color}}"
+            (click)="loginWith('pinterest')" >
       Sign in with <mat-icon svgIcon="pinterest"></mat-icon>
     </button>
-    <button mat-raised-button color="accent" (click)="facebookLogin()" class="btn-facebook">
-      Sign in with <mat-icon svgIcon="google"></mat-icon>
+    <button *ngIf="loginEntities.twitter.activated"
+            mat-raised-button
+            color="{{loginEntities.twitter.color}}"
+            (click)="loginWith('twitter')" >
+      Sign in with <mat-icon svgIcon="twitter"></mat-icon>
     </button>
-    <button mat-raised-button color="accent" (click)="logout()" class="btn-facebook">
-       Forget me
-    </button>
+   <!-- <button mat-raised-button
+            color="accent"
+            (click)="logout()" >
+       Logout
+    </button>-->
 
   </mat-card-actions>
 </mat-card>

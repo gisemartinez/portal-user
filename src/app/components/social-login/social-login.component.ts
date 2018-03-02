@@ -16,7 +16,8 @@ export class SocialLoginComponent implements OnInit {
   @Input()
   authConfig: any;
 
-  portalClient = "Tienda León";
+  portalClient: String;
+  loginEntities: {};
 
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public socialAuthService:SocialLoginService) {
     iconRegistry
@@ -30,17 +31,35 @@ export class SocialLoginComponent implements OnInit {
         sanitizer.bypassSecurityTrustResourceUrl('/assets/pinterest_icon.svg'))
       .addSvgIcon('twitter',
         sanitizer.bypassSecurityTrustResourceUrl('/assets/twitter_icon.svg'));
-    console.log(socialAuthService);
+    //TODO: Se debe cargar dinamicamente, consultando al Admin
+    this.portalClient = "Tienda León";
+    this.loginEntities = {
+      'google' : {
+        color: 'primary',
+        activated: true
+      },
+      'facebook' : {
+        color: 'accent',
+        activated: true
+      },
+      'instagram' : {
+        color: 'accent',
+        activated: false
+      },
+      'pinterest' : {
+        color: 'accent',
+        activated: true
+      },
+      'twitter' : {
+        color: 'accent',
+        activated: true
+      }
+    }
+
   }
 
-  linkedinLogin() {
-    this.socialAuthService.auth('linkedin',this.authConfig);
-  }
-  facebookLogin(){
-    this.socialAuthService.auth('facebook',this.authConfig);
-  }
-  googleLogin(){
-    this.socialAuthService.auth('google',this.authConfig);
+  loginWith(entity){
+    this.socialAuthService.auth(entity,this.authConfig)
   }
   logout(){
     this.socialAuthService.logout();

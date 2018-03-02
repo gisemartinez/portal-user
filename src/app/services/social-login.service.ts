@@ -94,21 +94,12 @@ export class SocialLoginService {
 
   logout(): void {
     localStorage.setItem('isLoggedIn', "false");
-    localStorage.removeItem('token');
-    localStorage.removeItem('cachedurl');
-    localStorage.removeItem('provider');
+    LocalStorageHandler.removeLoginData();
     this.router.navigate([this.loginURI]);
   }
 
   private isLoggedIn(): boolean {
-    let status = false;
-    if (localStorage.getItem('isLoggedIn') == "true") {
-      status = true;
-    }
-    else {
-      status = false;
-    }
-    return status;
+    return (localStorage.getItem('isLoggedIn') == "true");
   }
 
   public auth(provider: string, authConfig: any): void {

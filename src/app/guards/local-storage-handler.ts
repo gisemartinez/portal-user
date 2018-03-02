@@ -41,4 +41,10 @@ export class LocalStorageHandler {
   public static setToken(token: string) {
     localStorage.setItem('token', token);
   }
+
+  public static removeLoginData() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('cachedurl');
+    localStorage.removeItem('provider');
+  }
 }

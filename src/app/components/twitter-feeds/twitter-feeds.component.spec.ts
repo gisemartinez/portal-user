@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TwitterFeedsComponent } from './twitter-feeds.component';
+import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from "@angular/core";
 
 describe('TwitterFeedsComponent', () => {
   let component: TwitterFeedsComponent;
@@ -8,7 +9,9 @@ describe('TwitterFeedsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TwitterFeedsComponent ]
+      declarations: [ TwitterFeedsComponent ],
+      schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
+
     })
     .compileComponents();
   }));

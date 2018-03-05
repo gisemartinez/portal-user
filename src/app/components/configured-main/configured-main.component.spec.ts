@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ConfiguredMainComponent } from './configured-main.component';
+import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from "@angular/core";
 
 describe('ConfiguredMainComponent', () => {
   let component: ConfiguredMainComponent;
@@ -8,7 +9,9 @@ describe('ConfiguredMainComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConfiguredMainComponent ]
+      declarations: [ ConfiguredMainComponent ],
+      schemas:[CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
+
     })
     .compileComponents();
   }));

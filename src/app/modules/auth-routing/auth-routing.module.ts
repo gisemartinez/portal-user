@@ -15,7 +15,7 @@ import {RadiusService} from "../../services/radius.service";
 
 /*CuppaLabs*/
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
   {
     path: 'route',
     canActivate: [AuthInterceptorGuard],

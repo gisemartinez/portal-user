@@ -7,7 +7,8 @@
     "start": "node server/server.js",
     "build": "npm run clean && ng build && tsc",
     "build:prod": "npm run clean && ng build --environment=prod && tsc",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "test-watch": "node node_modules/karma/bin/karma start --browsers=Chrome --single-run=false --auto-watch"
   },
   "private": true,
   "dependencies": {

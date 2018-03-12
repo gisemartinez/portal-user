@@ -1,23 +1,45 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WaitingExternalValidationComponent } from './waiting-external-validation.component';
+import {RadiusService} from "../../services/radius.service";
+import {Router} from "@angular/router";
+import {RouterTestingModule} from "@angular/router/testing";
+import {Observable} from "rxjs/Observable";
+import {of} from "rxjs/observable/of";
 
 describe('WaitingExternalValidationComponent', () => {
   let component: WaitingExternalValidationComponent;
+
   let fixture: ComponentFixture<WaitingExternalValidationComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ WaitingExternalValidationComponent ]
-    })
-    .compileComponents();
-  }));
+  let radiusService: RadiusService;
+
+  let mockRouter:{};
+
+  let radiusValidationSpy: jasmine.Spy;
 
   beforeEach(() => {
+
+    TestBed.configureTestingModule({
+      declarations: [WaitingExternalValidationComponent],
+      providers: [
+        {
+          provide: Router, useValue: mockRouter
+        },
+        RadiusService
+      ]
+    });
+
     fixture = TestBed.createComponent(WaitingExternalValidationComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+
+    radiusService = fixture.debugElement.injector.get(RadiusService);
+
+    // Setup spy on the `radiusValidation` method
+    radiusValidationSpy = spyOn(radiusService, 'radiusValidation')
+      .and.returnValue(Observable.of(""));
   });
+
 
   it('should create', () => {
     expect(component).toBeTruthy();

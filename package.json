@@ -8,7 +8,7 @@
     "build": "npm run clean && ng build && tsc",
     "build:prod": "npm run clean && ng build --environment=prod && tsc",
     "clean": "rm -rf dist",
-    "test-watch": "node node_modules/karma/bin/karma start --browsers=Chrome --single-run=false --auto-watch"
+    "test-watch": "node node_modules/karma/bin/karma start --browsers=Chrome --single-run=false --auto-watch --sourcemaps=true"
   },
   "private": true,
   "dependencies": {

@@ -10,11 +10,13 @@ import {Router} from "@angular/router";
 })
 export class WaitingExternalValidationComponent implements OnInit {
 
-  constructor(public radiusService:RadiusService,private router:Router) {
-    radiusService.radiusValidation().subscribe((data:any) => {
-      localStorage.setItem('isRadiusAccepted','true');
-      this.router.navigate(['/main']);
-    })
+  constructor(private radiusService: RadiusService, private router: Router) {
+    this.radiusService
+      .radiusValidation()
+      .subscribe((data: any) => {
+        localStorage.setItem('isRadiusAccepted', 'true');
+        this.router.navigate(['/main']);
+      })
   }
 
   ngOnInit() {

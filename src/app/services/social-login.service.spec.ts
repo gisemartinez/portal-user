@@ -16,11 +16,11 @@ describe('SocialLoginService', () => {
   let mockRouter:any;
   let backend: MockBackend;
   let socialLoginService: SocialLoginService;
-  let location: Location;
+  let locationMock: Location;
   let fixture;
   beforeEach(async(() => {
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
-    location = jasmine.createSpyObj('Location', ['get']);
+    locationMock = jasmine.createSpyObj('Location', ['get']);
     TestBed.configureTestingModule({
       imports: [
         BrowserModule,
@@ -34,7 +34,7 @@ describe('SocialLoginService', () => {
         MockBackend,
         BaseRequestOptions,
         AlertService,
-        {provide: Location, useValue: location},
+        {provide: Location, useValue: locationMock},
         //{ provide: Router, useValue: mockRouter },
         { provide: ComponentFixtureAutoDetect, useValue: true },
         {

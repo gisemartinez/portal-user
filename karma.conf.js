@@ -6,7 +6,11 @@ module.exports = function (config) {
     basePath: '',
     frameworks: ['jasmine', '@angular/cli'],
     files:[
-      {pattern: './node_modules/@angular/material/prebuilt-themes/indigo-pink.css', included: true, watched: true}
+      {
+        pattern: './node_modules/@angular/material/prebuilt-themes/indigo-pink.css',
+        included: true,
+        watched: true
+      }
     ],
     plugins: [
       require('karma-jasmine'),

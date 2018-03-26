@@ -13,17 +13,10 @@ describe('AuthComponent', () => {
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
   let mockRouter: any;
-  let locationProvider: any;
-  let locationMock: Location;
 
-  let alertServiceStub = {
-    message: String,
-    getMessage: Observable.of("pancito Tests")
-  };
 
   beforeEach(async(() => {
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
-    locationMock = jasmine.createSpyObj('Location', ['get']);
 
     TestBed.configureTestingModule({
       declarations: [AuthComponent],

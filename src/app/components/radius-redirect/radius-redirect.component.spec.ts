@@ -1,34 +1,31 @@
-import {async, ComponentFixture, ComponentFixtureAutoDetect, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, TestBed} from "@angular/core/testing";
 
-import { RadiusRedirectComponent } from './radius-redirect.component';
-import {PreloadSelectedModules} from "../../modules/auth-routing/selective-preload-strategy";
-import {RadiusAuthGuard} from "app/guards/radius-auth.guard";
-import {AuthInterceptorGuard} from "../../guards/auth-interceptor.guard";
-import {RadiusService} from "../../services/radius.service";
-import {SocialLoginService} from "../../services/social-login.service";
-import {AlertService} from "../../services/alert.service";
+import {RadiusRedirectComponent} from "./radius-redirect.component";
+
 import {ActivatedRoute, Router} from "@angular/router";
 import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from "@angular/core";
 import {Observable} from "rxjs/Observable";
+import {SpyLocation} from "@angular/common/testing";
 import {RouterTestingModule} from "@angular/router/testing";
+import {Location} from "@angular/common";
+
 
 describe('RadiusRedirectComponent', () => {
   let component: RadiusRedirectComponent;
   let fixture: ComponentFixture<RadiusRedirectComponent>;
   let mockRouter :any;
-  let locationMock: Location;
-
+  let location: SpyLocation;
+  let activatedRoute: ActivatedRoute;
 
   beforeEach(async(() => {
-    mockRouter = jasmine.createSpyObj('Router', ['navigate']);
-    locationMock = jasmine.createSpyObj('Location', ['path']);
+    //mockRouter = jasmine.createSpyObj('Router', ['navigate']);
     TestBed.configureTestingModule({
       declarations: [RadiusRedirectComponent],
-      //imports: [RouterTestingModule],
+      imports: [RouterTestingModule],
       providers: [
         {provide: ComponentFixtureAutoDetect, useValue: true},
-        {provide: Router, useValue: mockRouter},
-        {provide: Location, useValue: locationMock},
+       // {provide: Router, useValue: mockRouter},
+       // {provide: Location, useClass: SpyLocation},
         {
           provide: ActivatedRoute,
           useValue: {
@@ -38,16 +35,38 @@ describe('RadiusRedirectComponent', () => {
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 
-    }).compileComponents();
+    });
+   // location = TestBed.get(Location);
+    activatedRoute = TestBed.get(ActivatedRoute);
+    //fixture = TestBed.createComponent(RadiusRedirectComponent);
+    //component = fixture.componentInstance;
+    //fixture.detectChanges();
   }));
 
-  beforeEach(() => {
+  //beforeEach(() => {
+  //  fixture = TestBed.createComponent(RadiusRedirectComponent);
+   // component = fixture.componentInstance;
+    //fixture.detectChanges();
+
+    //const injector = fixture.debugElement.injector;
+    //location = (injector.get(Location) as SpyLocation);
+
+
+  //});
+
+  it('should create', fakeAsync(() => {
+    createComponent();
+    expect(component).toBeTruthy();
+  }));
+
+  function createComponent() {
     fixture = TestBed.createComponent(RadiusRedirectComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    const injector = fixture.debugElement.injector;
+    location = injector.get(Location) as SpyLocation;
+    mockRouter = injector.get(Router);
+    mockRouter.initialNavigation();
+    fixture.detectChanges();
+  }
 });

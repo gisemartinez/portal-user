@@ -11,7 +11,6 @@ import {MaterialModule} from "./material.module";
 import {AuthRoutingModule} from "./modules/auth-routing/auth-routing.module";
 import {HttpModule} from "@angular/http";
 import {APP_BASE_HREF} from "@angular/common";
-import {element} from "protractor";
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({

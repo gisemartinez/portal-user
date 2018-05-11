@@ -11,6 +11,8 @@ import {WaitingExternalValidationComponent} from "../../components/waiting-exter
 import {RadiusRedirectComponent} from "../../components/radius-redirect/radius-redirect.component";
 import {RadiusAuthGuard} from "../../guards/radius-auth.guard";
 import {RadiusService} from "../../services/radius.service";
+import {AlertComponent} from "../../components/alert/alert.component";
+import {NavbarComponent} from "../../components/navbar/navbar.component";
 
 
 /*CuppaLabs*/

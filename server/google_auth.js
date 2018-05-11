@@ -7,13 +7,12 @@ let express = require('express'),
 const config = require('./config');
 var models = require('./db/models');
 let urls = require('./const');
-let social_urls = require('../dist/out-tsc/src/app/constants/social_login_keys.const');
 
 function createTokenRequest( body ){
   return {
     code: body.code,
-    client_id: body.clientId,
-    client_secret: social_urls.social_urls.google.secret,
+    client_id: config.socialMediaKeys.google.clientId,
+    client_secret: config.socialMediaKeys.google.secret,
     redirect_uri: body.redirectUri,
     grant_type: 'authorization_code'
   }
@@ -77,6 +76,7 @@ function createOneUser( req, res, next ){
 
 // Step 1. Exchange authorization code for access token.
 function requestOauthToken( req, res, next ){
+  new Promise(function ( resolve, reject ){
   request.post(
     urls.google.accessTokenUrl,
     {
@@ -84,70 +84,85 @@ function requestOauthToken( req, res, next ){
     },
     function obtainAccessToken( err, response, token ){
       if ( err ){
-        return res.status(500).send({ message: err });
+        reject(err);
       } else {
+        resolve(req.token);
         req.token = token;
-        return next();
+        next();
       }
-    });
+    })
+  });
 }
 
 
 // Step 2. Retrieve profile information about the current user.
 function getPublicProfile( req, res, next ){
-
-  request.get(
-    urls.google.peopleApiUrl,
-    {
-      qs: {
-        fields: 'email,family_name,gender,given_name,hd,id,link,locale,name,picture,verified_email'
+  return new Promise(function ( resolve,reject ){
+    request.get(
+      urls.google.peopleApiUrl,
+      {
+        qs: {
+          fields: 'email,family_name,gender,given_name,hd,id,link,locale,name,picture,verified_email'
+        },
+        headers: createHeaderWithToken(req.token)
       },
-      headers: createHeaderWithToken(req.token)
-    },
-    function getUser( err, response, profile ){
-      if ( err ){
-        return res.status(500).send({ message: err });
-      } else if ( profile.error ){
-        return res.status(500).send({ message: profile.error });
+      function getUser( err, response, profile ){
+        if ( err ){
+          //return res.status(500).send({ message: err });
+          reject(err);
+        } else if ( profile.error ){
+          //return res.status(500).send({ message: profile.error });
+          reject(profile.err);
+        }
+        req.consolidated_profile = JSON.parse(profile);
+        resolve(req.consolidated_profile);
+        next();
       }
-      req.consolidated_profile = JSON.parse(profile);
-      return next();
-    }
-  );
-
+    )
+  });
 }
 
 
 //Step 3: Send data from profile to Admin
 function sendProfileInfoToAdmin( req, res, next ){
+  return new Promise(function ( resolve,reject ){
+    let profile = req.consolidated_profile;
+    let url = config[ 'adminDashboard' ] + 'user/' + profile.email;
 
-  let profile = req.consolidated_profile;
-  let url = config[ 'adminDashboard' ] + 'user/' + profile.email;
+    request.get(
+      url,
+      function ( err, response, user_token ){
+        if ( err ){
+          createOneUser(req, res, next);
+          resolve(err);
+        } else {
+          resolve();
+          next();
+        }
 
-  request.get(
-    url,
-    function ( err, response, user_token ){
-      if ( err ){
-        createOneUser(req, res, next);
-      } else {
-        next();
       }
-
-    }
-  );
+    );
+  })
 }
 
 //Step 4: Send data to Radius
 function persistUserInRadiusDB( req, res, next ){
-
-  models.RadCheck.findOrCreate({
-    where: {
-      username: req.consolidated_profile.email,
-      value: req.consolidated_profile.email
+  return new Promise(function ( resolve,reject ){
+    try {
+      models.RadCheck.findOrCreate({
+        where: {
+          username: req.consolidated_profile.email,
+          value: req.consolidated_profile.email
+        }
+      }).then(function ( model, result ){
+        req.radius_result = model;
+        resolve(req.radius_result);
+      }).catch(  err  => {
+        reject(err.name);
+      })
+    } catch (exception) {
+      reject(exception);
     }
-  }).then(function ( model, result ){
-    req.radius_result = model;
-    next()
 
   });
 }
@@ -156,13 +171,16 @@ router.post('/google',
   requestOauthToken,
   getPublicProfile,
   sendProfileInfoToAdmin,
-  persistUserInRadiusDB,
   function ( req, res ){
-    if ( req.radius_result ){
-      res.send({ 'username':req.consolidated_profile.email,'token': req.token });
-    } else {
-      res.status(503).send({ 'token': req.token })
-    }
+    persistUserInRadiusDB(req,res).then(result => {
+      if ( result ){
+        res.send({ 'username':req.consolidated_profile.email,'token': req.token });
+      } else {
+        res.status(503).send({ 'token': req.token })
+      }}).catch(  err => {
+        res.status(503).send({ 'error': err })
+    });
+
   });
 
 

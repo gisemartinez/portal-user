@@ -2,11 +2,9 @@ import {async, ComponentFixture, ComponentFixtureAutoDetect, getTestBed, TestBed
 
 import {AuthComponent} from "./auth.component";
 import {PreloadSelectedModules} from "../../modules/auth-routing/selective-preload-strategy";
-import {AlertService} from "../../services/alert.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from "@angular/core";
 import {Observable} from "rxjs/Observable";
-import {ActivatedRouteStub} from "../../testing/mocks/activated-route-stub";
 
 
 describe('AuthComponent', () => {

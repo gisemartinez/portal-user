@@ -4,17 +4,19 @@ import { SocialLoginService } from './social-login.service';
 import {BrowserModule} from "@angular/platform-browser";
 import {MaterialModule} from "../material.module";
 
-import {BaseRequestOptions, Http, HttpModule, XHRBackend,Response,ResponseOptions} from "@angular/http";
-import {MockBackend, MockConnection} from "@angular/http/testing";
 import {Router} from "@angular/router";
 import {RouterTestingModule} from "@angular/router/testing";
 
 import {AlertService} from "./alert.service";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {HttpClientTestingBackend} from "@angular/http/testing";
+import {XHRBackend} from "@angular/http";
 
 
 describe('SocialLoginService', () => {
   let mockRouter:any;
-  let backend: MockBackend;
+  let backend: HttpClientTestingModule;
   let socialLoginService: SocialLoginService;
   let locationMock: Location;
   let fixture;
@@ -25,31 +27,29 @@ describe('SocialLoginService', () => {
       imports: [
         BrowserModule,
         MaterialModule,
-        HttpModule,
+        HttpClientModule,
         RouterTestingModule
       ],
 
       providers: [
         SocialLoginService,
-        MockBackend,
-        BaseRequestOptions,
         AlertService,
         {provide: Location, useValue: locationMock},
         //{ provide: Router, useValue: mockRouter },
         { provide: ComponentFixtureAutoDetect, useValue: true },
         {
-          provide: Http,
-          deps: [ MockBackend, BaseRequestOptions ],
+          provide: HttpClientTestingModule,
+          deps: [ HttpClientTestingBackend ],
           useFactory:
             (backend: XHRBackend, defaultOptions: BaseRequestOptions) => {
-              return new Http(backend, defaultOptions);
+              return new HttpClient(backend, defaultOptions);
             }
         }
         ]
     }).compileComponents();
 
     const testbed = getTestBed();
-    backend = testbed.get(MockBackend);
+    backend = testbed.get(HttpClientTestingBackend);
     socialLoginService = testbed.get(SocialLoginService);
 
 

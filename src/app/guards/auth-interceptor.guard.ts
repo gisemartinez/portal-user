@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
+import { Observable, of } from 'rxjs';
 import * as _ from "lodash";
 import {LocalStorageHandler} from "./local-storage-handler";
 

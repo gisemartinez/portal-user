@@ -5,12 +5,13 @@ import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
 import { SocialLoginComponent } from './components/social-login/social-login.component';
 import { TwitterFeedsComponent } from './components/twitter-feeds/twitter-feeds.component';
+import {NavbarComponent} from "./components/navbar/navbar.component";
 import {AuthRoutingModule} from "./modules/auth-routing/auth-routing.module";
 import {AuthComponent} from "./components/auth/auth.component";
-import {HttpModule} from "@angular/http";
 import {ConfiguredMainComponent} from "./components/configured-main/configured-main.component";
 import {WaitingExternalValidationComponent} from "./components/waiting-external-validation/waiting-external-validation.component";
 import {RadiusRedirectComponent} from "./components/radius-redirect/radius-redirect.component";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {RadiusRedirectComponent} from "./components/radius-redirect/radius-redir
     SocialLoginComponent,
     AuthComponent,
     TwitterFeedsComponent,
+    NavbarComponent,
     ConfiguredMainComponent,
     RadiusRedirectComponent,
     WaitingExternalValidationComponent
@@ -27,7 +29,7 @@ import {RadiusRedirectComponent} from "./components/radius-redirect/radius-redir
     BrowserModule,
     MaterialModule,
     AuthRoutingModule,
-    HttpModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

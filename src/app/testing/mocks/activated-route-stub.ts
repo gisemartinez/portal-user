@@ -1,6 +1,6 @@
 
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { convertToParamMap, ParamMap, Params } from '@angular/router';
+import {ReplaySubject} from "rxjs/internal/ReplaySubject";
 
 /**
  * An ActivateRoute test double with a `paramMap` observable.
@@ -16,7 +16,7 @@ export class ActivatedRouteStub {
   }
 
   /** The mock paramMap observable */
-  readonly paramMap = this.subject.asObservable();
+ // readonly paramMap = this.subject.asObservable();
 
   /** Set the paramMap observables's next value */
   setParamMap(params?: Params) {

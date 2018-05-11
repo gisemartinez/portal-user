@@ -1,6 +1,3 @@
-/**
- * Created by gmartinez on 11/16/17.
- */
 
 const config = {
   development: {
@@ -20,6 +17,10 @@ const config = {
       google:{
         clientId:'612883061882-hkbrnj033g9eg59t9iaoo4dernuiv7vf.apps.googleusercontent.com',
         secret: '6MaQVEA21221qQoi-yDrD5k8'
+      },
+      linkedin:{
+        clientId: '7795dtgk291ni1',
+        secret:'oBU1OUVw42FB7MWt'
       }
     }
   },
@@ -40,9 +41,14 @@ const config = {
       google:{
         clientId:'612883061882-hkbrnj033g9eg59t9iaoo4dernuiv7vf.apps.googleusercontent.com',
         secret: '6MaQVEA21221qQoi-yDrD5k8'
+      },
+      linkedin:{
+        clientId: '7795dtgk291ni1',
+        secret:'oBU1OUVw42FB7MWt'
       }
     }
-  },
+  }
+  /*,
   production: {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
@@ -60,9 +66,13 @@ const config = {
       google:{
         clientId: process.env.GOOGLE_CLIENT_ID,
         secret: process.env.GOOGLE_SECRET
+      },
+      linkedin:{
+        clientId: process.env.LINKEDIN_CLIENT_ID,
+        secret:process.env.LINKEDIN_SECRET
       }
     }
-  }
+  }*/
 };
 
 

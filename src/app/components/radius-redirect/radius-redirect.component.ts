@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RadiusSearchparams} from "app/models/router-searchparams";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from '@angular/common';
 
 
@@ -11,7 +11,7 @@ import {Location} from '@angular/common';
 })
 export class RadiusRedirectComponent implements OnInit {
 
-  constructor(private route:ActivatedRoute,private location: Location) { }
+  constructor(private route:ActivatedRoute, private router: Router,private location: Location) { }
 
   ngOnInit() {
 
@@ -35,7 +35,10 @@ export class RadiusRedirectComponent implements OnInit {
 
 
     console.log(routerSearchParams);
-    //window.location.href = this.externalUrlToRedirectValidation(routerSearchParams,username,password);
+    let externalUrl = this.externalUrlToRedirectValidation(routerSearchParams,username,password);
+    window.location.href = externalUrl;
+
+    //this.router.navigate([externalUrl],{relativeTo: this.route});
   }
 
   private externalUrlToRedirectValidation(radiusParams : RadiusSearchparams, username: string, pass: string) : string {

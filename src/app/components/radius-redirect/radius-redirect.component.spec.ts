@@ -16,16 +16,16 @@ describe('RadiusRedirectComponent', () => {
   let mockRouter :any;
   let location: SpyLocation;
   let activatedRoute: ActivatedRoute;
+  let route: Router;
 
   beforeEach(async(() => {
-    //mockRouter = jasmine.createSpyObj('Router', ['navigate']);
+    mockRouter = jasmine.createSpyObj('Router', ['navigate']);
     TestBed.configureTestingModule({
       declarations: [RadiusRedirectComponent],
       imports: [RouterTestingModule],
       providers: [
         {provide: ComponentFixtureAutoDetect, useValue: true},
-       // {provide: Router, useValue: mockRouter},
-       // {provide: Location, useClass: SpyLocation},
+        {provide: Router, useValue: mockRouter},
         {
           provide: ActivatedRoute,
           useValue: {
@@ -36,37 +36,29 @@ describe('RadiusRedirectComponent', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 
     });
-   // location = TestBed.get(Location);
+
     activatedRoute = TestBed.get(ActivatedRoute);
-    //fixture = TestBed.createComponent(RadiusRedirectComponent);
-    //component = fixture.componentInstance;
-    //fixture.detectChanges();
+    route = TestBed.get(Router);
+    fixture = TestBed.createComponent(RadiusRedirectComponent);
+    component = fixture.componentInstance;
+    const injector = fixture.debugElement.injector;
+    location = injector.get(Location) as SpyLocation;
+    spyOn(location, 'path').and.returnValue('?link-login=trotta');
+    //route.initialNavigation();
+    fixture.detectChanges();
   }));
 
-  //beforeEach(() => {
-  //  fixture = TestBed.createComponent(RadiusRedirectComponent);
-   // component = fixture.componentInstance;
-    //fixture.detectChanges();
 
-    //const injector = fixture.debugElement.injector;
-    //location = (injector.get(Location) as SpyLocation);
-
-
-  //});
 
   it('should create', fakeAsync(() => {
-    createComponent();
     expect(component).toBeTruthy();
   }));
 
-  function createComponent() {
-    fixture = TestBed.createComponent(RadiusRedirectComponent);
-    component = fixture.componentInstance;
+  it('should redirect', fakeAsync(() => {
+    component.ngOnInit();
+    expect(location.path()).toHaveBeenCalled();
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/router']);
+  }));
 
-    const injector = fixture.debugElement.injector;
-    location = injector.get(Location) as SpyLocation;
-    mockRouter = injector.get(Router);
-    mockRouter.initialNavigation();
-    fixture.detectChanges();
-  }
+
 });

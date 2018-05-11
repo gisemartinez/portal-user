@@ -16,11 +16,11 @@ app.listen(3003, function (){
     console.log('Example app listening on port 3003!')
 });
 
-app.use('/mock-admin',router)
+app.use('/mock-admin',router);
 
 router.use(function(req, res, next) {
     console.log("Logger..");
-    console.log(req.body);
+    console.log(req);
     next();
 });
 
@@ -36,12 +36,12 @@ router.get('/user/:profileEmail', function ( req, res ){
   if(req.params.profileEmail == "gise.cpna@gmail.com"){
     setTimeout(function(){
       res.send(req.params);
-    },1000);
+    },1);
   } else {
     setTimeout(function(){
       let token = {"token": Date.now().toString()+"mocked"}
       res.send(token);
-    },1500);
+    },10);
   }
 
 

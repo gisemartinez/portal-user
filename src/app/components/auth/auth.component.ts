@@ -1,8 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {social_urls} from "../../constants/social_login_keys.const";
 import {authServerBaseUrl} from "../../constants/misc.const";
-import {ActivatedRoute} from "@angular/router";
-import {Location} from "@angular/common";
 
 
 @Component({
@@ -12,29 +9,25 @@ import {Location} from "@angular/common";
 })
 export class AuthComponent implements OnInit {
 
+  navIsVisible:boolean;
 
-  constructor(){}
+  constructor(){
+    this.navIsVisible = false;
+  }
 
   ngOnInit() {
   }
 
 
-  private config = {
-    "loginRoute":"login",
+  public config = {
     "linkedin":{
-      "authEndpoint": authServerBaseUrl + "/auth/linkedin",
-      "clientId": social_urls["linkedin"].clientId,
-      "redirectUri" : authServerBaseUrl + "/login"
+      "authEndpoint": authServerBaseUrl + "/auth/linkedin"
     },
     "facebook":{
-      "authEndpoint": authServerBaseUrl+"/auth/facebook",
-      "clientId": social_urls["facebook"].clientId,
-      "redirectUri" : authServerBaseUrl+"/login"
+      "authEndpoint": authServerBaseUrl+"/auth/facebook"
     },
     "google":{
-      "authEndpoint": authServerBaseUrl+"/auth/google",
-      "clientId": social_urls["google"].clientId,
-      "redirectUri" : authServerBaseUrl+"/login"
+      "authEndpoint": authServerBaseUrl+"/auth/google"
     }
   }
 

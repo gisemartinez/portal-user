@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs/Observable";
+import { Observable } from 'rxjs';
 import * as io from 'socket.io-client';
 import {environment} from "../../environments/environment";
 

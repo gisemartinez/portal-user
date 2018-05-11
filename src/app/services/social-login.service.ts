@@ -1,62 +1,55 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Route, Router, RouterStateSnapshot} from "@angular/router";
-import {Http, Response} from "@angular/http";
-import {Observable} from 'rxjs/Observable';
 import {Location} from '@angular/common';
-import 'rxjs/add/operator/map'
+
 import {AlertService} from "./alert.service";
-import * as _ from "lodash";
-import {SocialLoginInfo} from "../models/social-login-info";
+
+import {UserSocialLoginInfo} from "../models/user-social-login-info";
 import {social_urls} from "../constants/social_login_keys.const";
 import {LocalStorageHandler} from "../guards/local-storage-handler";
+import {StorageItems} from "../models/storage-items";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs/internal/Observable";
 
 @Injectable()
 export class SocialLoginService {
 
-  private code: string;
-  private cachedURL: string;
-  private loginProvider: string;
   private authEndpoint: string;
   private loading: boolean;
-  private loginURI: string;
+  private loginURI: string = "/login";
+  private socialLoginConfig: UserSocialLoginInfo = new UserSocialLoginInfo();
+  private storageItems: StorageItems;
 
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
               private router: Router,
               private location: Location,
               private alertService: AlertService) {
 
-
-    let localStorageItems = this.getItemsFromLocalStorage();
-
     let params = new URLSearchParams(this.location.path(false).split('?')[1]);
 
-    let socialLoginconfig = new SocialLoginInfo();
+    this.socialLoginConfig.setCode(params.get('code'));
 
-    socialLoginconfig.code = params.get('code');
+    this.setStorageItems();
 
-    if (!_.isEmpty(localStorageItems.config) && localStorageItems.config != "undefined") {
-      let configObj = JSON.parse(localStorageItems.config);
-      socialLoginconfig.clientId = configObj[localStorageItems.provider].clientId;
-      socialLoginconfig.redirectUri = configObj[localStorageItems.provider].redirectUri;
-      this.authEndpoint = configObj[localStorageItems.provider].authEndpoint;
-      this.loginURI = configObj[localStorageItems.provider].loginRoute;
+    if (this.storageItems.hasProvider()) {
+      this.socialLoginConfig.setProvider(this.storageItems.provider);
+      this.socialLoginConfig.setRedirectUri(this.getRedirectUri(this.storageItems.provider));
+      this.setLoginURI(this.socialLoginConfig.redirectUri);
     }
 
-    if (!_.isEmpty(localStorageItems.provider)) {
-      this.loginProvider = localStorageItems.provider;
-    }
-
-    if (!_.isEmpty(localStorageItems.cachedURL)) {
-      this.cachedURL = localStorageItems.cachedURL;
+    if (this.storageItems.hasConfig()) {
+      this.setAuthEndpoint();
     }
 
 
-    if (!_.isEmpty(socialLoginconfig.code)) {
-      this.login(socialLoginconfig, this.authEndpoint)
-        .subscribe((data: any) => {
+    if (this.socialLoginConfig.hasCode()) {
+      this.login()
+        .subscribe((body:{token:string;username:string}) => {
+            LocalStorageHandler.ackSocialLogin();
+            LocalStorageHandler.setToken(body.token);
+            LocalStorageHandler.setUsername(body.username);
             this.loading = false;
-            window.location.href = this.cachedURL;
-            return true;
+            window.location.href = this.storageItems.cachedURL;
           },
           error => {
             this.alertService.error(error);
@@ -66,26 +59,31 @@ export class SocialLoginService {
     }
   }
 
-  private getItemsFromLocalStorage() {
-    return {
-      config: localStorage.getItem("authConfig"),
-      provider: localStorage.getItem("provider"),
-      cachedURL: localStorage.getItem('cachedurl')
-    };
+  private getRedirectUri(provider) {
+    return social_urls[provider].redirectUri;
   }
 
-  login(socialLoginInfo: SocialLoginInfo, authEndpoint: any) {
 
-    return this.http.post(authEndpoint, socialLoginInfo)
-      .map((r: Response) => {
+  private setAuthEndpoint() {
+    this.authEndpoint = this.storageItems.config.authEndpoint;
+  }
 
-        LocalStorageHandler.ackSocialLogin();
-        LocalStorageHandler.setToken( r.json().token);
-        LocalStorageHandler.setUsername( r.json().username);
-        return r.json()
-      });
+  private setLoginURI(loginRoute) {
+    this.loginURI = loginRoute;
+  }
 
 
+  private setStorageItems() {
+    this.storageItems = new StorageItems(
+      JSON.parse(localStorage.getItem("authConfig")),
+      localStorage.getItem("provider"),
+      localStorage.getItem("cachedurl")
+    )
+  }
+
+
+  login(): Observable<Object> {
+    return this.http.post(this.authEndpoint, this.socialLoginConfig);
   }
 
   private handleError(error: any): Promise<any> {
@@ -93,10 +91,12 @@ export class SocialLoginService {
   }
 
   logout(): void {
-    localStorage.setItem('isLoggedIn', "false");
+    LocalStorageHandler.setLogoutData();
     LocalStorageHandler.removeLoginData();
     this.router.navigate([this.loginURI]);
   }
+
+
 
   private isLoggedIn(): boolean {
     return (localStorage.getItem('isLoggedIn') == "true");
@@ -104,8 +104,7 @@ export class SocialLoginService {
 
   public auth(provider: string, authConfig: any): void {
 
-    localStorage.setItem("authConfig", JSON.stringify(authConfig));
-    localStorage.setItem("provider", provider);
+    LocalStorageHandler.setLoginSelection(authConfig[provider],provider);
 
     if (!this.isLoggedIn()) {
       window.location.href = social_urls[provider].url +
@@ -114,7 +113,7 @@ export class SocialLoginService {
         social_urls[provider].redirectUri +
         social_urls[provider].urlSuffix
     } else {
-      window.location.href = this.cachedURL;
+      window.location.href = this.storageItems.cachedURL;
     }
   }
 

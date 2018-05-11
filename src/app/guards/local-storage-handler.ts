@@ -41,10 +41,18 @@ export class LocalStorageHandler {
   public static setToken(token: string) {
     localStorage.setItem('token', token);
   }
+  public static setLoginSelection(authConfig, provider){
+    localStorage.setItem("authConfig", JSON.stringify(authConfig));
+    localStorage.setItem("provider", provider);
 
+  }
   public static removeLoginData() {
     localStorage.removeItem('token');
     localStorage.removeItem('cachedurl');
     localStorage.removeItem('provider');
+  }
+
+  public static setLogoutData() {
+    localStorage.setItem('isLoggedIn', "false");
   }
 }

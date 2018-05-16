@@ -10,10 +10,20 @@ import {LocalStorageHandler} from "../guards/local-storage-handler";
 import {StorageItems} from "../models/storage-items";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/internal/Observable";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/map';
+
+import {SocialLoginResponse} from "../models/social-login-response";
 
 @Injectable()
 export class SocialLoginService {
 
+  private loggedIn = new BehaviorSubject<boolean>(false);
+
+  get isLoggedIn(){
+    return this.loggedIn.asObservable()
+  }
   private authEndpoint: string;
   private loading: boolean;
   private loginURI: string = "/login";
@@ -41,21 +51,26 @@ export class SocialLoginService {
       this.setAuthEndpoint();
     }
 
+    if(LocalStorageHandler.validateLogin()){
+      this.loggedIn.next(true);
+    }
 
     if (this.socialLoginConfig.hasCode()) {
-      this.login()
-        .subscribe((body:{token:string;username:string}) => {
-            LocalStorageHandler.ackSocialLogin();
-            LocalStorageHandler.setToken(body.token);
-            LocalStorageHandler.setUsername(body.username);
-            this.loading = false;
-            window.location.href = this.storageItems.cachedURL;
-          },
-          error => {
-            this.alertService.error(error);
-            this.loading = false;
-          }
-        );
+        this.login()
+          .subscribe((body:SocialLoginResponse) => {
+              LocalStorageHandler.ackSocialLogin();
+              LocalStorageHandler.setToken(body.token);
+              LocalStorageHandler.setUsername(body.username);
+              this.loading = false;
+              this.loggedIn.next(true);
+              window.location.href = this.storageItems.cachedURL;
+            },
+            error => {
+              this.alertService.error(error);
+              this.loading = false;
+            }
+          );
+
     }
   }
 
@@ -93,12 +108,13 @@ export class SocialLoginService {
   logout(): void {
     LocalStorageHandler.setLogoutData();
     LocalStorageHandler.removeLoginData();
+    this.loggedIn.next(false);
     this.router.navigate([this.loginURI]);
   }
 
 
 
-  private isLoggedIn(): boolean {
+  private isLoggedInItem(): boolean {
     return (localStorage.getItem('isLoggedIn') == "true");
   }
 
@@ -106,7 +122,7 @@ export class SocialLoginService {
 
     LocalStorageHandler.setLoginSelection(authConfig[provider],provider);
 
-    if (!this.isLoggedIn()) {
+    if (!this.isLoggedInItem()) {
       window.location.href = social_urls[provider].url +
         social_urls[provider].clientId +
         '&redirect_uri=' +

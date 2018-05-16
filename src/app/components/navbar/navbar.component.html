@@ -1,4 +1,4 @@
-<mat-toolbar *ngIf="show" color="primary">
+<mat-toolbar color="primary" *ngIf="isLoggedIn$ | async">
   <mat-toolbar-row>
     <span>Custom Toolbar</span>
   </mat-toolbar-row>

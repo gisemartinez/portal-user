@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {Observable} from "rxjs/internal/Observable";
+import {SocialLoginService} from "../../services/social-login.service";
 
 
 @Component({
@@ -8,20 +10,17 @@ import {MatToolbarModule} from '@angular/material/toolbar';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  @Input()
-  public show:boolean;
 
-  @Input()
-  public mustShowNavBar:boolean;
+  isLoggedIn$: Observable<boolean>;
 
-  @Input()
-  public userLogged:boolean;
-
-  constructor() {
-  }
+  constructor(private socialLoginService:SocialLoginService) {}
 
   ngOnInit() {
-    this.mustShowNavBar=true;
+    this.isLoggedIn$ = this.socialLoginService.isLoggedIn;
+  }
+
+  onLogout(){
+    this.socialLoginService.logout();                      // {3}
   }
 
 }

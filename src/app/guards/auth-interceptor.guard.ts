@@ -1,38 +1,58 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, ActivatedRoute} from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import * as _ from "lodash";
 import {LocalStorageHandler} from "./local-storage-handler";
+import {SocialLoginService} from "../services/social-login.service";
 
 
 @Injectable()
 export class AuthInterceptorGuard implements CanActivate {
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: SocialLoginService) {
   }
 
   canActivate(next: ActivatedRouteSnapshot,
-              state: RouterStateSnapshot): boolean {
+              state: RouterStateSnapshot): Observable<boolean> {
 
     if (_.isEmpty(LocalStorageHandler.getCalledUrlWithParameters())) {
       LocalStorageHandler.setCalledUrlWithParameters(state.url);
     }
 
-    if (LocalStorageHandler.validateLogin()) {
+    return this.authService.isLoggedIn       // {1}
+      .take(1)                               // {2}
+      .map((isLoggedIn: boolean) => {        // {3}
+        if (!isLoggedIn){
+          this.router.navigate(['/login']);  // {4}
+          return false;
+        } else {
+          if (LocalStorageHandler.validateRadiusCall()) {
+            this.router.navigate(['/waiting']);
+            return false;
+
+          } else {
+            LocalStorageHandler.ackRadiusCall();
+            return true;
+          }
+        }
+
+      });
+
+   /* if (LocalStorageHandler.validateLogin()) {
       if (LocalStorageHandler.validateRadiusCall()) {
-        //This result from navigating trough portal after the radius first call, before radius give internet access
         this.router.navigate(['/waiting']);
-        return false;
+        return Observable.create(false);
 
       } else {
         LocalStorageHandler.ackRadiusCall();
-        return true;
+        return Observable.create(true);
       }
     } else {
+
 
       this.router.navigate(['/login']);
       return false;
 
-    }
+    }*/
   }
 }

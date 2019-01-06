@@ -31,6 +31,10 @@ export class LocalStorageHandler {
     localStorage.setItem('username', username);
   }
 
+  public static getUsername():string {
+    return localStorage.getItem('username');
+  }
+
   public static setCalledUrlWithParameters(url:string) {
     localStorage.setItem('cachedurl', url);
   }

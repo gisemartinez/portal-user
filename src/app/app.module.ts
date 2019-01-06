@@ -12,6 +12,7 @@ import {ConfiguredMainComponent} from "./components/configured-main/configured-m
 import {WaitingExternalValidationComponent} from "./components/waiting-external-validation/waiting-external-validation.component";
 import {RadiusRedirectComponent} from "./components/radius-redirect/radius-redirect.component";
 import {HttpClientModule} from "@angular/common/http";
+import {SidenavComponent} from "./components/sidenav/sidenav.component";
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import {HttpClientModule} from "@angular/common/http";
     AuthComponent,
     TwitterFeedsComponent,
     NavbarComponent,
+    SidenavComponent,
     ConfiguredMainComponent,
     RadiusRedirectComponent,
     WaitingExternalValidationComponent

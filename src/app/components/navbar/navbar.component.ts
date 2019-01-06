@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {Observable} from "rxjs/internal/Observable";
 import {SocialLoginService} from "../../services/social-login.service";
+import {LocalStorageHandler} from "../../guards/local-storage-handler";
 
 
 @Component({
@@ -12,11 +13,13 @@ import {SocialLoginService} from "../../services/social-login.service";
 export class NavbarComponent implements OnInit {
 
   isLoggedIn$: Observable<boolean>;
+  username: string;
 
   constructor(private socialLoginService:SocialLoginService) {}
 
   ngOnInit() {
     this.isLoggedIn$ = this.socialLoginService.isLoggedIn;
+    this.username = LocalStorageHandler.getUsername()
   }
 
   onLogout(){

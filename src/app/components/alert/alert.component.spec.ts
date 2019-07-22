@@ -8,9 +8,9 @@ import {RadiusService} from "../../services/radius.service";
 import {SocialLoginService} from "../../services/social-login.service";
 import {AlertService} from "../../services/alert.service";
 import {Router, RouterModule} from "@angular/router";
-import {Observable} from "rxjs/Observable";
-import {BaseRequestOptions, Http, XHRBackend} from "@angular/http";
-import {MockBackend} from "@angular/http/testing";
+import {of} from "rxjs";
+import {HttpRequest, HttpClient, HttpXhrBackend} from "@angular/common/http";
+import {HttpTestingController} from "@angular/common/http/testing";
 
 describe('AlertComponent', () => {
   let component: AlertComponent;
@@ -21,7 +21,7 @@ describe('AlertComponent', () => {
 
   let alertServiceStub = {
     message: String,
-    getMessage: Observable.of("pancito Tests")
+    getMessage: of("pancito Tests")
   };
 
   beforeEach(() => {

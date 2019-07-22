@@ -4,7 +4,7 @@ import {RadiusRedirectComponent} from "./radius-redirect.component";
 
 import {ActivatedRoute, Router} from "@angular/router";
 import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from "@angular/core";
-import {Observable} from "rxjs/Observable";
+import {of} from "rxjs";
 import {SpyLocation} from "@angular/common/testing";
 import {RouterTestingModule} from "@angular/router/testing";
 import {Location} from "@angular/common";
@@ -29,7 +29,7 @@ describe('RadiusRedirectComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            params: Observable.of({id: 123})
+            params: of({id: 123})
           }
         }
       ],

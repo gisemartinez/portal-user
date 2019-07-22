@@ -8,10 +8,10 @@ import {Router} from "@angular/router";
 import {RouterTestingModule} from "@angular/router/testing";
 
 import {AlertService} from "./alert.service";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpBackend, HttpClient, HttpClientModule} from "@angular/common/http";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {HttpClientTestingBackend} from "@angular/http/testing";
-import {XHRBackend} from "@angular/http";
+import {HttpXhrBackend} from "@angular/common/http";
+import {HttpRequest} from "@angular/common/http";
 
 
 describe('SocialLoginService', () => {
@@ -39,17 +39,17 @@ describe('SocialLoginService', () => {
         { provide: ComponentFixtureAutoDetect, useValue: true },
         {
           provide: HttpClientTestingModule,
-          deps: [ HttpClientTestingBackend ],
+          deps: [ HttpXhrBackend ],
           useFactory:
-            (backend: XHRBackend, defaultOptions: BaseRequestOptions) => {
-              return new HttpClient(backend, defaultOptions);
+            (backend: HttpXhrBackend) => {
+              return new HttpClient(backend);
             }
         }
         ]
     }).compileComponents();
 
     const testbed = getTestBed();
-    backend = testbed.get(HttpClientTestingBackend);
+    backend = testbed.get(HttpXhrBackend);
     socialLoginService = testbed.get(SocialLoginService);
 
 

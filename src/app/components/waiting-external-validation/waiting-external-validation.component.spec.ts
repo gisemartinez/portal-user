@@ -4,8 +4,7 @@ import { WaitingExternalValidationComponent } from './waiting-external-validatio
 import {RadiusService} from "../../services/radius.service";
 import {Router} from "@angular/router";
 import {RouterTestingModule} from "@angular/router/testing";
-import {Observable} from "rxjs/Observable";
-import {of} from "rxjs/observable/of";
+import {of} from "rxjs";
 
 describe('WaitingExternalValidationComponent', () => {
   let component: WaitingExternalValidationComponent;
@@ -37,7 +36,7 @@ describe('WaitingExternalValidationComponent', () => {
 
     // Setup spy on the `radiusValidation` method
     radiusValidationSpy = spyOn(radiusService, 'radiusValidation')
-      .and.returnValue(Observable.of(""));
+      .and.returnValue(of(""));
   });
 
 

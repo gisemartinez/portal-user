@@ -9,7 +9,7 @@ import {WaitingExternalValidationComponent} from "./components/waiting-external-
 import {BrowserModule} from "@angular/platform-browser";
 import {MaterialModule} from "./material.module";
 import {AuthRoutingModule} from "./modules/auth-routing/auth-routing.module";
-import {HttpModule} from "@angular/http";
+import {HttpClientModule} from '@angular/common/http'
 import {APP_BASE_HREF} from "@angular/common";
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -27,7 +27,7 @@ describe('AppComponent', () => {
         BrowserModule,
         MaterialModule,
         AuthRoutingModule,
-        HttpModule
+        HttpClientModule
       ],
       providers: [{provide: APP_BASE_HREF, useValue: '/'}],
     }).compileComponents();

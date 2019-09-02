@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {BreakpointObserver, Breakpoints, BreakpointState} from "@angular/cdk/layout";
 import {Observable} from "rxjs/index";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-sidenav',
@@ -9,7 +10,8 @@ import {Observable} from "rxjs/index";
 })
 export class SidenavComponent {
 
-  isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
+  isHandset: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(map(result => result.matches));
 
   constructor(private breakpointObserver: BreakpointObserver) {}
 

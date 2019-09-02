@@ -20,6 +20,7 @@ export class AuthComponent implements OnInit {
 
 
   public config = {
+
     "linkedin":{
       "authEndpoint": authServerBaseUrl + "/auth/linkedin"
     },

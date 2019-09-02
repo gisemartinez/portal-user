@@ -4,13 +4,11 @@
     class="sidenav"
     fixedInViewport="true"
     [attr.role]="isHandset ? 'dialog' : 'navigation'"
-    [mode]="(isHandset | async)!.matches ? 'over' : 'side'"
-    [opened]="!(isHandset | async)!.matches">
+    [mode]="(isHandset | async) ? 'over' : 'side'"
+    [opened]="!(isHandset | async)">
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <app-auth></app-auth>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -20,10 +18,10 @@
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="(isHandset | async)!.matches">
+        *ngIf="(isHandset | async)">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Working in project</span>
+      <span>Working in project4</span>
     </mat-toolbar>
   </mat-sidenav-content>
 </mat-sidenav-container>

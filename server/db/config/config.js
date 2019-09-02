@@ -1,10 +1,10 @@
 module.exports = {
   development: {
-    username: 'root',
-    password: 'dijeramos',
-    database: 'radius',
-    host: '127.0.0.1',
-    dialect: 'mysql',
+    username: 'wifree',
+    password: 'wifree',
+    database: 'wifree',
+    host: 'postgres_wf',
+    dialect: 'postgres',
     migrationStorage : 'json',
     socialMediaKeys: {
       facebook:{
@@ -21,8 +21,8 @@ module.exports = {
     username: 'root',
     password: 'dijeramos',
     database: 'radius',
-    host: '127.0.0.1',
-    dialect: 'mysql',
+    host: 'postgres_wf',
+    dialect: 'postgres',
     migrationStorage : 'json',
     socialMediaKeys: {
       facebook:{
@@ -40,7 +40,7 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     host: process.env.DB_HOSTNAME,
-    dialect: 'mysql',
+    dialect: 'postgres',
     migrationStorage : 'json',
     socialMediaKeys: {
       facebook:{

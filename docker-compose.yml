@@ -8,6 +8,18 @@ services:
     working_dir: /usr/src/app
     ports:
       - 3000:3000
+      - 56745:56745
+
     environment:
       NODE_ENV: development
     entrypoint: ./entrypoint.sh
+  postgres_wf:
+    image: postgres:10.7
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: wifree
+      POSTGRES_USER: wifree
+      POSTGRES_DB: wifree
+    volumes:
+      - ./etc/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql

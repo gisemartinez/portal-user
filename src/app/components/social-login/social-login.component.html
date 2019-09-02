@@ -9,34 +9,38 @@
   </mat-card-header>
   <mat-card-content></mat-card-content>
   <mat-card-actions>
-    <button *ngIf="loginEntities.google.activated"
-            mat-raised-button
-            color="{{loginEntities.google.color}}"
-            (click)="loginWith('google')" >
-      Sign in with <mat-icon svgIcon="google"></mat-icon>
+    <button
+      *ngIf="loginEntities.google.activated"
+      mat-icon-button
+      (click)="loginWith('google')">
+      <mat-icon svgIcon="google"></mat-icon>
     </button>
-    <button *ngIf="loginEntities.facebook.activated"
-            mat-raised-button
-            color="{{loginEntities.facebook.color}}"
-            (click)="loginWith('facebook')" >
-      Sign in with <mat-icon svgIcon="fb"></mat-icon>
+    <button
+      *ngIf="loginEntities.facebook.activated"
+      mat-icon-button
+      color="{{loginEntities.facebook.color}}"
+      (click)="loginWith('facebook')" >
+      <mat-icon svgIcon="fb"></mat-icon>
     </button>
-    <button *ngIf="loginEntities.instagram.activated"
-            mat-raised-button
-            color="{{loginEntities.instagram.color}}"
-            (click)="loginWith('instagram')" >
-      Sign in with <mat-icon svgIcon="instagram"></mat-icon>
+    <button
+      *ngIf="loginEntities.instagram.activated"
+      mat-icon-button
+      color="{{loginEntities.instagram.color}}"
+      (click)="loginWith('instagram')" >
+      <mat-icon svgIcon="instagram"></mat-icon>
     </button>
-    <button *ngIf="loginEntities.pinterest.activated"
-            mat-raised-button color="{{loginEntities.pinterest.color}}"
-            (click)="loginWith('pinterest')" >
-      Sign in with <mat-icon svgIcon="pinterest"></mat-icon>
+    <button
+      *ngIf="loginEntities.pinterest.activated"
+      mat-icon-button color="{{loginEntities.pinterest.color}}"
+      (click)="loginWith('pinterest')" >
+      <mat-icon svgIcon="pinterest"></mat-icon>
     </button>
-    <button *ngIf="loginEntities.twitter.activated"
-            mat-raised-button
-            color="{{loginEntities.twitter.color}}"
-            (click)="loginWith('twitter')" >
-      Sign in with <mat-icon svgIcon="twitter"></mat-icon>
+    <button
+      *ngIf="loginEntities.twitter.activated"
+      mat-icon-button
+      color="{{loginEntities.twitter.color}}"
+      (click)="loginWith('twitter')" >
+      <mat-icon svgIcon="twitter"></mat-icon>
     </button>
    <button mat-raised-button
             color="accent"

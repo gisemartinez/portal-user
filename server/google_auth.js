@@ -5,7 +5,7 @@ let express = require('express'),
   jwt = require('jwt-simple');
 
 const config = require('./config');
-var models = require('./db/models');
+const models = require('./db/models');
 let urls = require('./const');
 
 function createTokenRequest( body ){
@@ -147,24 +147,15 @@ function sendProfileInfoToAdmin( req, res, next ){
 
 //Step 4: Send data to Radius
 function persistUserInRadiusDB( req, res, next ){
-  return new Promise(function ( resolve,reject ){
-    try {
-      models.RadCheck.findOrCreate({
-        where: {
-          username: req.consolidated_profile.email,
-          value: req.consolidated_profile.email
-        }
-      }).then(function ( model, result ){
-        req.radius_result = model;
-        resolve(req.radius_result);
-      }).catch(  err  => {
-        reject(err.name);
-      })
-    } catch (exception) {
-      reject(exception);
+  return models.RadCheck.findOrCreate({
+    where: {
+      username: req.consolidated_profile.email,
+      value: req.consolidated_profile.email
     }
-
-  });
+  }).then(function ( model ){
+    req.radius_result = model;
+    return model;
+  })
 }
 
 router.post('/google',

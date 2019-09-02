@@ -2,10 +2,10 @@
 const config = {
   development: {
     username: 'wifree',
-    password: 'copiamoscloud4wi',
+    password: 'wifree',
     database: 'wifree',
-    host: 'ec2-35-164-201-1.us-west-2.compute.amazonaws.com',
-    dialect: 'mysql',
+    host: 'postgres_wf',
+    dialect: 'postgres',
     migrationStorage : 'json',
     adminDashboard: 'http://localhost:3003/mock-admin/',
     TOKEN_SECRET: 'secret',

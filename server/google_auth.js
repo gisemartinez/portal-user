@@ -1,6 +1,7 @@
 let express = require('express'),
   router = express.Router(),
   request = require('request'),
+  DateFNS = require('date-fns'),
   async = require('async'),
   jwt = require('jwt-simple');
 
@@ -38,7 +39,7 @@ function ensureAuthenticated( req, res, next ){
     return res.status(401).send({ message: err.message });
   }
 
-  if ( payload.exp <= moment().unix() ){
+  if ( payload.exp <= DateFNS.getUnixTime() ){
     return res.status(401).send({ message: 'Token has expired' });
   }
   req.user = payload.sub;
@@ -48,8 +49,8 @@ function ensureAuthenticated( req, res, next ){
 function createJWT( user ){
   let payload = {
     sub: user._id,
-    iat: moment().unix(),
-    exp: moment().add(14, 'days').unix()
+    iat:  DateFNS.getUnixTime(),
+    exp:  DateFNS.addDays(14).getUnixTime()
   };
   return jwt.encode(payload, config[ 'TOKEN_SECRET' ]);
 }

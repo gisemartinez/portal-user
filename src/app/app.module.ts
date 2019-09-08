@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from './material.module';
-
+import {FormsModule} from "@angular/forms";
 import { AppComponent } from './app.component';
 import { SocialLoginComponent } from './components/social-login/social-login.component';
 import { TwitterFeedsComponent } from './components/twitter-feeds/twitter-feeds.component';
@@ -13,7 +14,7 @@ import {WaitingExternalValidationComponent} from "./components/waiting-external-
 import {RadiusRedirectComponent} from "./components/radius-redirect/radius-redirect.component";
 import {HttpClientModule} from "@angular/common/http";
 import {SidenavComponent} from "./components/sidenav/sidenav.component";
-
+import {CarouselComponent} from "./components/carousel/carousel.component";
 
 @NgModule({
   declarations: [
@@ -25,12 +26,15 @@ import {SidenavComponent} from "./components/sidenav/sidenav.component";
     SidenavComponent,
     ConfiguredMainComponent,
     RadiusRedirectComponent,
-    WaitingExternalValidationComponent
+    WaitingExternalValidationComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
     MaterialModule,
     AuthRoutingModule,
+    NgbModule,
+    FormsModule,
     HttpClientModule
   ],
   providers: [],

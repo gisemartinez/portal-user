@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
     this.username = LocalStorageHandler.getUsername()
   }
 
-  onLogout(){
+  logout(){
     this.socialLoginService.logout();                      // {3}
   }
 

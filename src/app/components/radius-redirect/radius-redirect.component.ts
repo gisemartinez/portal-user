@@ -16,26 +16,26 @@ export class RadiusRedirectComponent implements OnInit {
   ngOnInit() {
 
     let params = new URLSearchParams(this.location.path(false).split('?')[1]);
-    let routerSearchParams = new RadiusSearchparams();
-    routerSearchParams.mac = params.get('mac');
-    routerSearchParams.ip = params.get('ip');
+    let radiusSearchParams = new RadiusSearchparams();
+    radiusSearchParams.mac = params.get('mac');
+    radiusSearchParams.ip = params.get('ip');
     let username = localStorage.getItem('username');
     let password = localStorage.getItem('token');
 
-    routerSearchParams.linkLogin = params.get('link-login');
-    routerSearchParams.linkOrig= params.get('link-orig');
-    routerSearchParams.error = params.get('error');
-    routerSearchParams.macClient = params.get('mac_client');
-    routerSearchParams.device = params.get('device');
-    routerSearchParams.chapId = params.get('chap-id');
-    routerSearchParams.chapChallenge = params.get('chap-challenge');
-    routerSearchParams.linkLoginOnly = params.get('link-login-only');
-    routerSearchParams.linkOrigEsc = params.get('link-orig-esc');
-    routerSearchParams.macEsc = params.get('mac-esc');
+    radiusSearchParams.linkLogin = params.get('link-login');
+    radiusSearchParams.linkOrig= params.get('link-orig');
+    radiusSearchParams.error = params.get('error');
+    radiusSearchParams.macClient = params.get('mac_client');
+    radiusSearchParams.device = params.get('device');
+    radiusSearchParams.chapId = params.get('chap-id');
+    radiusSearchParams.chapChallenge = params.get('chap-challenge');
+    radiusSearchParams.linkLoginOnly = params.get('link-login-only');
+    radiusSearchParams.linkOrigEsc = params.get('link-orig-esc');
+    radiusSearchParams.macEsc = params.get('mac-esc');
 
 
-    console.log(routerSearchParams);
-    let externalUrl = this.externalUrlToRedirectValidation(routerSearchParams,username,password);
+    console.log(radiusSearchParams);
+    let externalUrl = this.externalUrlToRedirectValidation(radiusSearchParams,username,password);
     window.location.href = externalUrl;
 
     //this.router.navigate([externalUrl],{relativeTo: this.route});

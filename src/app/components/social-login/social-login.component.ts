@@ -62,8 +62,5 @@ export class SocialLoginComponent implements OnInit {
   loginWith(entity){
     this.socialAuthService.auth(entity,this.authConfig)
   }
-  logout(){
-    this.socialAuthService.logout();
-  }
 
 }

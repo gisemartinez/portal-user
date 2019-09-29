@@ -13,6 +13,7 @@ import {RadiusAuthGuard} from "../../guards/radius-auth.guard";
 import {RadiusService} from "../../services/radius.service";
 import {AlertComponent} from "../../components/alert/alert.component";
 import {NavbarComponent} from "../../components/navbar/navbar.component";
+import {CarouselComponent} from "../../components/carousel/carousel.component";
 
 
 /*CuppaLabs*/
@@ -35,6 +36,10 @@ export const appRoutes: Routes = [
   {
     path: 'waiting',
     component: WaitingExternalValidationComponent
+  },
+  {
+    path: 'home',
+    component: CarouselComponent
   }
 ];
 

@@ -2,9 +2,13 @@
   <mat-toolbar-row>
     <button mat-button>Portal</button>
     <span class="example-spacer"></span>
-    <span>
-      {{username}}<button mat-icon-button><mat-icon class="example-icon">account_circle</mat-icon>
-      </button>
-    </span>
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon class="example-icon">account_circle</mat-icon></button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <button mat-menu-item>{{username}}</button>
+        <button mat-menu-item (click)="logout()" >
+          Logout
+        </button>
+      </mat-menu>
   </mat-toolbar-row>
 </mat-toolbar>

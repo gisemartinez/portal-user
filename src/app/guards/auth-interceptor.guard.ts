@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, ActivatedRoute} from '@angular/router';
 import { Observable } from 'rxjs';
-import * as _ from "lodash";
 import {LocalStorageHandler} from "./local-storage-handler";
 import {SocialLoginService} from "../services/social-login.service";
+import {getStringInitializerFromProperty} from "codelyzer/util/astQuery";
 
 
 @Injectable()
@@ -14,16 +14,16 @@ export class AuthInterceptorGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot,
               state: RouterStateSnapshot): Observable<boolean> {
-
-    if (_.isEmpty(LocalStorageHandler.getCalledUrlWithParameters())) {
+    let calledUrl = LocalStorageHandler.getCalledUrlWithParameters();
+    if ( !calledUrl || calledUrl.length == 0 ) {
       LocalStorageHandler.setCalledUrlWithParameters(state.url);
     }
 
-    return this.authService.isLoggedIn       // {1}
-      .take(1)                               // {2}
-      .map((isLoggedIn: boolean) => {        // {3}
+    return this.authService.isLoggedIn
+      .take(1)
+      .map((isLoggedIn: boolean) => {
         if (!isLoggedIn){
-          this.router.navigate(['/login']);  // {4}
+          this.router.navigate(['/login']);
           return false;
         } else {
           if (LocalStorageHandler.validateRadiusCall()) {

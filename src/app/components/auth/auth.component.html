@@ -1,3 +1,4 @@
-<div class="row content">
+<div class="row content" *ngIf="isLoggedIn$ | async">
   <app-social-login [authConfig]="config"></app-social-login>
 </div>
+

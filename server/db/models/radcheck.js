@@ -2,12 +2,12 @@
 
 module.exports = (sequelize, DataTypes) => {
   const RadCheck = sequelize.define('RadCheck', {
-    username: DataTypes.STRING(30),
     id: {
       type : DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
+    username: DataTypes.STRING(30),
     attribute: {
       type: DataTypes.STRING(30),
       defaultValue: 'Cleartext-Password'

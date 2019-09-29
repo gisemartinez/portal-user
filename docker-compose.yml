@@ -23,3 +23,14 @@ services:
       POSTGRES_DB: wifree
     volumes:
       - ./etc/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+  mysql_wf:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: wifree
+      MYSQL_ROOT_USER: wifree
+      MYSQL_DATABASE: wifree
+    ports:
+      - "3309:3306"
+    volumes:
+      - ./etc/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql

@@ -1,5 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {authServerBaseUrl} from "../../constants/misc.const";
+import {Observable} from "rxjs";
+import {SocialLoginService} from "../../services/social-login.service";
 
 
 @Component({
@@ -8,14 +10,14 @@ import {authServerBaseUrl} from "../../constants/misc.const";
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
-
+  isLoggedIn$: Observable<boolean>;
   navIsVisible:boolean;
 
-  constructor(){
-    this.navIsVisible = false;
-  }
+  constructor(private socialLoginService:SocialLoginService){}
 
   ngOnInit() {
+    this.isLoggedIn$ = this.socialLoginService.isLoggedIn.map(v=>!v);
+    this.navIsVisible = false;
   }
 
 

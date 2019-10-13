@@ -1,10 +1,10 @@
 module.exports = {
   development: {
-    username: 'wifree',
+    username: 'root',
     password: 'wifree',
     database: 'wifree',
-    host: 'postgres_wf',
-    dialect: 'postgres',
+    host: 'mysql_wf',
+    dialect: 'mysql',
     migrationStorage : 'json',
     socialMediaKeys: {
       facebook:{

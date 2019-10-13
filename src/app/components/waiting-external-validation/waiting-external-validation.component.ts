@@ -15,6 +15,7 @@ export class WaitingExternalValidationComponent implements OnInit{
     this.radiusService
       .radiusValidation()
       .subscribe((data: any) => {
+        console.log(data);
         localStorage.setItem('isRadiusAccepted', 'true');
         this.router.navigate(['/main']);
       })

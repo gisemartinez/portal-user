@@ -170,9 +170,8 @@ router.post('/google',
       } else {
         res.status(503).send({ 'token': req.token })
       }}).catch(  err => {
-        res.status(503).send({ 'error': err })
+        res.status(503).send({ 'error': err.stack })
     });
-
   });
 
 

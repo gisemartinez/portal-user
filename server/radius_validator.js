@@ -4,10 +4,13 @@ let express = require('express'),
 
 
 module.exports = function(io) {
-
-  router.get('/',
+  router.get('/:usermail',
     function ( req, res ){
-      io.sockets.emit('validated');
+      const socketId = req.query.socketId
+      console.log('socket id '+ JSON.stringify(socketId));
+      console.log('mail'+ req.params.usermail);
+      //io.sockets.emit('validated',{user: req.query.usermail + 'sockets emit'});
+      io.sockets.in(req.params.usermail).emit('validated', {msg: 'hello'});
       res.send();
     });
 

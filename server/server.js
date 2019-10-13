@@ -1,8 +1,8 @@
 // Get dependencies
-const express    = require('express');
-const path       = require('path');
-const http       = require('http');
-const fs         = require('fs');
+const express = require('express');
+const path = require('path');
+const http = require('http');
+const fs = require('fs');
 const promise = require('bluebird');
 const bodyParser = require('body-parser');
 const app = express();
@@ -12,29 +12,29 @@ let radiusCall = require('./radius_validator.js')(io);
 let auth = require('./google_auth.js');
 
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header("Access-Control-Allow-Headers", "Content-Type");
-    res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
-    next();
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+  next();
 });
 
 // Parsers for POST data
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 // Point static path to dist
 app.use(express.static(path.join(__dirname, '../dist')));
 
 app.get('/assets/:file', (req, res) => {
-    res.sendFile(path.join(__dirname, '../assets/'+req.params.file));
+  res.sendFile(path.join(__dirname, '../assets/' + req.params.file));
 });
 
-app.use('/auth',auth);
-app.use('/radiuscall',radiusCall);
+app.use('/auth', auth);
+app.use('/radiuscall', radiusCall);
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../dist/index.html'));
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 /**
@@ -43,11 +43,9 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
-
 /**
  * Create HTTP server.
  */
-
 
 
 /**
@@ -57,19 +55,26 @@ server.listen(port, () => console.log(`Express server running on localhost:${por
 
 
 io.on('connect', (socket) => {
-    console.log('user connected');
+  console.log('user connected: ' + socket.id);
 
-    socket.on('connect', () => {
-        console.log('connected')
-    });
+  socket.on('connect', () => {
+    console.log('connected to socket id' + socket.id)
+  });
 
-    socket.on('client init.sql', function(){
-        console.log('client init.sql');
-        socket.emit('connection', { success : true})
-    });
+  socket.on('join', function (data) {
+    console.log('joined: '+ JSON.stringify(data))
+    socket.join(data.email);
+  });
 
-    socket.on('disconnect', function(){
-      console.log('user disconnected');
-    });
+  socket.on('client init.sql', function () {
+    console.log('client init.sql');
+    socket.emit('connection', {success: true})
+  });
+
+  socket.on('disconnect', function () {
+    console.log('user disconnected');
+  });
+
+  socket.emit('id', socket.id);// send each client their socket id
 
 });

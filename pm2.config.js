@@ -28,7 +28,7 @@ module.exports = {
       }
     },{
       name        : 'mocked-admin',
-      script      : 'mock-response.js',
+      script      : 'mock-responses.js',
       watch       : true,
       instances   : '1',
       exec_mode   : 'cluster',

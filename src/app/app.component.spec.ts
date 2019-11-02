@@ -2,6 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import {SocialLoginComponent} from "./components/social-login/social-login.component";
 import {AuthComponent} from "./components/auth/auth.component";
+import {SurveyComponent} from "./components/survey/survey.component";
 import {TwitterFeedsComponent} from "./components/twitter-feeds/twitter-feeds.component";
 import {ConfiguredMainComponent} from "./components/configured-main/configured-main.component";
 import {RadiusRedirectComponent} from "./components/radius-redirect/radius-redirect.component";
@@ -21,7 +22,8 @@ describe('AppComponent', () => {
         TwitterFeedsComponent,
         ConfiguredMainComponent,
         RadiusRedirectComponent,
-        WaitingExternalValidationComponent
+        WaitingExternalValidationComponent,
+        SurveyComponent
       ],
       imports: [
         BrowserModule,

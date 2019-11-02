@@ -23,7 +23,7 @@ export class AuthInterceptorGuard implements CanActivate {
       .take(1)
       .map((isLoggedIn: boolean) => {
         if (!isLoggedIn){
-          this.router.navigate(['/login']);
+          this.router.navigate(['/login',state.root.queryParams.client]);
           return false;
         } else {
           if (LocalStorageHandler.validateRadiusCall()) {

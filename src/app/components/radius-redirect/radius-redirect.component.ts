@@ -5,6 +5,7 @@ import {Location} from '@angular/common';
 import {RadiusService} from "../../services/radius.service";
 import {SocialLoginResponse} from "../../models/social-login-response";
 import * as config from "../../../../server/config.js";
+import {LocalStorageHandler} from "../../guards/local-storage-handler";
 
 
 @Component({
@@ -22,11 +23,13 @@ export class RadiusRedirectComponent implements OnInit {
 
   ngOnInit() {
     let params = new URLSearchParams(this.location.path(false).split('?')[1]);
+    LocalStorageHandler.setClient(params.get('client'));
+    let username = localStorage.getItem('username');
+    let password = localStorage.getItem('token');
+
     let radiusSearchParams = new RadiusSearchparams();
     radiusSearchParams.mac = params.get('mac');
     radiusSearchParams.ip = params.get('ip');
-    let username = localStorage.getItem('username');
-    let password = localStorage.getItem('token');
     radiusSearchParams.linkLogin = params.get('link-login');
     radiusSearchParams.linkOrig = params.get('link-orig');
     radiusSearchParams.error = params.get('error');

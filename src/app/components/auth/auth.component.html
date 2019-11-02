@@ -1,4 +1,22 @@
-<div class="row content" *ngIf="isLoggedIn$ | async">
-  <app-social-login [authConfig]="config"></app-social-login>
-</div>
 
+
+<header>
+  <div class="overlay"></div>
+  <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+    <source src="assets/images/draft-san-martin.mp4" type="video/mp4">
+  </video>
+  <div class="container h-100">
+    <div class="d-flex h-100 text-center align-items-center">
+      <div class="w-100 text-white">
+        <h1 class="display-3"></h1>
+        <div class="row content lead mb-0" *ngIf="isLoggedIn$ | async">
+
+          <app-social-login  *ngIf="socialLogin" [authConfig]="config"></app-social-login>
+          <app-survey [questions]="questions" *ngIf="!socialLogin"></app-survey>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+x

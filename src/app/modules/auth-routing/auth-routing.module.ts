@@ -30,7 +30,7 @@ export const appRoutes: Routes = [
     component: ConfiguredMainComponent
   },
   {
-    path: 'login',
+    path: 'login/:clientId',
     component: AuthComponent
   },
   {

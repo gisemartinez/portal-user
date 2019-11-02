@@ -53,7 +53,65 @@ router.get('/api/user/:profileEmail', function (req, res) {
       res.send(token);
     }, 10);
   }
-
+});
+router.get('/api/admin/config/:clientId', function (req, res) {
+  if (req.params.clientId == "municipalidad-sanmartindelosandes") {
+    setTimeout(function () {
+      let themeConfigured = {
+        'css-colors': 'deeppurple-amber.css',
+        'structure-template': 'template-1',
+        'login-type': 'social-login',
+        'social-login-keys': {
+          'google': '',
+          'facebook': '',
+          'pinterest': '',
+          'twitter': ''
+        },
+      }
+      res.send(themeConfigured);
+    }, 1);
+  } else {
+    setTimeout(function () {
+      let themeConfigured = {
+        'theme': 'pink-bluegrey.css',
+        'structure-template': 'template-2',
+        'login-type': 'survey',
+        'survey-form': {
+          'id': 'hotel-1',
+          'title': 'Podes obtener conexión a internet de manera gratuita, si nos ayudas con ésta encuesta',
+          'fields': [
+            {
+              'id': '1571507819',
+              'type': 'raiting',
+              'title': 'Cómo puntuarias la atención del personal hasta el momento?',
+              'order': '1'
+            }
+            ,
+            {
+              'id': '1571508048',
+              'type': 'yes-no',
+              'title': 'Volverias a elegirnos?',
+              'order': '2'
+            },
+            {
+              'id': '1571507880',
+              'type': 'textbox',
+              'title': 'Queres dejarnos alguna sugerencia?',
+              'order': '3'
+            }
+            ,
+            {
+              'id': '1571508821',
+              'type': 'textbox',
+              'title': 'Como nos encontraste?',
+              'order': '3'
+            }
+          ]
+        }
+      }
+      res.send(themeConfigured);
+    }, 10);
+  }
 });
 
 router.get('/radius/login', function (req, res) {

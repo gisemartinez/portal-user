@@ -2,13 +2,9 @@
 <mat-card>
   <mat-card-content>
     <div class="main-container">
-      <mat-grid-list cols="5">
-        <mat-grid-tile [colspan]="1" [rowspan]="1">
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="3" [rowspan]="2">
+      <mat-grid-list cols="1">
+        <mat-grid-tile id="main-tile">
           <router-outlet></router-outlet>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="1" [rowspan]="1">
         </mat-grid-tile>
       </mat-grid-list>
     </div>

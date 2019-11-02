@@ -1,6 +1,17 @@
 
 div.main-container {
   background-size: contain;
-  width: 100%;
-  height: auto;
+  height: 100vh;
+}
+#main-tile{
+  position: relative;
+  display: contents;
+}
+
+.mat-grid-list {
+  position: inherit;
+}
+
+::ng-deep #main-tile .mat-figure{
+  position: relative;
 }

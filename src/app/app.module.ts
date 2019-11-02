@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from './material.module';
 import {FormsModule} from "@angular/forms";
@@ -15,6 +16,8 @@ import {RadiusRedirectComponent} from "./components/radius-redirect/radius-redir
 import {HttpClientModule} from "@angular/common/http";
 import {SidenavComponent} from "./components/sidenav/sidenav.component";
 import {CarouselComponent} from "./components/carousel/carousel.component";
+import {SurveyComponent} from "./components/survey/survey.component";
+import {DynamicFormQuestionComponent} from "./components/dynamic-form-question/dynamic-form-question.component";
 
 @NgModule({
   declarations: [
@@ -27,7 +30,9 @@ import {CarouselComponent} from "./components/carousel/carousel.component";
     ConfiguredMainComponent,
     RadiusRedirectComponent,
     WaitingExternalValidationComponent,
-    CarouselComponent
+    CarouselComponent,
+    SurveyComponent,
+    DynamicFormQuestionComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +40,8 @@ import {CarouselComponent} from "./components/carousel/carousel.component";
     AuthRoutingModule,
     NgbModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,6 +8,7 @@ import {Router, ActivatedRoute, ParamMap} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
 import {LocalStorageHandler} from "../../guards/local-storage-handler";
 import {QuestionService} from "../../services/question.service";
+import {ClientConfiguration} from "../../models/client-configuration";
 
 @Component({
   selector: 'app-auth',
@@ -23,16 +24,10 @@ export class AuthComponent implements OnInit {
 
   constructor(private socialLoginService: SocialLoginService,
               private questionService: QuestionService,
-              private http: HttpClient,
-              private route: ActivatedRoute,
               private router: Router) {
-    this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.http.get(config['adminDashboard'] + '/config/' + params.get('client'))
-      )).subscribe(data => {
-      LocalStorageHandler.setCSSTheme(data['theme']);
-      this.socialLogin = data['login-type'] == 'social-login';
-      this.questions = questionService.getQuestions();
+    this.questionService.getLoginConfig().subscribe(data => {
+      this.socialLogin = data.isSocialLogin;
+      this.questions = data.surveyQuestions;
     });
   }
 

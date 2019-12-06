@@ -7,7 +7,7 @@ const config = {
     host: 'mysql_wf',
     dialect: 'mysql',
     migrationStorage : 'json',
-    adminDashboard: 'http://localhost:3003/mock-responses/api/',
+    adminDashboard: 'http://mock-server:3003/mock-responses/api/admin',
     radiusServer: 'http://mock-server:3003/mock-responses/radius/login',
     TOKEN_SECRET: 'secret',
     socialMediaKeys: {

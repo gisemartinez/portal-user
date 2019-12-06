@@ -2,20 +2,28 @@
   <label [attr.for]="question.key">{{question.label}}</label>
 
   <div [ngSwitch]="question.controlType">
-
     <input *ngSwitchCase="'textbox'" [formControlName]="question.key"
            [id]="question.key" [type]="question.type">
+    <div *ngSwitchCase="'rating'">
+      <ngb-rating [id]="question.key" [max]="question.maximum"
+                  [formControlName]="question.key" [(rate)]="currentRate"></ngb-rating>
+      <pre>Rate: <b>{{currentRate}}</b></pre>
+    </div>
+    <div *ngSwitchCase="'radio'">
+      <div *ngFor="let opt of question.options">
+        <input [type]="'radio'"
+               [id]="question.key"
+               [name]="question.key"
+               [value]="opt.key"
+               [formControlName]="question.key"> {{opt.key}}
+      </div>
 
-    <ngb-rating [id]="question.key" *ngSwitchCase="'rating'" [max]="question.maximum"
-                [formControlName]="question.key" [(rate)]="currentRate"></ngb-rating>
-    <pre>Rate: <b>{{currentRate}}</b></pre>
+    </div>
+
 
     <select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
       <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
     </select>
-
-
-
   </div>
 
   <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>

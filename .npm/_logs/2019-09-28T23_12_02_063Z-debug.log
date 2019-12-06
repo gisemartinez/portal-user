@@ -1,0 +1,23 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'audit' ]
+2 info using npm@6.10.3
+3 info using node@v12.10.0
+4 verbose config Skipping project config: /usr/src/app/.npmrc. (matches userconfig)
+5 verbose npm-session ecba0b31e8acb7ab
+6 verbose stack Error: Errors were found in your package-lock.json, run  npm install  to fix them.
+6 verbose stack     Missing: tslint@latest
+6 verbose stack     at /usr/local/lib/node_modules/npm/lib/audit.js:184:19
+6 verbose stack From previous event:
+6 verbose stack     at EventEmitter.auditCmd (/usr/local/lib/node_modules/npm/lib/audit.js:161:6)
+6 verbose stack     at Object.commandCache.<computed> (/usr/local/lib/node_modules/npm/lib/npm.js:156:13)
+6 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/bin/npm-cli.js:131:30)
+6 verbose stack     at processTicksAndRejections (internal/process/task_queues.js:75:11)
+7 verbose cwd /usr/src/app
+8 verbose Linux 4.9.184-linuxkit
+9 verbose argv "/usr/local/bin/node" "/usr/local/bin/npm" "audit"
+10 verbose node v12.10.0
+11 verbose npm  v6.10.3
+12 error code ELOCKVERIFY
+13 error Errors were found in your package-lock.json, run  npm install  to fix them.
+13 error     Missing: tslint@latest
+14 verbose exit [ 1, true ]

@@ -24,6 +24,7 @@ export class AuthInterceptorGuard implements CanActivate {
       .map((isLoggedIn: boolean) => {
         if (!isLoggedIn){
           this.router.navigate(['/login',state.root.queryParams.client]);
+          LocalStorageHandler.setClient(state.root.queryParams.client);
           return false;
         } else {
           if (LocalStorageHandler.validateRadiusCall()) {
@@ -37,22 +38,5 @@ export class AuthInterceptorGuard implements CanActivate {
         }
 
       });
-
-   /* if (LocalStorageHandler.validateLogin()) {
-      if (LocalStorageHandler.validateRadiusCall()) {
-        this.router.navigate(['/waiting']);
-        return Observable.create(false);
-
-      } else {
-        LocalStorageHandler.ackRadiusCall();
-        return Observable.create(true);
-      }
-    } else {
-
-
-      this.router.navigate(['/login']);
-      return false;
-
-    }*/
   }
 }

@@ -66,7 +66,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
           'facebook': '',
           'pinterest': '',
           'twitter': ''
-        },
+        }
       }
       res.send(themeConfigured);
     }, 1);
@@ -81,13 +81,23 @@ router.get('/api/admin/config/:clientId', function (req, res) {
             'title': 'Podes obtener conexión a internet de manera gratuita, si nos ayudas con ésta encuesta',
             'fields': [
               {
+                'id': '1571507840',
+                'type': 'textbox',
+                'config': {
+                  'key': 'textbox',
+                  'label': 'Mail de contacto (*)',
+                  'required': false,
+                  'order': 1
+                }
+              },
+              {
                 'id': '1571507819',
                 'type': 'rating',
                 'config': {
                   'key': 'rating',
                   'label': 'Cómo puntuarias la atención del personal hasta el momento?',
                   'maximum': 5,
-                  'order': 1
+                  'order': 2
                 }
               },
               {
@@ -107,7 +117,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                       'key': 'Puede ser ..'
                     }
                   ],
-                  'order': 2
+                  'order': 3
                 }
               },
               {
@@ -117,7 +127,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                   'key': 'textbox',
                   'label': 'Queres dejarnos alguna sugerencia?',
                   'value': 'Bombasto',
-                  'order': 3
+                  'order': 4
                 }
               },
               {
@@ -126,9 +136,9 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                 'config': {
                   'key': 'textbox',
                   'label': 'Como nos encontraste?',
-                  'required': true,
+                  'required': false,
                   'value': 'Bombasto',
-                  'order': 4
+                  'order': 5
                 }
               }
             ]

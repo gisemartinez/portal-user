@@ -21,19 +21,23 @@ export class QuestionService {
   getLoginConfig(): Observable<ClientConfiguration> {
     return this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
-        this.http.get(config['adminDashboard'] + '/config/' + params.get('client'))
+        this.http.get(config['adminDashboard'] + '/config/' + params.get('clientId'))
       )).map(data => {
       LocalStorageHandler.setCSSTheme(data['theme']);
       let typeOfLogin = data['login-type'];
-      let socialLoginKeys = data['social-login-keys'];
-      let questions = this.getQuestions(data);
-      let config = new ClientConfiguration(socialLoginKeys, questions, typeOfLogin == 'social-login');
-      return config;
+      if (typeOfLogin == 'social-login'){
+        let socialLoginKeys = data['social-login-keys'];
+        return new ClientConfiguration(socialLoginKeys, [], typeOfLogin == 'social-login')
+      } else {
+        let surveyForm = data['survey-form'] || {};
+        let questions = this.getQuestions(surveyForm['fields'] || []) || [];
+        let config = new ClientConfiguration([], questions, typeOfLogin == 'social-login');
+        return config;
+      }
     });
   }
 
-  getQuestions(data: {} = {}) {
-    let fields = data['survey-form']['fields'];
+  getQuestions(fields: [{type:string,config:string}]) {
     let questions: SurveyInputBase<any>[] = fields.map(obj => {
         switch (obj.type) {
           case 'rating' : {

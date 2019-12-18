@@ -38,7 +38,6 @@ export class SocialLoginService {
     let params = new URLSearchParams(this.location.path(false).split('?')[1]);
 
     this.socialLoginConfig.setCode(params.get('code'));
-
     this.setStorageItems();
 
     if (this.storageItems.hasProvider()) {
@@ -75,9 +74,8 @@ export class SocialLoginService {
   }
 
   private getRedirectUri(provider) {
-    return social_urls[provider].redirectUri;
+    return social_urls[provider].redirectUri + '/' + LocalStorageHandler.getClient();
   }
-
 
   private setAuthEndpoint() {
     this.authEndpoint = this.storageItems.config.authEndpoint;
@@ -86,7 +84,6 @@ export class SocialLoginService {
   private setLoginURI(loginRoute) {
     this.loginURI = loginRoute;
   }
-
 
   private setStorageItems() {
     this.storageItems = new StorageItems(
@@ -125,6 +122,7 @@ export class SocialLoginService {
         social_urls[provider].clientId +
         '&redirect_uri=' +
         social_urls[provider].redirectUri +
+        '/'+ LocalStorageHandler.getClient() +
         social_urls[provider].urlSuffix
     } else {
       window.location.href = this.storageItems.cachedURL;

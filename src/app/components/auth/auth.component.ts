@@ -27,7 +27,7 @@ export class AuthComponent implements OnInit {
               private router: Router) {
     this.questionService.getLoginConfig().subscribe(data => {
       this.socialLogin = data.isSocialLogin;
-      this.questions = data.surveyQuestions;
+      this.questions = data.surveyQuestions || [];
     });
   }
 

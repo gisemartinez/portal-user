@@ -103,7 +103,7 @@ function getPublicProfile( req, res, next ){
       urls.google.peopleApiUrl,
       {
         qs: {
-          fields: 'email,family_name,gender,given_name,hd,id,link,locale,name,picture,verified_email'
+          personFields: 'names,emailAddresses,ageRanges,birthdays,genders,interests,residences'
         },
         headers: createHeaderWithToken(req.token)
       },

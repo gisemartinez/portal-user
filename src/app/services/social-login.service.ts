@@ -106,7 +106,7 @@ export class SocialLoginService {
     LocalStorageHandler.setLogoutData();
     LocalStorageHandler.removeLoginData();
     this.loggedIn.next(false);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login/'+ LocalStorageHandler.getClient()]);
   }
 
   private isLoggedInItem(): boolean {

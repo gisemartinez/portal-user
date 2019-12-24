@@ -1,3 +1,4 @@
+/*
 header {
   position: inherit;
   background-color: black;
@@ -36,5 +37,18 @@ header .overlay {
   background-color: black;
   opacity: 0.5;
   z-index: 1;
+}
+
+
+.content {
+  margin-bottom: 35vw;
+}
+*/
+.parallax {
+  height: 30vw;
+  background-image: url('assets/images/beach_boats_kbh.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 

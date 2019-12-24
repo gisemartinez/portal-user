@@ -1,9 +1,12 @@
-.mat-card {
-  display : initial;
-  color : #7e7e7b;
-  padding : initial;
+mat-card-subtitle {
+  margin: auto;
+}
+mat-card-header {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
 }
 
-.mat-card-subtitle {
-  color : #7e7e7b;
+mat-card {
+  text-align: -webkit-center;
 }

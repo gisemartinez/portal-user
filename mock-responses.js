@@ -162,8 +162,7 @@ router.get('/radius/login', function (req, res) {
     let response = {
       'username': password,
       'token': ip,
-    }
-    console.log("logindone");
+    };
     res.send(response);
   }, 10);
 });

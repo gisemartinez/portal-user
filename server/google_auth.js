@@ -150,8 +150,8 @@ function sendProfileInfoToAdmin( req, res, next ){
 function persistUserInRadiusDB( req, res, next ){
   return models.RadCheck.findOrCreate({
     where: {
-      username: req.consolidated_profile.email,
-      value: req.consolidated_profile.email
+      username: req.consolidated_profile.emailAddresses[0].value,
+      value: req.consolidated_profile.etag
     }
   }).then(function ( model ){
     req.radius_result = model;

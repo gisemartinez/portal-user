@@ -33,7 +33,7 @@ export class SocialLoginComponent implements OnInit {
       .addSvgIcon('twitter',
         sanitizer.bypassSecurityTrustResourceUrl('/assets/twitter_icon.svg'));
     //TODO: Se debe cargar dinamicamente, consultando al Admin
-    this.portalClient = "Wifree Municipal";
+    this.portalClient = "Super Shopping Mall";
     this.loginEntities = {
       'google' : {
         color: 'primary',

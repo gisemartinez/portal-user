@@ -67,7 +67,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
           'pinterest': '',
           'twitter': ''
         }
-      }
+      };
       res.send(themeConfigured);
     }, 1);
   } else {

@@ -55,100 +55,142 @@ router.get('/api/user/:profileEmail', function (req, res) {
   }
 });
 router.get('/api/admin/config/:clientId', function (req, res) {
-  if (req.params.clientId == "municipalidad-sanmartindelosandes") {
-    setTimeout(function () {
-      let themeConfigured = {
-        'css-colors': 'deeppurple-amber.css',
-        'structure-template': 'template-1',
-        'login-type': 'social-login',
-        'social-login-keys': {
-          'google': '',
-          'facebook': '',
-          'pinterest': '',
-          'twitter': ''
-        }
-      };
-      res.send(themeConfigured);
-    }, 1);
-  } else {
-    setTimeout(function () {
+  switch (req.params.clientId) {
+    case  "ikeallabea-shoppingmall" : {
+      setTimeout(function () {
         let themeConfigured = {
-          'theme': 'pink-bluegrey.css',
-          'structure-template': 'template-2',
-          'login-type': 'survey',
-          'survey-form': {
-            'id': 'hotel-1',
-            'title': 'Podes obtener conexión a internet de manera gratuita, si nos ayudas con ésta encuesta',
-            'fields': [
-              {
-                'id': '1571507840',
-                'type': 'textbox',
-                'config': {
-                  'key': 'textbox',
-                  'label': 'Mail de contacto (*)',
-                  'required': false,
-                  'order': 1
-                }
-              },
-              {
-                'id': '1571507819',
-                'type': 'rating',
-                'config': {
-                  'key': 'rating',
-                  'label': 'Cómo puntuarias la atención del personal hasta el momento?',
-                  'maximum': 5,
-                  'order': 2
-                }
-              },
-              {
-                'id': '1571508048',
-                'type': 'radio',
-                'config': {
-                  'key': 'yes-no',
-                  'label': 'Volverias a elegirnos?',
-                  'options': [
-                    {
-                      'key': 'Sí'
-                    },
-                    {
-                      'key': 'No sé'
-                    },
-                    {
-                      'key': 'Puede ser ..'
-                    }
-                  ],
-                  'order': 3
-                }
-              },
-              {
-                'id': '1571507880',
-                'type': 'textbox',
-                'config': {
-                  'key': 'textbox',
-                  'label': 'Queres dejarnos alguna sugerencia?',
-                  'value': 'Bombasto',
-                  'order': 4
-                }
-              },
-              {
-                'id': '1571508821',
-                'type': 'textbox',
-                'config': {
-                  'key': 'textbox',
-                  'label': 'Como nos encontraste?',
-                  'required': false,
-                  'value': 'Bombasto',
-                  'order': 5
-                }
-              }
-            ]
+          'css-colors': 'deeppurple-amber.css',
+          'structure-template': 'template-1',
+          'login-type': 'social-login',
+          'social-login-keys': {
+            'google': '',
+            'facebook': '',
+            'pinterest': '',
+            'twitter': ''
           }
-        }
+        };
         res.send(themeConfigured);
-      }
-      ,
-      10
-    );
+      }, 1);
+      break;
+    };
+    case  "municipalidad-sanmartindelosandes" : {
+      setTimeout(function () {
+        let themeConfigured = {
+          'css-colors': 'deeppurple-amber.css',
+          'structure-template': 'template-1',
+          'login-type': 'social-login',
+          'social-login-keys': {
+            'google': '',
+            'facebook': '',
+            'pinterest': '',
+            'twitter': ''
+          }
+        };
+        res.send(themeConfigured);
+      }, 1);
+      break;
+    };
+    case "hotel-1" : {
+      setTimeout(function () {
+          let themeConfigured = {
+            'theme': 'pink-bluegrey.css',
+            'structure-template': 'template-2',
+            'login-type': 'survey',
+            'survey-form': {
+              'id': 'hotel-1',
+              'title': 'Podes obtener conexión a internet de manera gratuita, si nos ayudas con la siguiente encuesta',
+              'fields': [
+                {
+                  'id': '1571507840',
+                  'type': 'textbox',
+                  'config': {
+                    'key': 'textbox',
+                    'label': 'Mail de contacto (*)',
+                    'required': false,
+                    'value':'',
+                    'order': 1
+                  }
+                },
+                {
+                  'id': '1571507819',
+                  'type': 'rating',
+                  'config': {
+                    'key': 'rating',
+                    'label': '¿Cómo calificaría la atención recibida al registrarse en el hotel (check in)?',
+                    'maximum': 5,
+                    'order': 2
+                  }
+                },
+                {
+                  'id': '1571508048',
+                  'type': 'radio',
+                  'config': {
+                    'key': 'yes-no',
+                    'label': 'Volverias a elegirnos?',
+                    'options': [
+                      {
+                        'key': 'Sí'
+                      },
+                      {
+                        'key': 'No sé'
+                      },
+                      {
+                        'key': 'Puede ser ..'
+                      }
+                    ],
+                    'order': 3
+                  }
+                },
+                {
+                  'id': '1571507880',
+                  'type': 'textbox',
+                  'config': {
+                    'key': 'textbox',
+                    'label': 'Queres dejarnos alguna sugerencia?',
+                    'value': '..--..',
+                    'order': 4
+                  }
+                },
+                {
+                  'id': '1571508821',
+                  'type': 'textbox',
+                  'config': {
+                    'key': 'textbox',
+                    'label': 'Como nos encontraste?',
+                    'required': false,
+                    'value': 'Redes sociales',
+                    'order': 5
+                  }
+                },
+                {
+                  'id': '1571508049',
+                  'type': 'checkbox',
+                  'config': {
+                    'label': 'Volverias a elegirnos?',
+                    'options': [
+                      {
+                        'key': 'Aziul'
+                      },
+                      {
+                        'key': 'No sé'
+                      },
+                      {
+                        'key': 'Puede ser ..'
+                      }
+                    ],
+                    'order': 6
+                  }
+                }
+              ]
+            }
+          };
+          res.send(themeConfigured);
+        }
+        ,
+        10
+      );
+      break;
+    }
   }
 })
 ;

@@ -10,6 +10,7 @@ const server = http.createServer(app);
 let io = require('socket.io')(server);
 let radiusCall = require('./radius_validator.js')(io);
 let auth = require('./google_auth.js');
+const db = require('./db/models');
 
 
 app.use(function (req, res, next) {
@@ -78,3 +79,8 @@ io.on('connect', (socket) => {
   socket.emit('id', socket.id);// send each client their socket id
 
 });
+
+db.authenticate()
+  .then(() => console.log("Database ok"))
+  .catch(err => console.log('Error: ' + err));
+

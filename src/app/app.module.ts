@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from './material.module';
 import {FormsModule} from "@angular/forms";
 import { AppComponent } from './app.component';
@@ -18,6 +17,8 @@ import {SidenavComponent} from "./components/sidenav/sidenav.component";
 import {CarouselComponent} from "./components/carousel/carousel.component";
 import {SurveyComponent} from "./components/survey/survey.component";
 import {DynamicFormQuestionComponent} from "./components/dynamic-form-question/dynamic-form-question.component";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {PlainSurveyComponent} from "./components/plain-survey/plain-survey.component";
 
 @NgModule({
   declarations: [
@@ -32,16 +33,17 @@ import {DynamicFormQuestionComponent} from "./components/dynamic-form-question/d
     WaitingExternalValidationComponent,
     CarouselComponent,
     SurveyComponent,
-    DynamicFormQuestionComponent
+    DynamicFormQuestionComponent,
+    PlainSurveyComponent
   ],
   imports: [
     BrowserModule,
-    MaterialModule,
     AuthRoutingModule,
     NgbModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

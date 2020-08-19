@@ -3,7 +3,6 @@ let express = require('express'),
   request = require('request'),
   DateFNS = require('date-fns'),
   async = require('async'),
-  google = require('googleapis');
   jwt = require('jwt-simple');
 
 const config = require('./config');

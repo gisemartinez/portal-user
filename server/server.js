@@ -68,7 +68,7 @@ io.on('connect', (socket) => {
   });
 
   socket.on('client init.sql', function () {
-    console.log('client init.sql');
+    console.log(' client init.sql');
     socket.emit('connection', {success: true})
   });
 

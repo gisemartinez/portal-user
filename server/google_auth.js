@@ -3,11 +3,13 @@ let express = require('express'),
   request = require('request'),
   DateFNS = require('date-fns'),
   async = require('async'),
+  google = require('googleapis');
   jwt = require('jwt-simple');
 
 const config = require('./config');
-const models = require('./db/models');
+const RadCheck = require('./db/models/radcheck');
 let urls = require('./const');
+
 
 function createTokenRequest( body ){
   return {
@@ -148,7 +150,7 @@ function sendProfileInfoToAdmin( req, res, next ){
 
 //Step 4: Send data to Radius
 function persistUserInRadiusDB( req, res, next ){
-  return models.RadCheck.findOrCreate({
+  return RadCheck.findOrCreate({
     where: {
       username: req.consolidated_profile.emailAddresses[0].value,
       value: req.consolidated_profile.etag

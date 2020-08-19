@@ -1,3 +1,11 @@
 img {
   width: inherit;
 }
+
+.carousel-item {
+  text-align: center;
+}
+
+.carousel-inner {
+  text-align: center;
+}

@@ -8,7 +8,7 @@ let SOCIAL_LOGIN_STATIC_INFO =
       urlSuffix: '&scope=email'
     },
     google: {
-      accessTokenUrl: 'https://www.googleapis.com/oauth2/v4/token',
+      accessTokenUrl: 'https://oauth2.googleapis.com/token',
       peopleApiUrl: 'https://people.googleapis.com/v1/people/me',
       googlePlus: 'https://people.googleapis.com/v1/people/me',//{UserId}
       url: 'https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=',

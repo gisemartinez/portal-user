@@ -7,8 +7,11 @@
 
 # dependencies
 /node_modules
+.npm/
 
 # IDEs and editors
+.bash_history
+.config/
 /.idea
 .project
 .classpath

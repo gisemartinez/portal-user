@@ -141,7 +141,6 @@ function sendProfileInfoToAdmin( req, res, next ){
           resolve();
           next();
         }
-
       }
     );
   })

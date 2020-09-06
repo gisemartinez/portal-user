@@ -3,7 +3,6 @@ import {Observable} from 'rxjs';
 import * as io from 'socket.io-client';
 import {environment} from "../../environments/environment";
 import {HttpClient} from '@angular/common/http';
-import {SocialLoginResponse} from "../models/social-login-response";
 import {LocalStorageHandler} from "../guards/local-storage-handler";
 
 @Injectable()

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SocialLoginService} from "../../services/social-login.service";
-import {MatIconRegistry} from "@angular/material";
 import {DomSanitizer} from '@angular/platform-browser';
+import {MatIconRegistry} from "@angular/material/icon";
 
 
 @Component({
@@ -62,5 +62,4 @@ export class SocialLoginComponent implements OnInit {
   loginWith(entity){
     this.socialAuthService.auth(entity,this.authConfig)
   }
-
 }

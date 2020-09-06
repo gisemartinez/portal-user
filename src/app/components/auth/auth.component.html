@@ -7,9 +7,9 @@
 </div>
 
 <div class="container text center pt-4 auth">
-  <div class="rowlead" *ngIf="isLoggedIn$ | async">
+  <div class="rowlead" *ngIf="notLoggedIn$">
     <app-social-login *ngIf="socialLogin" [authConfig]="config"></app-social-login>
-    <app-survey [questions]="questions" *ngIf="!socialLogin"></app-survey>
+    <app-survey *ngIf="!socialLogin" ></app-survey>
   </div>
 </div>
 

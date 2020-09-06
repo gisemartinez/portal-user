@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, Route, Router, RouterStateSnapshot} from "@angular/router";
+import {Router} from "@angular/router";
 import {Location} from '@angular/common';
 
 import {AlertService} from "./alert.service";
@@ -11,15 +11,13 @@ import {StorageItems} from "../models/storage-items";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/internal/Observable";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/map';
 
 import {SocialLoginResponse} from "../models/social-login-response";
 
 @Injectable()
 export class SocialLoginService {
 
-  private loggedIn = new BehaviorSubject<boolean>(false);
+  loggedIn = new BehaviorSubject<boolean>(false);
 
   get isLoggedIn(){
     return this.loggedIn.asObservable()
@@ -28,7 +26,7 @@ export class SocialLoginService {
   private loading: boolean;
   private loginURI: string = "/login";
   private socialLoginConfig: UserSocialLoginInfo = new UserSocialLoginInfo();
-  private storageItems: StorageItems;
+  storageItems: StorageItems;
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -109,15 +107,11 @@ export class SocialLoginService {
     this.router.navigate(['/login/'+ LocalStorageHandler.getClient()]);
   }
 
-  private isLoggedInItem(): boolean {
-    return (localStorage.getItem('isLoggedIn') == "true");
-  }
-
   public auth(provider: string, authConfig: any): void {
 
     LocalStorageHandler.setLoginSelection(authConfig[provider],provider);
 
-    if (!this.isLoggedInItem()) {
+    if (!LocalStorageHandler.validateLogin()) {
       window.location.href = social_urls[provider].url +
         social_urls[provider].clientId +
         '&redirect_uri=' +

@@ -8,7 +8,9 @@ import {SurveyInputBase} from "../../models/survey-input-base";
   styleUrls: ['./dynamic-form-question.component.css'],
 })
 export class DynamicFormQuestionComponent {
-  @Input() question: SurveyInputBase<any>;
-  @Input() form: FormGroup;
-  get isValid() { return this.form.controls[this.question.key].valid; }
+  @Input()
+  question: SurveyInputBase<any>;
+  @Input()
+  form: FormGroup;
+  isValid() { return this.form.controls[this.question.key].valid; }
 }

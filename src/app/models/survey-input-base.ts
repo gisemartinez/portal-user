@@ -5,6 +5,8 @@ export class SurveyInputBase<T> {
   required: boolean;
   order: number;
   controlType: string;
+  
+  id: string;
 
   constructor(options: {
     value?: T,
@@ -13,6 +15,7 @@ export class SurveyInputBase<T> {
     required?: boolean,
     order?: number,
     controlType?: string
+    id?: string
   } = {}) {
     this.value = options.value;
     this.key = options.key || '';
@@ -20,5 +23,6 @@ export class SurveyInputBase<T> {
     this.required = !!options.required;
     this.order = options.order === undefined ? 1 : options.order;
     this.controlType = options.controlType || '';
+    this.id = options.id
   }
 }

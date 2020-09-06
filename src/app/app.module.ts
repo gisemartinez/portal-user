@@ -19,6 +19,10 @@ import {SurveyComponent} from "./components/survey/survey.component";
 import {DynamicFormQuestionComponent} from "./components/dynamic-form-question/dynamic-form-question.component";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {PlainSurveyComponent} from "./components/plain-survey/plain-survey.component";
+import {SurveyControlService} from "./services/survey-control-service";
+import {AuthService} from "./services/auth.service";
+import {QuestionService} from "./services/question.service";
+import {SocialLoginService} from "./services/social-login.service";
 
 @NgModule({
   declarations: [
@@ -45,7 +49,7 @@ import {PlainSurveyComponent} from "./components/plain-survey/plain-survey.compo
     ReactiveFormsModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [SurveyControlService, AuthService, QuestionService, SocialLoginService],
   bootstrap: [AppComponent]
 })
 

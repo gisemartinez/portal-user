@@ -1,7 +1,8 @@
-import { Component, OnInit , Input} from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 import {SurveyControlService} from "../../services/survey-control-service";
 import {SurveyInputBase} from "../../models/survey-input-base";
+import {QuestionService} from "../../services/question.service";
 
 @Component({
   selector: 'app-survey',
@@ -11,18 +12,27 @@ import {SurveyInputBase} from "../../models/survey-input-base";
 })
 export class SurveyComponent implements OnInit {
 
-  @Input() questions: SurveyInputBase<any>[] = [];
-  form: FormGroup;
+  questions: SurveyInputBase<any>[] = [];
+  form: FormGroup = new FormGroup({});
   payLoad = '';
 
 
-  constructor(private qcs: SurveyControlService) {  }
+  constructor(private qcs: SurveyControlService,  private cdr: ChangeDetectorRef, private questionService: QuestionService) {
+    this.questionService.getLoginConfig().subscribe(data => {
+      if(!data.isSocialLogin) {
+        this.questions = data.surveyQuestions;
+      } else {
+        this.questions = [];
+      }
+      this.form = this.qcs.toFormGroup(this.questions);
+    });
+  }
 
   ngOnInit() {
-    this.form = this.qcs.toFormGroup(this.questions);
+    this.cdr.detectChanges();
   }
 
   onSubmit() {
-    this.payLoad = JSON.stringify(this.form.value);
+    this.qcs.saveAnswers(JSON.stringify(this.form.value));
   }
 }

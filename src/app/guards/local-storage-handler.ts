@@ -51,7 +51,6 @@ export class LocalStorageHandler {
   public static setLoginSelection(authConfig, provider) {
     localStorage.setItem("authConfig", JSON.stringify(authConfig));
     localStorage.setItem("provider", provider);
-
   }
 
   public static removeLoginData() {

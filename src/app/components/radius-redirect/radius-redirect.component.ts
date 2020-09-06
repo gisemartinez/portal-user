@@ -24,7 +24,7 @@ export class RadiusRedirectComponent implements OnInit {
   ngOnInit() {
     let params = new URLSearchParams(this.location.path(false).split('?')[1]);
     LocalStorageHandler.setClient(params.get('client'));
-    let username = localStorage.getItem('username');
+    let username = LocalStorageHandler.getUsername();
     let password = localStorage.getItem('token');
 
     let radiusSearchParams = new RadiusSearchparams();

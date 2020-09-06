@@ -36,7 +36,7 @@ router.get('/', function (req, res) {
 
 router.post('/api/user', function (req, res) {
   setTimeout(function () {
-    let token = {"token": Date.now().toString() + "mocked"}
+    let token = {"token": Date.now().toString() + "mocked"};
     res.send(token);
   }, 300);
 
@@ -49,7 +49,7 @@ router.get('/api/user/:profileEmail', function (req, res) {
     }, 1);
   } else {
     setTimeout(function () {
-      let token = {"token": Date.now().toString() + "mocked"}
+      let token = {"token": Date.now().toString() + "mocked"};
       res.send(token);
     }, 10);
   }
@@ -72,7 +72,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
         res.send(themeConfigured);
       }, 1);
       break;
-    };
+    }
     case  "municipalidad-sanmartindelosandes" : {
       setTimeout(function () {
         let themeConfigured = {
@@ -89,7 +89,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
         res.send(themeConfigured);
       }, 1);
       break;
-    };
+    }
     case "hotel-1" : {
       setTimeout(function () {
           let themeConfigured = {
@@ -169,7 +169,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                     'label': 'Volverias a elegirnos?',
                     'options': [
                       {
-                        'key': 'Aziul'
+                        'key': 'Azul'
                       },
                       {
                         'key': 'No sé'
@@ -179,6 +179,25 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                       }
                     ],
                     'order': 6
+                  }
+                },
+                {
+                  'id': '1571508049',
+                  'type': 'selector',
+                  'config': {
+                    'label': 'Volverias a elegirnos?',
+                    'options': [
+                      {
+                        'key': 'Azul'
+                      },
+                      {
+                        'key': 'No sé'
+                      },
+                      {
+                        'key': 'Puede ser ..'
+                      }
+                    ],
+                    'order': 7
                   }
                 }
               ]
@@ -191,6 +210,9 @@ router.get('/api/admin/config/:clientId', function (req, res) {
       );
       break;
     }
+    case null: {
+      res.status(404).send({ 'error': 'client not defined' })
+    }
   }
 })
 ;
@@ -198,9 +220,9 @@ router.get('/api/admin/config/:clientId', function (req, res) {
 
 router.get('/radius/login', function (req, res) {
   setTimeout(function () {
-    let ip = req.query.ip
-    let username = req.query.username
-    let password = req.query.password
+    let ip = req.query.ip;
+    let username = req.query.username;
+    let password = req.query.password;
     let response = {
       'username': password,
       'token': ip,

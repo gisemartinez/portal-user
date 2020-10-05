@@ -5,6 +5,7 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Observable} from "rxjs";
 import {QuestionService} from "../../services/question.service";
 import {ClientConfiguration} from "../../models/client-configuration";
+import {map} from "rxjs/operators";
 
 
 @Component({
@@ -14,18 +15,18 @@ import {ClientConfiguration} from "../../models/client-configuration";
 })
 export class AuthComponent {
   socialLogin: boolean = true;
-  notLoggedIn$ = true;
+  notLoggedIn$:  Observable<boolean>;
   configuration: ClientConfiguration;
 
-  constructor(private authService: AuthService, qs: QuestionService) {
+  constructor(private authService: AuthService) {
+    //TODO: check if this can be improved
+    this.notLoggedIn$ = this.authService.isLoggedIn$.pipe(map (v => !v));
+
     this.authService.getAuthData().subscribe(data => {
       this.configuration = data;
       this.socialLogin = data.isSocialLogin;
       this.authService.getIsLoggedIn(data)
     });
-    this.authService.isLoggedIn$.subscribe(d =>
-      this.notLoggedIn$ = !d
-    )
   }
 
   public config = {

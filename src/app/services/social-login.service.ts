@@ -26,7 +26,7 @@ export class SocialLoginService {
   private loading: boolean;
   private loginURI: string = "/login";
   private socialLoginConfig: UserSocialLoginInfo = new UserSocialLoginInfo();
-  storageItems: StorageItems;
+  private storageItems: StorageItems;
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -36,6 +36,7 @@ export class SocialLoginService {
     let params = new URLSearchParams(this.location.path(false).split('?')[1]);
 
     this.socialLoginConfig.setCode(params.get('code'));
+
     this.setStorageItems();
 
     if (this.storageItems.hasProvider()) {
@@ -48,7 +49,7 @@ export class SocialLoginService {
       this.setAuthEndpoint();
     }
 
-    if(LocalStorageHandler.validateLogin()){
+    if(LocalStorageHandler.validateLogin() && localStorage.getItem('token') !== null) {
       this.loggedIn.next(true);
     }
 

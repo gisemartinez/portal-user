@@ -5,7 +5,7 @@ export class LocalStorageHandler {
 
 
   public static validateLogin(): boolean {
-    return localStorage.getItem('isLoggedIn') == "true" && !_.isEmpty(localStorage.getItem('token'))
+    return localStorage.getItem('isLoggedIn') == "true"
   }
 
   public static validateRadiusCall(): boolean {
@@ -72,10 +72,10 @@ export class LocalStorageHandler {
   }
 
   public static setClient(clientId: string) {
-    localStorage.setItem('client-id', clientId);
+    localStorage.setItem('client', clientId);
   }
 
   public static getClient(): string {
-    return localStorage.getItem('client-id');
+    return localStorage.getItem('client');
   }
 }

@@ -49,8 +49,8 @@ router.get('/api/user/:profileEmail', function (req, res) {
     }, 1);
   } else {
     setTimeout(function () {
-      let token = {"token": Date.now().toString() + "mocked"};
-      res.send(token);
+      //let token = {"token": Date.now().toString() + "mocked"};
+      res.send(req.params);
     }, 10);
   }
 });
@@ -107,8 +107,9 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                     'key': 'textbox',
                     'label': 'Mail de contacto (*)',
                     'required': false,
-                    'value':'',
-                    'order': 1
+                    'value': '',
+                    'order': 1,
+                    'otherOptions': {}
                   }
                 },
                 {
@@ -117,7 +118,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                   'config': {
                     'key': 'rating',
                     'label': '¿Cómo calificaría la atención recibida al registrarse en el hotel (check in)?',
-                    'maximum': 5,
+                    'otherOptions': {'maximum': 5},
                     'order': 2
                   }
                 },
@@ -127,7 +128,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                   'config': {
                     'key': 'yes-no',
                     'label': 'Volverias a elegirnos?',
-                    'options': [
+                    'otherOptions': [
                       {
                         'key': 'Sí'
                       },
@@ -167,7 +168,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                   'type': 'checkbox',
                   'config': {
                     'label': 'Volverias a elegirnos?',
-                    'options': [
+                    'otherOptions': [
                       {
                         'key': 'Azul'
                       },
@@ -186,7 +187,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                   'type': 'selector',
                   'config': {
                     'label': 'Volverias a elegirnos?',
-                    'options': [
+                    'otherOptions': [
                       {
                         'key': 'Azul'
                       },
@@ -211,7 +212,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
       break;
     }
     case null: {
-      res.status(404).send({ 'error': 'client not defined' })
+      res.status(404).send({'error': 'client not defined'})
     }
   }
 })

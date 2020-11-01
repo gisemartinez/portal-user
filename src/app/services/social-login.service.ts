@@ -64,7 +64,7 @@ export class SocialLoginService {
               window.location.href = this.storageItems.cachedURL;
             },
             error => {
-              this.alertService.error(error);
+              this.alertService.error(JSON.stringify(error));
               this.loading = false;
             }
           );

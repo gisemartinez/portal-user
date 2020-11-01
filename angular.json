@@ -23,7 +23,12 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "socket.io",
+              "socket.io-client",
+              "rxjs"
+            ]
           },
           "configurations": {
             "production": {

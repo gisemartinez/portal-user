@@ -123,6 +123,4 @@ export class SocialLoginService {
       window.location.href = this.storageItems.cachedURL;
     }
   }
-
-
 }

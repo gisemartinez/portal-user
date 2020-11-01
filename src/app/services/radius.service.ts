@@ -23,7 +23,7 @@ export class RadiusService {
     let observable = new Observable(observer => {
       this.socket = io(this.url);
       let username = LocalStorageHandler.getUsername()
-      this.socket.emit('join',{email: username})
+      this.socket.emit('join', username)
       this.socket.on('validated', (data) => {
         observer.next(data);
       });
@@ -31,7 +31,7 @@ export class RadiusService {
         this.socket.disconnect();
       };
       this.socket.on('connected', (data) => {
-        console.log(data);
+        console.log('waiting for'+ data);
       });
     });
     return observable;

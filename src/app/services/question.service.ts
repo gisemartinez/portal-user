@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {SurveyTextBox} from "../models/survey-textbox";
 import {SurveyInputBase} from "../models/survey-input-base";
 import {SurveyRatebox} from "../models/survey-ratebox";
-import {switchMap,map} from "rxjs/operators";
+import {switchMap, map} from "rxjs/operators";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import * as config from "../../../server/config";
 import {LocalStorageHandler} from "../guards/local-storage-handler";
@@ -26,10 +26,10 @@ export class QuestionService {
       switchMap((params: ParamMap) =>
         this.http.get(config['adminDashboard'] + '/config/' + LocalStorageHandler.getClient())
       )).pipe(
-        map(data => {
-          LocalStorageHandler.setCSSTheme(data['theme']);
-          let typeOfLogin = data['login-type'];
-        if (typeOfLogin == 'social-login'){
+      map(data => {
+        LocalStorageHandler.setCSSTheme(data['theme']);
+        let typeOfLogin = data['login-type'];
+        if (typeOfLogin == 'social-login') {
           let socialLoginKeys = data['social-login-keys'];
           return new ClientConfiguration(socialLoginKeys, [], typeOfLogin == 'social-login')
         } else {
@@ -37,30 +37,51 @@ export class QuestionService {
           let questions = this.getQuestions(surveyForm['fields'] || []) || [];
           let config = new ClientConfiguration([], questions, typeOfLogin == 'social-login');
           return config;
-      }
-    }));
+        }
+      }));
   }
 
-  getQuestions(fields: [{type:string,config:string}]) {
+  getQuestions(fields: [{
+    id: string,
+    type: string,
+    config: {
+      key: string,
+      label: string,
+      required: boolean,
+      value: any,
+      order: number,
+      otherOptions:any
+    }
+  }]) {
     let questions: SurveyInputBase<any>[] = fields.map(obj => {
+        let options = {
+          'id': obj.id,
+          'type':obj.type,
+          'value': obj.config.value,
+          'key': obj.config.key,
+          'label': obj.config.value,
+          'required': obj.config.required,
+          'order': obj.config.order
+        }
+
         switch (obj.type) {
           case 'rating' : {
-            return new SurveyRatebox(obj.config);
+            return new SurveyRatebox(options, obj.config.otherOptions);
           }
           case 'textbox' : {
-            return new SurveyTextBox(obj.config)
+            return new SurveyTextBox(options,  obj.config.otherOptions)
           }
           case 'radio': {
-            return new SurveyRadioQuestion(obj.config)
+            return new SurveyRadioQuestion(options,obj.config.otherOptions)
           }
           case 'checkbox': {
-            return new SurveyCheckbox(obj.config)
+            return new SurveyCheckbox(options,  obj.config.otherOptions)
           }
           case 'selector': {
-            return new SurveySelector(obj.config)
+            return new SurveySelector(options,  obj.config.otherOptions)
           }
           default : {
-            return new SurveyRatebox(obj.config)
+            return new SurveyRatebox(options,  obj.config.otherOptions)
           }
         }
       }

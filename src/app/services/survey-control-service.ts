@@ -9,7 +9,7 @@ export class SurveyControlService {
   surveyAnswered = new BehaviorSubject<boolean>(false);
   cachedURL: string;
 
-  get isSurveyAnswered(){
+  get isSurveyAnswered() {
     return this.surveyAnswered.asObservable()
   }
 
@@ -20,18 +20,16 @@ export class SurveyControlService {
     let group: any = {};
 
     questions.forEach(question => {
-      group[question.key] = question.required ? new FormControl(question.value || '', Validators.required)
+      group[question.id] = question.required ? new FormControl(question.value || '', Validators.required)
         : new FormControl(question.value || '');
     });
     return new FormGroup(group);
   }
 
-  saveAnswers(form: {}){
-    console.log('form :' + form);
+  saveAnswers(form: FormGroup) {
     LocalStorageHandler.ackSocialLogin();
-    LocalStorageHandler.setUsername("guess");
+    LocalStorageHandler.setUsername(form.get('1571507840').value);//email
     this.surveyAnswered.next(true);
     window.location.href = localStorage.getItem("cachedurl");
-    ;
   }
 }

@@ -33,6 +33,6 @@ export class SurveyComponent implements OnInit {
   }
 
   onSubmit() {
-    this.qcs.saveAnswers(JSON.stringify(this.form.value));
+    this.qcs.saveAnswers(this.form);
   }
 }

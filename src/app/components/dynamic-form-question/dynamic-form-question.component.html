@@ -1,13 +1,13 @@
 <div [formGroup]="form">
-  <label [attr.for]="question.key">{{question.label}}</label>
+  <label [attr.for]="question.id">{{question.label}}</label>
 
   <div [ngSwitch]="question.controlType">
-    <input *ngSwitchCase="'textbox'" [formControlName]="question.key"
-           [id]="question.key" [type]="question.type">
+    <input *ngSwitchCase="'textbox'" [formControlName]="question.id"
+           [id]="question.id" [type]="question.type">
 
     <div *ngSwitchCase="'rating'">
-      <ngb-rating [id]="question.key" [max]="question.maximum"
-                  [formControlName]="question.key" [(rate)]="currentRate"></ngb-rating>
+      <ngb-rating [id]="question.id" [max]="question.maximum"
+                  [formControlName]="question.id" [(rate)]="currentRate"></ngb-rating>
       <pre>Rate: <b>{{currentRate}}</b></pre>
     </div>
     <div *ngSwitchCase="'radio'">
@@ -16,16 +16,16 @@
                [id]="question.key"
                [name]="question.key"
                [value]="opt.key"
-               [formControlName]="question.key"> {{opt.key}}
+               [formControlName]="question.id"> {{opt.key}}
       </div>
     </div>
     <div *ngSwitchCase="'checkbox'">
       <div *ngFor="let opt of question.options">
         <input [type]="'checkbox'"
-               [id]="question.key"
+               [id]="question.id"
                [name]="question.key"
                [value]="opt.key"
-               [formControlName]="question.key"> {{opt.key}}
+               [formControlName]="question.id"> {{opt.key}}
       </div>
     </div>
     <div *ngSwitchCase="'selector'" >

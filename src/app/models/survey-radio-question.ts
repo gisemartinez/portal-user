@@ -4,8 +4,8 @@ export class SurveyRadioQuestion extends SurveyInputBase<string> {
   controlType = 'radio';
   options: {key: string}[] = [];
 
-  constructor(options: {} = {}) {
+  constructor(options: {} = {}, otherOptions: [{key:string}]) {
     super(options);
-    this.options = options['options'] || [];
+    this.options = otherOptions || [];
   }
 }

@@ -1,11 +1,11 @@
-import { SurveyInputBase } from './survey-input-base';
+import {SurveyInputBase} from './survey-input-base';
 
 export class SurveyRatebox extends SurveyInputBase<string> {
   controlType = 'rating';
-  maximum: number
+  maximum: number;
 
-  constructor(options: {} = {}) {
+  constructor(options: {} = {}, otherOptions: { maximum: number }) {
     super(options);
-    this.maximum = options['maximum'] || 10;
+    this.maximum = otherOptions.maximum || 10;
   }
 }

@@ -12,5 +12,5 @@ export class DynamicFormQuestionComponent {
   question: SurveyInputBase<any>;
   @Input()
   form: FormGroup;
-  isValid() { return this.form.controls[this.question.key].valid; }
+  isValid() { return this.form.controls[this.question.id].valid; }
 }

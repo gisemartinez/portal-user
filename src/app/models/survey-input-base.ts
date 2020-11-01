@@ -5,7 +5,6 @@ export class SurveyInputBase<T> {
   required: boolean;
   order: number;
   controlType: string;
-  
   id: string;
 
   constructor(options: {

@@ -43,7 +43,7 @@ export class RadiusRedirectComponent implements OnInit {
 
     let externalUrl = this.externalUrlToRedirectValidation(radiusSearchParams, username, password);
     this.radiusService.callRadiusServer(externalUrl).subscribe((data: SocialLoginResponse) => {
-        this.router.navigate(['/waiting']);
+        this.router.navigate(['/main']);
       }, error => {
         console.log(error)
       }

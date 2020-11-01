@@ -1,9 +1,7 @@
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {authServerBaseUrl} from "../../constants/misc.const";
 import {AuthService} from "../../services/auth.service";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Observable} from "rxjs";
-import {QuestionService} from "../../services/question.service";
 import {ClientConfiguration} from "../../models/client-configuration";
 import {map} from "rxjs/operators";
 

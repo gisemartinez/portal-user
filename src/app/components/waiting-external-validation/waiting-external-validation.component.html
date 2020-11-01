@@ -1,6 +1,13 @@
 
 <header>
   <div class="overlay"></div>
+  <mat-card *ngIf="readyToNavigate">
+    <mat-card-content>
+      Ya podés disfrutar de WIFI!
+    </mat-card-content>
+    <a href="https://www.google.com" class="stretched-link">Ir a google</a>
+  </mat-card>
+
   <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
     <source src="assets/images/draft-san-martin.mp4" type="video/mp4">
   </video>

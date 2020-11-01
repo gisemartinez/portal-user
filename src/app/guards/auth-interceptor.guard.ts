@@ -22,13 +22,13 @@ export class AuthInterceptorGuard implements CanActivate {
             LocalStorageHandler.setClient(state.root.queryParams.client);
             return false;
           } else {
-            if (LocalStorageHandler.validateRadiusCall()) {
-              this.router.navigate(['/waiting']);
+            if (LocalStorageHandler.isRadiusCalled()) {
+              this.router.navigate(['/main']);
               return false;
             } else {
               LocalStorageHandler.ackRadiusCall();
               return true;
             }
-          };
+          }
   }
 }

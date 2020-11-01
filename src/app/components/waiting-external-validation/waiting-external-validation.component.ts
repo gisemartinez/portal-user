@@ -1,8 +1,7 @@
-import {AfterContentInit, AfterViewInit, Component, OnInit} from '@angular/core';
-import * as io from 'socket.io-client';
+import {Component, OnInit} from '@angular/core';
 import {RadiusService} from "../../services/radius.service";
 import {Router} from "@angular/router";
-import {fromEvent} from "rxjs/internal/observable/fromEvent";
+import {LocalStorageHandler} from "../../guards/local-storage-handler";
 
 @Component({
   selector: 'app-waiting-external-validation',
@@ -10,14 +9,16 @@ import {fromEvent} from "rxjs/internal/observable/fromEvent";
   styleUrls: ['./waiting-external-validation.component.css']
 })
 export class WaitingExternalValidationComponent implements OnInit{
+  readyToNavigate:boolean;
 
   constructor(private radiusService: RadiusService, private router: Router) {
+    this.readyToNavigate = LocalStorageHandler.validateRadiusLoginChecked();
     this.radiusService
       .radiusValidation()
       .subscribe((data: any) => {
         console.log(data);
         localStorage.setItem('isRadiusAccepted', 'true');
-        this.router.navigate(['/main']);
+        this.readyToNavigate = true;
       })
   }
 

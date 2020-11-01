@@ -8,7 +8,7 @@ export class LocalStorageHandler {
     return localStorage.getItem('isLoggedIn') == "true"
   }
 
-  public static validateRadiusCall(): boolean {
+  public static isRadiusCalled(): boolean {
     return localStorage.getItem('isRadiusCalled') == "true"
   }
 

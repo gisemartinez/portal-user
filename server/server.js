@@ -63,8 +63,8 @@ io.on('connect', (socket) => {
   });
 
   socket.on('join', function (data) {
-    console.log('joined: '+ JSON.stringify(data))
-    socket.join(data.email);
+    console.log('joined with email: '+ JSON.stringify(data))
+    socket.join(data);
   });
 
   socket.on('client init.sql', function () {

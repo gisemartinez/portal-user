@@ -166,7 +166,8 @@ router.post('/google',
   function ( req, res ){
     persistUserInRadiusDB(req,res).then(result => {
       if ( result ){
-        res.send({ 'username':req.consolidated_profile.email,'token': req.token });
+        let username = result[0].dataValues.username;
+        res.send({ 'username':username,'token': req.token });
       } else {
         res.status(503).send({ 'token': req.token })
       }}).catch(  err => {

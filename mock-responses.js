@@ -105,11 +105,11 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                   'type': 'textbox',
                   'config': {
                     'key': 'textbox',
+                    'otherOptions': {'textType': 'email'},
                     'label': 'Mail de contacto (*)',
                     'required': false,
                     'value': '',
-                    'order': 1,
-                    'otherOptions': {}
+                    'order': 1
                   }
                 },
                 {
@@ -147,8 +147,9 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                   'type': 'textbox',
                   'config': {
                     'key': 'textbox',
+                    'otherOptions': {'textType': 'text'},
                     'label': 'Queres dejarnos alguna sugerencia?',
-                    'value': '..--..',
+                    'value': '..',
                     'order': 4
                   }
                 },
@@ -157,6 +158,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                   'type': 'textbox',
                   'config': {
                     'key': 'textbox',
+                    'otherOptions': {'textType': 'text'},
                     'label': 'Como nos encontraste?',
                     'required': false,
                     'value': 'Redes sociales',

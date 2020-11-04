@@ -49,15 +49,16 @@ const config = {
         secret:'oBU1OUVw42FB7MWt'
       }
     }
-  }
-  /*,
+  },
   production: {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     host: process.env.DB_HOSTNAME,
+    port:'3306',
     dialect: 'mysql',
     migrationStorage : 'json',
+    radiusServer: process.env.RADIUS_SERVER,
     TOKEN_SECRET: process.env.TOKEN_SECRET,
     adminDashboard: process.env.ADMIN_DASHBOARD_URL,
     socialMediaKeys: {
@@ -74,7 +75,7 @@ const config = {
         secret:process.env.LINKEDIN_SECRET
       }
     }
-  }*/
+  }
 };
 
 

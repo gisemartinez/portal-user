@@ -15,12 +15,13 @@ export class SurveyComponent implements OnInit {
   questions: SurveyInputBase<any>[] = [];
   form: FormGroup = new FormGroup({});
   payLoad = '';
-
+  notSocialLogin:boolean = false;
 
   constructor(private qcs: SurveyControlService,  private cdr: ChangeDetectorRef, private questionService: QuestionService) {
     this.questionService.getLoginConfig().subscribe(data => {
       if(!data.isSocialLogin) {
         this.questions = data.surveyQuestions;
+        this.notSocialLogin = true;
       } else {
         this.questions = [];
       }

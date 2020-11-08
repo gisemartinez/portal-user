@@ -18,7 +18,29 @@ export class SocialLoginComponent implements OnInit {
 
 
   portalClient: String;
-  loginEntities: {};
+
+  loginEntities: {
+    google: {
+      color: string,
+      activated: boolean
+    },
+    facebook: {
+      color: string,
+      activated: boolean
+    },
+    instagram: {
+      color: string,
+      activated: boolean
+    },
+    pinterest: {
+      color: string,
+      activated: boolean
+    },
+    twitter: {
+      color: string,
+      activated: boolean
+    }
+  };
 
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, public socialAuthService:SocialLoginService) {
     iconRegistry

@@ -10,8 +10,10 @@ interface EnvConfig {
   database: string;
   host: string;
   dialect: string;
+  port: string;
   migrationStorage : string;
   adminDashboard: string;
+  radiusServer: string;
   TOKEN_SECRET: string;
   socialMediaKeys: {
     facebook:{

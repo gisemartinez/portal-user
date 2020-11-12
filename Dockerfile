@@ -8,7 +8,7 @@ WORKDIR $CACHE
 
 COPY package.json ./
 COPY package-lock.json ./
-RUN npm install -g @angular/cli@10.0.6
+RUN npm install -g @angular/cli@10.2.0
 RUN npm install -g typescript@3.9.7
 RUN npm install -g nodemon@2.0.4
 RUN npm install --save-dev sequelize-cli

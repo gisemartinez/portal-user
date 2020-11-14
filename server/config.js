@@ -55,12 +55,12 @@ const config = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     host: process.env.DB_HOSTNAME,
-    port:'3306',
     dialect: 'mysql',
+    port:'3306',
     migrationStorage : 'json',
+    adminDashboard: process.env.ADMIN_DASHBOARD_URL,
     radiusServer: process.env.RADIUS_SERVER,
     TOKEN_SECRET: process.env.TOKEN_SECRET,
-    adminDashboard: process.env.ADMIN_DASHBOARD_URL,
     socialMediaKeys: {
       facebook:{
         clientId: process.env.FACEBOOK_CLIENT_ID,

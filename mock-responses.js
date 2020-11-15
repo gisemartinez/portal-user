@@ -73,7 +73,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
       }, 1);
       break;
     }
-    case  "municipalidad-sanmartindelosandes" : {
+    case  "shopping-mall" : {
       setTimeout(function () {
         let themeConfigured = {
           'css-colors': 'deeppurple-amber.css',

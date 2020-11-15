@@ -9,8 +9,7 @@ import {social_urls} from "../constants/social_login_keys.const";
 import {LocalStorageHandler} from "../guards/local-storage-handler";
 import {StorageItems} from "../models/storage-items";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs/internal/Observable";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {BehaviorSubject, Observable} from "rxjs";
 
 import {SocialLoginResponse} from "../models/social-login-response";
 

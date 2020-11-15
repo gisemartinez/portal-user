@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {SurveyInputBase} from "../models/survey-input-base";
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {BehaviorSubject} from "rxjs";
 import {LocalStorageHandler} from "../guards/local-storage-handler";
 
 @Injectable()

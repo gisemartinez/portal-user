@@ -4,8 +4,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from '@angular/common';
 import {RadiusService} from "../../services/radius.service";
 import {SocialLoginResponse} from "../../models/social-login-response";
-import * as config from "../../../../server/config.js";
 import {LocalStorageHandler} from "../../guards/local-storage-handler";
+import {environment} from "../../../environments/environment";
 
 
 @Component({
@@ -51,6 +51,6 @@ export class RadiusRedirectComponent implements OnInit {
   }
 
   private externalUrlToRedirectValidation(radiusParams: RadiusSearchparams, username: string, pass: string): string {
-    return config['radiusServer'] + '?ip=' + radiusParams.ip + '&username=' + username + '&password=' + username + '&dst=http://www.frd.utn.edu.ar/'
+    return environment.radius.url + '?ip=' + radiusParams.ip + '&username=' + username + '&password=' + username + '&dst=http://www.frd.utn.edu.ar/'
   }
 }

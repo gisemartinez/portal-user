@@ -5,7 +5,6 @@ import {SurveyInputBase} from "../models/survey-input-base";
 import {SurveyRatebox} from "../models/survey-ratebox";
 import {switchMap, map} from "rxjs/operators";
 import {ActivatedRoute, ParamMap} from "@angular/router";
-import * as config from "../../../server/config";
 import {LocalStorageHandler} from "../guards/local-storage-handler";
 import {HttpClient} from "@angular/common/http";
 import {ClientConfiguration} from "../models/client-configuration";
@@ -13,6 +12,7 @@ import {Observable} from "rxjs";
 import {SurveyRadioQuestion} from "../models/survey-radio-question";
 import {SurveyCheckbox} from "../models/survey-checkbox";
 import {SurveySelector} from "../models/survey-selector";
+import {environment} from "../../environments/environment";
 
 
 @Injectable()
@@ -24,7 +24,7 @@ export class QuestionService {
   getLoginConfig(): Observable<ClientConfiguration> {
     return this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
-        this.http.get(config['adminDashboard'] + '/config/' + LocalStorageHandler.getClient())
+        this.http.get(environment.admin.url + '/config/' + LocalStorageHandler.getClient())
       )).pipe(
       map(data => {
         LocalStorageHandler.setCSSTheme(data['theme']);

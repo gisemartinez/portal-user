@@ -11,6 +11,7 @@ import {ActivatedRoute, ParamMap} from "@angular/router";
 import * as config from "../../../server/config";
 import {LocalStorageHandler} from "../guards/local-storage-handler";
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 
 @Injectable()
@@ -33,7 +34,7 @@ export class AuthService {
   getAuthData(): Observable<ClientConfiguration> {
     return this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
-        this.http.get(config['adminDashboard'] + '/config/' + LocalStorageHandler.getClient())
+        this.http.get(environment.admin.url + '/config/' + LocalStorageHandler.getClient())
       )).pipe(
       map(data => {
         LocalStorageHandler.setCSSTheme(data['theme']);

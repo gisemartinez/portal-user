@@ -7,7 +7,7 @@
     "start": "node server/server.js",
     "debug": "nodemon --inspect=0.0.0.0:56745 server/server.js && ng build --watch",
     "build": "npm run clean && ng build && tsc",
-    "build:prod": "ng build --prod && npm run start",
+    "build:prod": "tsc &&  ng build --prod && npm run start",
     "clean": "rm -rf dist",
     "postinstall": "ngcc",
     "test-watch": "node node_modules/karma/bin/karma start --browsers=Chrome --single-run=false --auto-watch --sourcemaps=true"

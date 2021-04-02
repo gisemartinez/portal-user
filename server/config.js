@@ -8,7 +8,7 @@ const config = {
     dialect: 'mysql',
     port:'3306',
     migrationStorage : 'json',
-    adminDashboard: 'http://mock-server:3003/mock-responses/api/admin',
+    adminDashboard: 'http://mock-server:3003/mock-responses/api',
     radiusServer: 'http://mock-server:3003/mock-responses/radius/login',
     TOKEN_SECRET: 'secret',
     socialMediaKeys: {
@@ -33,7 +33,7 @@ const config = {
     host: '127.0.0.1',
     dialect: 'mysql',
     migrationStorage : 'json',
-    adminDashboard: 'http://localhost:3003/mock-admin/',
+    adminDashboard: 'http://mock-server:3003/mock-responses/api',
     TOKEN_SECRET: 'secret',
     socialMediaKeys: {
       facebook:{

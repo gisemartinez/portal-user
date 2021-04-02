@@ -3,7 +3,7 @@
 
   <div [ngSwitch]="question.controlType">
     <input *ngSwitchCase="'textbox'" [formControlName]="question.id"
-           [id]="question.id" [type]="question.type">
+           [id]="question.id" [type]="question.controlType">
 
     <div *ngSwitchCase="'rating'">
       <ngb-rating [id]="question.id" [max]="question.maximum"
@@ -28,14 +28,11 @@
                [formControlName]="question.id"> {{opt.key}}
       </div>
     </div>
-    <div *ngSwitchCase="'selector'" >
-      <ngb-tabset  *ngFor="let opt of question.options">
-        <ngb-tab [title]="opt.key">
-          <ng-template ngbTabContent>
-            <p>{{opt.value}}</p>
-          </ng-template>
-        </ngb-tab>
-      </ngb-tabset>
+    <div *ngSwitchCase="'selector'">
+      <select [formControlName]="question.id">
+        <option value="" disabled>{{question.key}}</option>
+        <option *ngFor="let opt of question.options" [ngValue]="opt.key">{{opt.key}}</option>
+      </select>
     </div>
   </div>
 

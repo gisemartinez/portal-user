@@ -34,12 +34,20 @@ router.get('/', function (req, res) {
 
 });
 
-router.post('/api/user', function (req, res) {
+router.post('/api/socialmedia', function (req, res) {
   setTimeout(function () {
+    console.log(req.body);
     let token = {"token": Date.now().toString() + "mocked"};
     res.send(token);
   }, 300);
+});
 
+router.post('/api/survey', function (req, res) {
+  setTimeout(function () {
+    console.log(req.body);
+    let token = {"token": Date.now().toString() + "mocked"};
+    res.send(token);
+  }, 300);
 });
 
 router.get('/api/user/:profileEmail', function (req, res) {

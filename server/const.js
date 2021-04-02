@@ -15,7 +15,6 @@ let SOCIAL_LOGIN_STATIC_INFO =
       urlSuffix: '&scope=https://www.googleapis.com/auth/userinfo.profile' +
         '%20profile' +
         '%20email' +
-        '%20https://www.googleapis.com/auth/contacts' +
         '%20https://www.googleapis.com/auth/profile.agerange.read' +
         '%20https://www.googleapis.com/auth/user.birthday.read'+
         '%20https://www.googleapis.com/auth/user.addresses.read' +

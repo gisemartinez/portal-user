@@ -11,6 +11,7 @@ let io = require('socket.io')(server);
 let radiusCall = require('./radius_validator.js')(io);
 let googleAuth = require('./google_auth.js');
 let facebookAuth = require('./fb_auth.js');
+let survey = require('./survey_answers.js');
 const db = require('./db/models');
 
 
@@ -34,7 +35,7 @@ app.get('/assets/:file', (req, res) => {
 
 app.use('/auth', googleAuth);
 app.use('/auth', facebookAuth);
-app.use('/radiuscall', radiusCall);
+app.use('/auth', survey);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));

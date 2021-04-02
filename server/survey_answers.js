@@ -3,78 +3,41 @@ let express = require('express'),
   request = require('request');
 
 const config = require('./config');
-const models = require('./db/models');
-let urls = require('./const');
+const RadCheck = require('./db/models/radcheck');
 
 
-function ensureAuthenticated( req, res, next ){
-  if ( !req.header('Authorization') ){
-    return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
-  }
-  let token = req.header('Authorization').split(' ')[ 1 ];
+//Step 1: Send data from profile to Admin
+function sendProfileInfoToAdmin(req, res, next) {
+  return new Promise(function (resolve, reject) {
+    let url = config['adminDashboard'] + '/survey';
+    let answers = req.body;
+    let identifier = answers['1571507840'];
 
-  let payload = null;
-  try {
-    payload = jwt.decode(token, config[ 'TOKEN_SECRET' ]);
-  }
-  catch ( err ) {
-    return res.status(401).send({ message: err.message });
-  }
-
-  if ( payload.exp <= DateFNS.getUnixTime() ){
-    return res.status(401).send({ message: 'Token has expired' });
-  }
-  req.user = payload.sub;
-  next();
-}
-
-
-function createOneUser( req, res, next ){
-  request.post(
-    config[ 'adminDashboard' ] + '/user',
-    {
-      json: true,
-      body: {
-        'email': req.profile,
-        'surveyAnswers': req.answers
-      }
-    },
-    function ( err, response, user_token ){
-      if ( err ){
-        req.lostInfoForAdmin = true;
-      }
-      next();
-    }
-  );
-}
-
-//Step 3: Send data from profile to Admin
-function sendProfileInfoToAdmin( req, res, next ){
-  return new Promise(function ( resolve,reject ){
-    let url = config[ 'adminDashboard' ] + 'user/' + req.email;
-
-    request.get(
+    request.post(
       url,
-      function ( err, response, user_token ){
-        if ( err ){
-          createOneUser(req, res, next);
-          resolve(err);
-        } else {
-          resolve();
-          next();
+      {
+        json: true,
+        body: {
+          'survey_identifier': identifier, //used to allow radius access
+          'answers': answers
         }
-
+      },
+      function (err, response) {
+        if (err) {
+          reject(err);
+        }
+        next();
       }
     );
   })
 }
 
-//Step 4: Send data to Radius
+//Step 2: Send data to Radius
 function persistUserInRadiusDB( req, res, next ){
-  return models.RadCheck.findOrCreate({
+  return RadCheck.findOrCreate({
     where: {
-      username: req.consolidated_profile.emailAddresses[0].value,
-      value: req.consolidated_profile.etag
+      username: req.body['1571507840'] || 'empty_email',
+      value: 'survey_' + req.body['1571507840']
     }
   }).then(function ( model ){
     req.radius_result = model;
@@ -82,12 +45,12 @@ function persistUserInRadiusDB( req, res, next ){
   })
 }
 
-router.post('/using_survey',
+router.post('/survey',
   sendProfileInfoToAdmin,
   function ( req, res ){
     persistUserInRadiusDB(req,res).then(result => {
       if ( result ){
-        res.send({ 'username':req.email });
+        res.send({ 'username': req.body['1571507840'] });
       } else {
         res.status(503).send({ 'token': req.token })
       }}).catch(  err => {

@@ -73,20 +73,21 @@ function createOneUser(req, res, next) {
 }
 
 
-// Step 1. Exchange authorization code for access token.
+// Step 1. Exchange authorization code for access token with google
 function requestOauthToken(req, res, next) {
   new Promise(function (resolve, reject) {
+    let tokenOauthRequest = createTokenRequest(req.body);
     request.post(
-      urls.google.accessTokenUrl,
+      'https://oauth2.googleapis.com/token',
       {
-        form: createTokenRequest(req.body)
+        form: tokenOauthRequest
       },
-      function obtainAccessToken(err, response, token) {
-        if (err) {
-          reject(err);
+      function (err, response, body) {
+        if (response.statusCode !== 200) {
+          reject(new Error(body));
         } else {
           resolve(req.token);
-          req.token = token;
+          req.token = body;
           next();
         }
       })
@@ -94,7 +95,7 @@ function requestOauthToken(req, res, next) {
 }
 
 
-// Step 2. Retrieve profile information about the current user.
+// Step 2. Retrieve google profile
 function getPublicProfile(req, res, next) {
   return new Promise(function (resolve, reject) {
     request.get(
@@ -125,19 +126,30 @@ function getPublicProfile(req, res, next) {
 //Step 3: Send data from profile to Admin
 function sendProfileInfoToAdmin(req, res, next) {
   return new Promise(function (resolve, reject) {
+    let url = config['adminDashboard'] + '/socialmedia';
     let profile = req.consolidated_profile;
-    let url = config['adminDashboard'] + 'user/' + profile.email;
 
-    request.get(
+    let email = profile['emailAddresses'][0].value;
+    let birthDay  = profile['birthdays'][0].date;
+    let ageRange = profile['ageRanges'][0].ageRange;
+    let gender = profile['genders'];
+
+    request.post(
       url,
-      function (err, response, user_token) {
-        if (err) {
-          createOneUser(req, res, next);
-          resolve(err);
-        } else {
-          resolve();
-          next();
+      {
+        json: true,
+        body: {
+          'email':email,
+          'birthday': birthDay,
+          'ageRange': ageRange,
+          'gender': gender
         }
+      },
+      function (err, response) {
+        if (err) {
+          reject(err);
+        }
+        next();
       }
     );
   })

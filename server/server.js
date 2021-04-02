@@ -2,8 +2,6 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
-const fs = require('fs');
-const promise = require('bluebird');
 const bodyParser = require('body-parser');
 const app = express();
 const server = http.createServer(app);
@@ -36,6 +34,7 @@ app.get('/assets/:file', (req, res) => {
 app.use('/auth', googleAuth);
 app.use('/auth', facebookAuth);
 app.use('/auth', survey);
+app.use('/radiuscall', radiusCall);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../dist/index.html'));
@@ -47,18 +46,7 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
-/**
- * Create HTTP server.
- */
-
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-server.listen(port, () => console.log(`Express server running on localhost:${port}`));
-
-
-io.on('connect', (socket) => {
+io.on('connection', (socket) => {
   console.log('user connected: ' + socket.id);
 
   socket.on('connect', () => {
@@ -66,7 +54,7 @@ io.on('connect', (socket) => {
   });
 
   socket.on('join', function (data) {
-    console.log('joined with email: '+ JSON.stringify(data))
+    console.log('joined to room: '+ JSON.stringify(data))
     socket.join(data);
   });
 
@@ -79,11 +67,16 @@ io.on('connect', (socket) => {
     console.log('user disconnected');
   });
 
-  socket.emit('id', socket.id);// send each client their socket id
+  socket.emit('id', socket.id); // send each client their socket id
 
 });
 
 db.authenticate()
   .then(() => console.log("Database ok"))
   .catch(err => console.log('Error: ' + err));
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+server.listen(port, () => console.log(`Express server running on localhost:${port}`));
 

@@ -10,16 +10,14 @@ const RadCheck = require('./db/models/radcheck');
 function sendProfileInfoToAdmin(req, res, next) {
   return new Promise(function (resolve, reject) {
     let url = config['adminDashboard'] + '/survey';
-    let answers = req.body;
-    let identifier = answers['1571507840'];
 
     request.post(
       url,
       {
         json: true,
         body: {
-          'survey_identifier': identifier, //used to allow radius access
-          'answers': answers
+          'survey_identifier': req.body.identifier, //used to allow radius access
+          'answers': req.body.answers
         }
       },
       function (err, response) {
@@ -36,8 +34,8 @@ function sendProfileInfoToAdmin(req, res, next) {
 function persistUserInRadiusDB( req, res, next ){
   return RadCheck.findOrCreate({
     where: {
-      username: req.body['1571507840'] || 'empty_email',
-      value: 'survey_' + req.body['1571507840']
+      username: req.body.identifier,
+      value: 'survey_' + req.body.identifier
     }
   }).then(function ( model ){
     req.radius_result = model;
@@ -50,9 +48,9 @@ router.post('/survey',
   function ( req, res ){
     persistUserInRadiusDB(req,res).then(result => {
       if ( result ){
-        res.send({ 'username': req.body['1571507840'] });
+        res.send({ 'username': req.body.identifier });
       } else {
-        res.status(503).send({ 'token': req.token })
+        res.status(503).send({ 'token': req.body })
       }}).catch(  err => {
       res.status(503).send({ 'error': err.stack })
     });

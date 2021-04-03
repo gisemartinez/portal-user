@@ -5,9 +5,7 @@ import {SurveyInputBase} from "../models/survey-input-base";
 import {BehaviorSubject} from "rxjs";
 import {LocalStorageHandler} from "../guards/local-storage-handler";
 import {HttpClient} from "@angular/common/http";
-import {SocialLoginResponse} from "../models/social-login-response";
 import {AlertService} from "./alert.service";
-import {SurveyTextBox} from "../models/survey-textbox";
 
 @Injectable()
 export class SurveyControlService {
@@ -18,13 +16,11 @@ export class SurveyControlService {
     return this.surveyAnswered.asObservable()
   }
 
-  constructor(private http: HttpClient,private alertService: AlertService) {
+  constructor(private http: HttpClient, private alertService: AlertService) {
   }
 
   toFormGroup(questions: SurveyInputBase<any>[]) {
     let group: any = {};
-
-    group['username'] = new SurveyTextBox({}, {'textType': 'email'} );
 
     questions.forEach(question => {
       group[question.id] = question.required ? new FormControl(question.value || '', Validators.required)
@@ -34,9 +30,13 @@ export class SurveyControlService {
   }
 
   saveAnswers(form: FormGroup) {
-    this.http.post(authServerBaseUrl+'/auth/survey', form.getRawValue()) .subscribe(_ => {
+    let postData = {
+      identifier: Math.random().toString(36).substring(7),
+      answers: form.getRawValue()
+    }
+    this.http.post(authServerBaseUrl + '/auth/survey', postData).subscribe(_ => {
         LocalStorageHandler.ackSocialLogin();
-        LocalStorageHandler.setUsername(form.get('username').value);//email
+        LocalStorageHandler.setUsername(postData.identifier);
         this.surveyAnswered.next(true);
         window.location.href = localStorage.getItem("cachedurl");
       },

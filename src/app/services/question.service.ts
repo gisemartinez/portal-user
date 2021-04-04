@@ -59,7 +59,7 @@ export class QuestionService {
           'type':obj.type,
           'value': obj.config.value,
           'key': obj.config.key,
-          'label': obj.config.value,
+          'label': obj.config.label,
           'required': obj.config.required,
           'order': obj.config.order
         }

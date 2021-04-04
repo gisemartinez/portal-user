@@ -1,3 +1,9 @@
 div {
   text-align: justify-all;
 }
+
+.survey-radio {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}

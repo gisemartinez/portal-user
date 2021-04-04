@@ -1,24 +1,27 @@
-<div [formGroup]="form">
-  <label [attr.for]="question.id">{{question.label}}</label>
-
-  <div [ngSwitch]="question.controlType">
-    <input *ngSwitchCase="'textbox'" [formControlName]="question.id"
-           [id]="question.id" [type]="question.controlType">
-
+  <div [ngSwitch]="question.controlType" [formGroup]="form">
+    <mat-form-field *ngSwitchCase="'textbox'"
+                    [id]="question.id">
+      <mat-label [attr.for]="question.id">{{question.label}}</mat-label>
+      <input matInput
+             [formControlName]="question.id"
+             [id]="question.id"/>
+    </mat-form-field>
     <div *ngSwitchCase="'rating'">
       <ngb-rating [id]="question.id" [max]="question.maximum"
                   [formControlName]="question.id" [(rate)]="currentRate"></ngb-rating>
       <pre>Rate: <b>{{currentRate}}</b></pre>
     </div>
     <div *ngSwitchCase="'radio'">
-      <div *ngFor="let opt of question.options">
-        <input [type]="'radio'"
-               [id]="question.key"
-               [name]="question.key"
-               [value]="opt.key"
-               [formControlName]="question.id"> {{opt.key}}
-      </div>
+      <mat-label [attr.for]="question.id">{{question.label}}</mat-label>
+      <mat-radio-group [color]="'primary'" [attr.aria-label]="question.label" [formControlName]="question.id"
+                       [id]="question.id" class="survey-radio">
+        <mat-radio-button *ngFor="let opt of question.options"
+                          [id]="opt.key"
+                          [value]="opt.key">{{opt.key}}</mat-radio-button>
+      </mat-radio-group>
+
     </div>
+
     <div *ngSwitchCase="'checkbox'">
       <div *ngFor="let opt of question.options">
         <input [type]="'checkbox'"
@@ -28,13 +31,16 @@
                [formControlName]="question.id"> {{opt.key}}
       </div>
     </div>
-    <div *ngSwitchCase="'selector'">
-      <select [formControlName]="question.id">
-        <option value="" disabled>{{question.key}}</option>
-        <option *ngFor="let opt of question.options" [ngValue]="opt.key">{{opt.key}}</option>
-      </select>
-    </div>
-  </div>
 
-  <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>
-</div>
+    <mat-form-field *ngSwitchCase="'selector'"
+                    [id]="question.id">
+      <mat-label [attr.for]="question.id">{{question.label}}</mat-label>
+      <mat-select [formControlName]="question.id"
+                  [id]="question.id">
+        <mat-option disabled></mat-option>
+        <mat-option *ngFor="let opt of question.options" [value]="opt.key">{{opt.key}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+<div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>
+

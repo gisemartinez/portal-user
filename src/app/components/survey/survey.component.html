@@ -1,13 +1,19 @@
 <div>
+  <div>Survey presentation</div>
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
-
-    <div *ngFor="let question of questions" class="form-row">
-      <app-question [question]="question" [form]="form"></app-question>
-    </div>
-
-    <div class="form-row">
-      <button type="submit" [disabled]="!form.valid">Save</button>
-    </div>
+    <mat-vertical-stepper #stepper linear>
+      <div *ngFor="let question of questions" class="form-row">
+        <mat-step formGroupName="{{question.id}}" [stepControl]="form.get(question.id)">
+          <app-question [question]="question" [form]="form"></app-question>
+          <button *ngIf="question.order > 1" mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </mat-step>
+      </div>
+      <mat-step>
+        <button mat-button type="button" (click)="stepper.reset()">Reset</button>
+        <button mat-button type="submit" [disabled]="!form.valid">Save</button>
+      </mat-step>
+    </mat-vertical-stepper>
   </form>
 
   <div *ngIf="payLoad" class="form-row">

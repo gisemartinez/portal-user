@@ -6,6 +6,7 @@ import {BehaviorSubject} from "rxjs";
 import {LocalStorageHandler} from "../guards/local-storage-handler";
 import {HttpClient} from "@angular/common/http";
 import {AlertService} from "./alert.service";
+import {SurveyCheckbox} from "../models/survey-checkbox";
 
 @Injectable()
 export class SurveyControlService {
@@ -23,8 +24,7 @@ export class SurveyControlService {
     let group: any = {};
 
     questions.forEach(question => {
-      group[question.id] = question.required ? new FormControl(question.value || '', Validators.required)
-        : new FormControl(question.value || '');
+      group[question.id] = question.control;
     });
     return new FormGroup(group);
   }

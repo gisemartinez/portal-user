@@ -86,15 +86,22 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
   exports: [
     CommonModule,
     MatButtonModule,
-    MatToolbarModule,
-    MatIconModule,
     MatCardModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
     MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
     MatMenuModule,
+    MatRadioModule,
+    MatSelectModule,
     MatSidenavModule,
-    MatListModule
+    MatStepperModule,
+    MatToolbarModule
   ]
 
 })
 
-export class MaterialModule {}
+export class MaterialModule {
+}

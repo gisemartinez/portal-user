@@ -106,17 +106,17 @@ router.get('/api/admin/config/:clientId', function (req, res) {
             'login-type': 'survey',
             'survey-form': {
               'id': 'hotel-1',
-              'title': 'Podes obtener conexión a internet de manera gratuita, si nos ayudas con la siguiente encuesta',
+              'title': 'Podes obtener conexión a internet de manera gratuita, si nos ayudás con la siguiente encuesta',
               'fields': [
                 {
                   'id': '1571507840',
                   'type': 'textbox',
                   'config': {
                     'key': 'textbox',
-                    'otherOptions': {'textType': 'email'},
-                    'label': 'Mail de contacto (*)',
-                    'required': false,
-                    'value': '',
+                    'otherOptions': {'textType': 'text'},
+                    'label': 'Lo que quieras describir de nuestro hotel',
+                    'required': true,
+                    'value': 'Recepción, bar, etc',
                     'order': 1
                   }
                 },
@@ -135,7 +135,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                   'type': 'radio',
                   'config': {
                     'key': 'yes-no',
-                    'label': 'Volverias a elegirnos?',
+                    'label': 'Volverias a elegirnos para hospedarte?',
                     'otherOptions': [
                       {
                         'key': 'Sí'
@@ -158,6 +158,7 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                     'otherOptions': {'textType': 'text'},
                     'label': 'Queres dejarnos alguna sugerencia?',
                     'value': '..',
+                    'required': false,
                     'order': 4
                   }
                 },
@@ -177,23 +178,26 @@ router.get('/api/admin/config/:clientId', function (req, res) {
                   'id': '1571508049',
                   'type': 'checkbox',
                   'config': {
-                    'label': 'Volverias a elegirnos?',
+                    'label': 'El vestido era de color',
                     'otherOptions': [
                       {
+                        'index':0,
                         'key': 'Azul'
                       },
                       {
-                        'key': 'No sé'
+                        'index':1,
+                        'key': 'Dorado'
                       },
                       {
-                        'key': 'Puede ser ..'
+                        'index':2,
+                        'key': 'No sé'
                       }
                     ],
                     'order': 6
                   }
                 },
                 {
-                  'id': '1571508049',
+                  'id': '1617627751',
                   'type': 'selector',
                   'config': {
                     'label': 'Volverias a elegirnos?',

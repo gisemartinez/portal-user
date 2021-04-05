@@ -1,46 +1,49 @@
-  <div [ngSwitch]="question.controlType" [formGroup]="form">
-    <mat-form-field *ngSwitchCase="'textbox'"
-                    [id]="question.id">
-      <mat-label [attr.for]="question.id">{{question.label}}</mat-label>
-      <input matInput
-             [formControlName]="question.id"
-             [id]="question.id"/>
-    </mat-form-field>
-    <div *ngSwitchCase="'rating'">
-      <ngb-rating [id]="question.id" [max]="question.maximum"
-                  [formControlName]="question.id" [(rate)]="currentRate"></ngb-rating>
-      <pre>Rate: <b>{{currentRate}}</b></pre>
-    </div>
-    <div *ngSwitchCase="'radio'">
-      <mat-label [attr.for]="question.id">{{question.label}}</mat-label>
-      <mat-radio-group [color]="'primary'" [attr.aria-label]="question.label" [formControlName]="question.id"
-                       [id]="question.id" class="survey-radio">
-        <mat-radio-button *ngFor="let opt of question.options"
-                          [id]="opt.key"
-                          [value]="opt.key">{{opt.key}}</mat-radio-button>
-      </mat-radio-group>
-
-    </div>
-
-    <div *ngSwitchCase="'checkbox'">
-      <div *ngFor="let opt of question.options">
-        <input [type]="'checkbox'"
-               [id]="question.id"
-               [name]="question.key"
-               [value]="opt.key"
-               [formControlName]="question.id"> {{opt.key}}
-      </div>
-    </div>
-
-    <mat-form-field *ngSwitchCase="'selector'"
-                    [id]="question.id">
-      <mat-label [attr.for]="question.id">{{question.label}}</mat-label>
-      <mat-select [formControlName]="question.id"
+<div [ngSwitch]="question.controlType" [formGroup]="form">
+  <mat-form-field *ngSwitchCase="'textbox'"
                   [id]="question.id">
-        <mat-option disabled></mat-option>
-        <mat-option *ngFor="let opt of question.options" [value]="opt.key">{{opt.key}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <mat-label [attr.for]="question.id">{{question.label}}</mat-label>
+    <input matInput
+           [placeholder]="question.value"
+           [formControlName]="question.id"
+           [id]="question.id"/>
+  </mat-form-field>
+  <div *ngSwitchCase="'rating'">
+    <mat-label [attr.for]="question.id">{{question.label}}</mat-label>
+    <br/>
+    <ngb-rating [id]="question.id" [max]="question.maximum"
+                [formControlName]="question.id" [(rate)]="question.value"></ngb-rating>
   </div>
+  <div *ngSwitchCase="'radio'">
+    <mat-label [attr.for]="question.id">{{question.label}}</mat-label>
+    <mat-radio-group [color]="'primary'" [attr.aria-label]="question.label" [formControlName]="question.id"
+                     [id]="question.id" class="survey-radio">
+      <mat-radio-button *ngFor="let opt of question.options"
+                        [id]="opt.key"
+                        [value]="opt.key">{{opt.key}}</mat-radio-button>
+    </mat-radio-group>
+
+  </div>
+
+  <div *ngSwitchCase="'checkbox'" [formGroup]="form.controls[question.id]">
+    <mat-label [attr.for]="question.id">{{question.label}}</mat-label>
+    <div *ngFor="let opt of question.options;let i =index">
+      <mat-checkbox [color]="'primary'"
+                    [formControlName]="i"
+                    [name]="opt.index">
+        {{opt.key}}
+      </mat-checkbox>
+    </div>
+  </div>
+
+  <mat-form-field *ngSwitchCase="'selector'"
+                  [id]="question.id">
+    <mat-label [attr.for]="question.id">{{question.label}}</mat-label>
+    <mat-select [formControlName]="question.id"
+                [id]="question.id">
+      <mat-option disabled></mat-option>
+      <mat-option *ngFor="let opt of question.options" [value]="opt.key">{{opt.key}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
 <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>
 

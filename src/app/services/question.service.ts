@@ -13,6 +13,7 @@ import {SurveyRadioQuestion} from "../models/survey-radio-question";
 import {SurveyCheckbox} from "../models/survey-checkbox";
 import {SurveySelector} from "../models/survey-selector";
 import {environment} from "../../environments/environment";
+import {FormControl, FormGroup} from "@angular/forms";
 
 
 @Injectable()
@@ -50,13 +51,13 @@ export class QuestionService {
       required: boolean,
       value: any,
       order: number,
-      otherOptions:any
+      otherOptions: any
     }
   }]) {
     let questions: SurveyInputBase<any>[] = fields.map(obj => {
         let options = {
           'id': obj.id,
-          'type':obj.type,
+          'type': obj.type,
           'value': obj.config.value,
           'key': obj.config.key,
           'label': obj.config.label,
@@ -69,19 +70,23 @@ export class QuestionService {
             return new SurveyRatebox(options, obj.config.otherOptions);
           }
           case 'textbox' : {
-            return new SurveyTextBox(options,  obj.config.otherOptions)
+            return new SurveyTextBox(options, obj.config.otherOptions)
           }
           case 'radio': {
-            return new SurveyRadioQuestion(options,obj.config.otherOptions)
+            return new SurveyRadioQuestion(options, obj.config.otherOptions)
           }
           case 'checkbox': {
-            return new SurveyCheckbox(options,  obj.config.otherOptions)
+            let controls = {}
+            let groupOpt: [{ index: number, key: string }] = obj.config.otherOptions
+            groupOpt.forEach(c => controls[c.index] = new FormControl(null))
+            let formGroup = new FormGroup(controls);
+            return new SurveyCheckbox(options, obj.config.otherOptions, formGroup)
           }
           case 'selector': {
-            return new SurveySelector(options,  obj.config.otherOptions)
+            return new SurveySelector(options, obj.config.otherOptions)
           }
           default : {
-            return new SurveyRatebox(options,  obj.config.otherOptions)
+            return new SurveyRatebox(options, obj.config.otherOptions)
           }
         }
       }

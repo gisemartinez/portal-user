@@ -1,5 +1,5 @@
 <div>
-  <div>Survey presentation</div>
+  <div>{{surveyIntro}}</div>
   <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <mat-vertical-stepper #stepper linear>
       <div *ngFor="let question of questions" class="form-row">

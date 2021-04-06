@@ -22,26 +22,6 @@ export class QuestionService {
               private route: ActivatedRoute) {
   }
 
-  getLoginConfig(): Observable<ClientConfiguration> {
-    return this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.http.get(environment.admin.url + '/config/' + LocalStorageHandler.getClient())
-      )).pipe(
-      map(data => {
-        LocalStorageHandler.setCSSTheme(data['theme']);
-        let typeOfLogin = data['login-type'];
-        if (typeOfLogin == 'social-login') {
-          let socialLoginKeys = data['social-login-keys'];
-          return new ClientConfiguration(socialLoginKeys, [], typeOfLogin == 'social-login')
-        } else {
-          let surveyForm = data['survey-form'] || {};
-          let questions = this.getQuestions(surveyForm['fields'] || []) || [];
-          let config = new ClientConfiguration([], questions, typeOfLogin == 'social-login');
-          return config;
-        }
-      }));
-  }
-
   getQuestions(fields: [{
     id: string,
     type: string,

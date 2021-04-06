@@ -10,6 +10,7 @@ import {ActivatedRoute, ParamMap} from "@angular/router";
 import {LocalStorageHandler} from "../guards/local-storage-handler";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {ClientConf} from "../models/client-conf";
 
 
 @Injectable()
@@ -19,32 +20,17 @@ export class AuthService {
   constructor(private socialLoginService: SocialLoginService,
               private surveyLoginService: SurveyControlService,
               private questionService: QuestionService, private http: HttpClient,
-              private route: ActivatedRoute) {}
-
-  getIsLoggedIn(client: ClientConfiguration):void{
-    if (client.isSocialLogin) {
-      this.isLoggedIn$ = this.socialLoginService.isLoggedIn;
-    } else {
-      this.isLoggedIn$ = this.surveyLoginService.isSurveyAnswered;
-    }
+              private route: ActivatedRoute) {
   }
-
-  getAuthData(): Observable<ClientConfiguration> {
+  
+  getAuthDataFromClient(): Observable<ClientConf<any>> {
     return this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
+      switchMap(() =>
         this.http.get(environment.admin.url + '/config/' + LocalStorageHandler.getClient())
       )).pipe(
       map(data => {
-        LocalStorageHandler.setCSSTheme(data['theme']);
-        let typeOfLogin = data['login-type'];
-        if (typeOfLogin == 'social-login') {
-          let socialLoginKeys = data['social-login-keys'];
-          return new ClientConfiguration(socialLoginKeys, [], typeOfLogin == 'social-login')
-        } else {
-          let surveyForm = data['survey-form'] || {};
-          let questions = this.questionService.getQuestions(surveyForm['fields'] || []) || [];
-          return new ClientConfiguration([], questions, typeOfLogin == 'social-login');
-        }
+        LocalStorageHandler.setCSSTheme(data['theme']); //maybe not necessary
+        return new ClientConf(data['loginOptions'], data['theme'], data['loginType'], data['template'])
       }));
   };
 

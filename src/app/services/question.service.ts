@@ -3,16 +3,11 @@ import {Injectable} from '@angular/core';
 import {SurveyTextBox} from "../models/survey-textbox";
 import {SurveyInputBase} from "../models/survey-input-base";
 import {SurveyRatebox} from "../models/survey-ratebox";
-import {switchMap, map} from "rxjs/operators";
-import {ActivatedRoute, ParamMap} from "@angular/router";
-import {LocalStorageHandler} from "../guards/local-storage-handler";
+import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
-import {ClientConfiguration} from "../models/client-configuration";
-import {Observable} from "rxjs";
 import {SurveyRadioQuestion} from "../models/survey-radio-question";
 import {SurveyCheckbox} from "../models/survey-checkbox";
 import {SurveySelector} from "../models/survey-selector";
-import {environment} from "../../environments/environment";
 import {FormControl, FormGroup} from "@angular/forms";
 
 

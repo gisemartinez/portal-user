@@ -5,8 +5,7 @@ import {QuestionService} from "./question.service";
 import {BehaviorSubject, Observable} from "rxjs";
 import {authServerBaseUrl} from "../constants/misc.const";
 import {map, switchMap} from "rxjs/operators";
-import {ClientConfiguration} from "../models/client-configuration";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {LocalStorageHandler} from "../guards/local-storage-handler";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
@@ -22,7 +21,7 @@ export class AuthService {
               private questionService: QuestionService, private http: HttpClient,
               private route: ActivatedRoute) {
   }
-  
+
   getAuthDataFromClient(): Observable<ClientConf<any>> {
     return this.route.paramMap.pipe(
       switchMap(() =>
@@ -46,5 +45,4 @@ export class AuthService {
       "authEndpoint": authServerBaseUrl + "/auth/google"
     }
   }
-
 }

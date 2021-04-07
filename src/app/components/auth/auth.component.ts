@@ -2,11 +2,9 @@ import {Component} from "@angular/core";
 import {authServerBaseUrl} from "../../constants/misc.const";
 import {AuthService} from "../../services/auth.service";
 import {Observable} from "rxjs";
-import {ClientConfiguration} from "../../models/client-configuration";
 import {map} from "rxjs/operators";
 import {SocialLoginService} from "../../services/social-login.service";
 import {SurveyControlService} from "../../services/survey-control-service";
-import {ClientConf} from "../../models/client-conf";
 
 
 @Component({

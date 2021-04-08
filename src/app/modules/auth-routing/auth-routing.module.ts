@@ -5,7 +5,7 @@ import {AuthInterceptorGuard} from "../../guards/auth-interceptor.guard";
 import {PreloadSelectedModules} from "./selective-preload-strategy";
 import {SocialLoginService} from "../../services/social-login.service";
 import {AlertService} from "../../services/alert.service";
-import {WaitingExternalValidationComponent} from "../../components/waiting-external-validation/waiting-external-validation.component";
+import {ClientLandingComponent} from "../../components/client-landing/client-landing.component";
 import {RadiusRedirectComponent} from "../../components/radius-redirect/radius-redirect.component";
 import {RadiusService} from "../../services/radius.service";
 import {CarouselComponent} from "../../components/carousel/carousel.component";
@@ -21,7 +21,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'main',
-    component: WaitingExternalValidationComponent
+    component: ClientLandingComponent
   },
   {
     path: 'login/:clientId',

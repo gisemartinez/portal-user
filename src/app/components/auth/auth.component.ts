@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 import {SocialLoginService} from "../../services/social-login.service";
 import {SurveyControlService} from "../../services/survey-control-service";
+import {LocalStorageHandler} from "../../guards/local-storage-handler";
 
 
 @Component({
@@ -23,6 +24,8 @@ export class AuthComponent {
 
     this.authService.getAuthDataFromClient().subscribe(data => {
       this.socialLogin = data.loginType == 'social-login';
+      LocalStorageHandler.setCSSTheme(data.theme);
+      LocalStorageHandler.setTemplate(data.template);
       if (this.socialLogin) {
         this.authConf = this.config //replace me!
         this.notLoggedIn$ = this.socialLoginService.isLoggedIn.pipe(map(v => !v));
@@ -46,5 +49,4 @@ export class AuthComponent {
       "authEndpoint": authServerBaseUrl + "/auth/google"
     }
   }
-
 }

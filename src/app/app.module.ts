@@ -5,7 +5,7 @@ import {AppComponent} from './app.component';
 import {SocialLoginComponent} from './components/social-login/social-login.component';
 import {AuthRoutingModule} from "./modules/auth-routing/auth-routing.module";
 import {AuthComponent} from "./components/auth/auth.component";
-import {WaitingExternalValidationComponent} from "./components/waiting-external-validation/waiting-external-validation.component";
+import {ClientLandingComponent} from "./components/client-landing/client-landing.component";
 import {RadiusRedirectComponent} from "./components/radius-redirect/radius-redirect.component";
 import {HttpClientModule} from "@angular/common/http";
 import {CarouselComponent} from "./components/carousel/carousel.component";
@@ -34,7 +34,7 @@ import {MaterialModule} from "./material.module";
     SocialLoginComponent,
     AuthComponent,
     RadiusRedirectComponent,
-    WaitingExternalValidationComponent,
+    ClientLandingComponent,
     CarouselComponent,
     SurveyComponent,
     DynamicFormQuestionComponent,

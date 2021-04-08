@@ -3,7 +3,6 @@ import {FormGroup} from '@angular/forms';
 import {SurveyControlService} from "../../services/survey-control-service";
 import {SurveyInputBase} from "../../models/survey-input-base";
 import {QuestionService} from "../../services/question.service";
-import {ClientConf} from "../../models/client-conf";
 
 @Component({
   selector: 'app-survey',
@@ -39,10 +38,10 @@ export class SurveyComponent implements OnInit {
   constructor(private qcs: SurveyControlService, private cdr: ChangeDetectorRef, private questionService: QuestionService) {}
 
   ngOnInit() {
-    this.cdr.detectChanges();
     this.questions = this.questionService.getQuestions(this.formConfig.surveyForm.fields)
     this.surveyIntro = this.formConfig.surveyForm.title
     this.form = this.qcs.toFormGroup(this.questions);
+    this.cdr.detectChanges();
   }
 
   onSubmit() {

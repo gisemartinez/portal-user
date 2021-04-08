@@ -28,7 +28,6 @@ export class AuthService {
         this.http.get(environment.admin.url + '/config/' + LocalStorageHandler.getClient())
       )).pipe(
       map(data => {
-        LocalStorageHandler.setCSSTheme(data['theme']); //maybe not necessary
         return new ClientConf(data['loginOptions'], data['theme'], data['loginType'], data['template'])
       }));
   };

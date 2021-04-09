@@ -229,8 +229,8 @@ router.get('/api/admin/config/:clientId', function (req, res) {
       );
       break;
     }
-    case null: {
-      res.status(404).send({'error': 'client not defined'})
+    default: {
+      res.status(503).send({'error': "client id:" + req.params.clientId + " isn't defined"})
     }
   }
 })

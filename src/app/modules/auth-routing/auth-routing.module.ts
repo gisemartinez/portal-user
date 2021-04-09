@@ -26,10 +26,6 @@ export const appRoutes: Routes = [
   {
     path: 'login/:clientId',
     component: AuthComponent
-  },
-  {
-    path: 'home',
-    component: CarouselComponent
   }
 ];
 

@@ -22,14 +22,14 @@ export class AuthService {
               private route: ActivatedRoute) {
   }
 
+  setLoginListener(listener: Observable<boolean>): void {
+    this.isLoggedIn$ = listener
+  }
+
   getAuthDataFromClient(): Observable<ClientConf<any>> {
-    return this.route.paramMap.pipe(
-      switchMap(() =>
-        this.http.get(environment.admin.url + '/config/' + LocalStorageHandler.getClient())
-      )).pipe(
-      map(data => {
-        return new ClientConf(data['loginOptions'], data['theme'], data['loginType'], data['template'])
-      }));
+    return this.http.get(environment.admin.url + '/config/' + LocalStorageHandler.getClient())
+      .pipe(map(data => new ClientConf(data['loginOptions'], data['theme'], data['loginType'], data['template']))
+      )
   };
 
   public config = {

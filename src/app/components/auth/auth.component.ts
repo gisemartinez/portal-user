@@ -6,6 +6,7 @@ import {map} from "rxjs/operators";
 import {SocialLoginService} from "../../services/social-login.service";
 import {SurveyControlService} from "../../services/survey-control-service";
 import {LocalStorageHandler} from "../../guards/local-storage-handler";
+import {AlertService} from "../../services/alert.service";
 
 
 @Component({
@@ -18,7 +19,7 @@ export class AuthComponent {
   notLoggedIn$: Observable<boolean>;
   authConf: any
 
-  constructor(private authService: AuthService, private socialLoginService: SocialLoginService, private surveyLoginService: SurveyControlService) {
+  constructor(private authService: AuthService, private socialLoginService: SocialLoginService, private surveyLoginService: SurveyControlService, private alertService: AlertService) {
     //TODO: check if this can be improved
     this.notLoggedIn$ = this.authService.isLoggedIn$.pipe(map(v => !v));
 
@@ -26,6 +27,7 @@ export class AuthComponent {
       this.socialLogin = data.loginType == 'social-login';
       LocalStorageHandler.setCSSTheme(data.theme);
       LocalStorageHandler.setTemplate(data.template);
+
       if (this.socialLogin) {
         this.authConf = this.config //replace me!
         this.notLoggedIn$ = this.socialLoginService.isLoggedIn.pipe(map(v => !v));
@@ -33,7 +35,10 @@ export class AuthComponent {
         this.authConf = data.loginOptions
         this.notLoggedIn$ = this.surveyLoginService.isSurveyAnswered.pipe(map(v => !v));
       }
-    });
+    },
+      error => {
+        this.alertService.error(JSON.stringify(error));
+      });
   }
 
 //this can be replaced by conf.loginopt.keys

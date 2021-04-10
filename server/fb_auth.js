@@ -149,7 +149,7 @@ function sendProfileInfoToAdmin(req, res, next) {
 //Step 4: Send data to Radius
 function persistUserInRadiusDB(req, res, next) {
 
-  return adCheck.findOrCreate({
+  return RadCheck.findOrCreate({
     where: {
       username: req.consolidated_profile.email,
       value: req.consolidated_profile.id

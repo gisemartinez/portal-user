@@ -6,6 +6,7 @@ const app = express();
 const bodyParser = require('body-parser');
 
 const async = require("async");
+const Client = require('./server/db/models/client');
 
 app.use(bodyParser.json());
 

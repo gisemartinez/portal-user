@@ -1,0 +1,18 @@
+
+::ng-deep app-client-landing {
+  width: 100%;
+  height: 100vh;
+}
+
+::ng-deep app-client-landing main {
+  height: 100%;
+}
+
+::ng-deep app-client-landing main > div {
+  height: 100%;
+}
+
+::ng-deep iframe {
+  height: 100%;
+  width: 100vw;
+}

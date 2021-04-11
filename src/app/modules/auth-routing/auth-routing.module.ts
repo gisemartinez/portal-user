@@ -9,6 +9,7 @@ import {ClientLandingComponent} from "../../components/client-landing/client-lan
 import {RadiusRedirectComponent} from "../../components/radius-redirect/radius-redirect.component";
 import {RadiusService} from "../../services/radius.service";
 import {CarouselComponent} from "../../components/carousel/carousel.component";
+import {ClientLandingService} from "../../services/client-landing.service";
 
 
 /*CuppaLabs*/

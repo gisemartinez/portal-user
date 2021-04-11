@@ -26,7 +26,6 @@ export class AuthComponent {
     this.authService.getAuthDataFromClient().subscribe(data => {
       this.socialLogin = data.loginType == 'social-login';
       LocalStorageHandler.setCSSTheme(data.theme);
-      LocalStorageHandler.setTemplate(data.template);
 
       if (this.socialLogin) {
         this.authConf = this.config //replace me!

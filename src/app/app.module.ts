@@ -27,6 +27,7 @@ import {CdkTreeModule} from "@angular/cdk/tree";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MaterialModule} from "./material.module";
+import {ClientLandingService} from "./services/client-landing.service";
 
 @NgModule({
   declarations: [
@@ -58,9 +59,11 @@ import {MaterialModule} from "./material.module";
     ReactiveFormsModule,
     ScrollingModule
   ],
-  providers: [SurveyControlService, AuthService, QuestionService, SocialLoginService],
+  providers: [SurveyControlService, AuthService, QuestionService, SocialLoginService, ClientLandingService,
+  ],
   bootstrap: [AppComponent]
 })
 
 
-export class AppModule { }
+export class AppModule {
+}

@@ -42,7 +42,7 @@ CREATE TABLE
 INSERT INTO landing_template
 VALUES ('template-1', 'Products description with photos and text');
 INSERT INTO landing_template
-VALUES ('template-2', 'Carrousel with photos. Small `about us`');
+VALUES ('template-2', 'Iframe holding client own web');
 
 INSERT INTO client
 VALUES ('hotel-1', 'Example client. Fixed to look like a hotel');
@@ -57,6 +57,13 @@ VALUES ('83bfedd1-5467-408c-86d3-146e1d9275ed', 'hotel-1', 'template-2', '
   "leftColumn": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis at consectetur lorem donec massa. Non consectetur a erat nam at lectus urna duis. Quis blandit turpis cursus in hac. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Tristique senectus et netus et malesuada fames ac turpis. Dolor morbi non arcu risus quis varius quam quisque. Fames ac turpis egestas maecenas pharetra convallis posuere morbi. Sed augue lacus viverra vitae congue eu consequat ac. Curabitur vitae nunc sed velit dignissim. At lectus urna duis convallis convallis tellus id. Consequat ac felis donec et odio pellentesque diam.",
   "middleColumn": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis at consectetur lorem donec massa. Non consectetur a erat nam at lectus urna duis. Quis blandit turpis cursus in hac. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Tristique senectus et netus et malesuada fames ac turpis. Dolor morbi non arcu risus quis varius quam quisque. Fames ac turpis egestas maecenas pharetra convallis posuere morbi. Sed augue lacus viverra vitae congue eu consequat ac. Curabitur vitae nunc sed velit dignissim. At lectus urna duis convallis convallis tellus id. Consequat ac felis donec et odio pellentesque diam.",
   "rightColumn": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis at consectetur lorem donec massa. Non consectetur a erat nam at lectus urna duis. Quis blandit turpis cursus in hac. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Tristique senectus et netus et malesuada fames ac turpis. Dolor morbi non arcu risus quis varius quam quisque. Fames ac turpis egestas maecenas pharetra convallis posuere morbi. Sed augue lacus viverra vitae congue eu consequat ac. Curabitur vitae nunc sed velit dignissim. At lectus urna duis convallis convallis tellus id. Consequat ac felis donec et odio pellentesque diam."
+}');
+
+INSERT INTO client_landing
+VALUES ('11111111-5467-408c-86d3-146e1d9275ed', 'shopping-mall', 'template-1', '
+{
+  "iframeURL": "https://fabianadaversa.com/",
+  "title":"Iframe title"
 }');
 
 -- Related inserts to auth data are kept locally

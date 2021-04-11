@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {RadiusService} from "../../services/radius.service";
-import {Router} from "@angular/router";
 import {LocalStorageHandler} from "../../guards/local-storage-handler";
-import {AuthService} from "../../services/auth.service";
+import {ClientLandingService} from "../../services/client-landing.service";
+import {AlertService} from "../../services/alert.service";
 
 @Component({
   selector: 'app-client-landing',
@@ -12,10 +12,26 @@ import {AuthService} from "../../services/auth.service";
 export class ClientLandingComponent implements OnInit {
   readyToNavigate: boolean;
   template: string;
+  templateConfig: {
+    leftColumn?: string,
+    middleColumn?: string,
+    rightColumn?: string,
+    iframeURL?: string,
+    iframeTitle?: string
+  }
 
-  constructor(private radiusService: RadiusService, private router: Router, private authService: AuthService) {
+  constructor(private radiusService: RadiusService, private landingService: ClientLandingService, private alertService: AlertService) {
+    this.landingService.getLandingDataFromClient().subscribe(
+      data => {
+        this.template = data.template
+        this.templateConfig = data.landingChoices
+      },
+      error => {
+        this.alertService.error(JSON.stringify(error));
+      }
+    )
+
     this.readyToNavigate = LocalStorageHandler.validateRadiusLoginChecked();
-    this.template = LocalStorageHandler.getTemplate()
 
     this.radiusService
       .radiusValidation()

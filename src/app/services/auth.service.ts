@@ -4,12 +4,12 @@ import {SurveyControlService} from "./survey-control-service";
 import {QuestionService} from "./question.service";
 import {BehaviorSubject, Observable} from "rxjs";
 import {authServerBaseUrl} from "../constants/misc.const";
-import {map, switchMap} from "rxjs/operators";
+import {map} from "rxjs/operators";
 import {ActivatedRoute} from "@angular/router";
 import {LocalStorageHandler} from "../guards/local-storage-handler";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {ClientConf} from "../models/client-conf";
+import {ClientAuthConf} from "../models/client-auth-conf";
 
 
 @Injectable()
@@ -18,30 +18,19 @@ export class AuthService {
 
   constructor(private socialLoginService: SocialLoginService,
               private surveyLoginService: SurveyControlService,
-              private questionService: QuestionService, private http: HttpClient,
-              private route: ActivatedRoute) {
+              private questionService: QuestionService, private http: HttpClient) {
   }
 
   setLoginListener(listener: Observable<boolean>): void {
     this.isLoggedIn$ = listener
   }
 
-  getAuthDataFromClient(): Observable<ClientConf<any>> {
-    return this.http.get(environment.admin.url + '/config/' + LocalStorageHandler.getClient())
-      .pipe(map(data => new ClientConf(data['loginOptions'], data['theme'], data['loginType'], data['template']))
+  getAuthDataFromClient(): Observable<ClientAuthConf<any>> {
+    return this.http.get(environment.server + '/conf/clientAuth/' + LocalStorageHandler.getClient())
+      .pipe(map(result => {
+          let data = result['data']
+          return new ClientAuthConf(data['loginTypeOptions'], data['theme'], data['loginType'])
+        })
       )
   };
-
-  public config = {
-
-    "linkedin": {
-      "authEndpoint": authServerBaseUrl + "/auth/linkedin"
-    },
-    "facebook": {
-      "authEndpoint": authServerBaseUrl + "/auth/facebook"
-    },
-    "google": {
-      "authEndpoint": authServerBaseUrl + "/auth/google"
-    }
-  }
 }

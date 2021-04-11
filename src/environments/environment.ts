@@ -7,21 +7,7 @@ export const environment = {
   production: false,
   server: 'http://localhost:3000',
   api: {
-    url: 'http://localhost:3000',
-    socialMediaKeys: {
-      facebook: {
-        clientId: '131065570894352',
-        secret: 'a74151d55bae152570b3a0e8874086db'
-      },
-      google: {
-        clientId: '612883061882-hkbrnj033g9eg59t9iaoo4dernuiv7vf.apps.googleusercontent.com',
-        secret: '6MaQVEA21221qQoi-yDrD5k8'
-      },
-      linkedin: {
-        clientId: '7795dtgk291ni1',
-        secret: 'oBU1OUVw42FB7MWt'
-      }
-    }
+    url: 'http://localhost:3000'
   },
   admin: {
     url: 'http://mock-server:3003/mock-responses/api/admin'

@@ -26,12 +26,10 @@ export class AuthComponent {
     this.authService.getAuthDataFromClient().subscribe(data => {
       this.socialLogin = data.loginType == 'social-login';
       LocalStorageHandler.setCSSTheme(data.theme);
-
+      this.authConf = data.loginOptions
       if (this.socialLogin) {
-        this.authConf = this.config //replace me!
         this.notLoggedIn$ = this.socialLoginService.isLoggedIn.pipe(map(v => !v));
       } else {
-        this.authConf = data.loginOptions
         this.notLoggedIn$ = this.surveyLoginService.isSurveyAnswered.pipe(map(v => !v));
       }
     },

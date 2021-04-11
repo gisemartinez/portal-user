@@ -14,7 +14,14 @@ export class SocialLoginComponent implements OnInit {
   ngOnInit(): void {}
 
   @Input()
-  authConfig: any;
+  authConfig: {
+    socialMediaKeys: {
+      [key: string]: {
+        clientId: string,
+        secret: string
+      }
+    }
+  };
 
 
   portalClient: String;

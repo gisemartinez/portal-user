@@ -2,7 +2,7 @@
 
 <div class="container text center pt-4 auth">
   <div class="rowlead" *ngIf="notLoggedIn$">
-    <app-social-login *ngIf="socialLogin" [authConfig]="config"></app-social-login>
+    <app-social-login *ngIf="socialLogin" [authConfig]="authConf"></app-social-login>
     <app-survey *ngIf="!socialLogin" [formConfig]="authConf"></app-survey>
   </div>
 </div>

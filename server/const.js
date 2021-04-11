@@ -60,8 +60,11 @@ let SOCIAL_LOGIN_STATIC_INFO =
       accessTokenUrl: '',
       peopleApiUrl: '',
       googlePlus: '',//{UserId}
-      loginDialogUrl: 'https://www.linkedin.com/oauth/v2/authorization?client_id=',
-      urlSuffix: '&response_type=code'
+      loginDialog: {
+        url: 'https://www.linkedin.com/oauth/v2/authorization?client_id=',
+        suffix: '&response_type=code'
+      },
+
     }
   };
 

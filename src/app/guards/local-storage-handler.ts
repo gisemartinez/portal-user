@@ -36,16 +36,20 @@ export class LocalStorageHandler {
     return localStorage.getItem('username');
   }
 
-  public static setCalledUrlWithParameters(url: string) {
+  public static setCachedUrl(url: string) {
     localStorage.setItem('cachedurl', url);
   }
 
-  public static getCalledUrlWithParameters(): string {
+  public static getCachedUrl(): string {
     return localStorage.getItem('cachedurl');
   }
 
   public static setToken(token: string) {
     localStorage.setItem('token', token);
+  }
+
+  public static getToken(): string  {
+    return localStorage.getItem('token');
   }
 
   public static setLoginSelection(authConfig, provider) {
@@ -67,8 +71,8 @@ export class LocalStorageHandler {
     localStorage.setItem('css-theme', theme);
   }
 
-  public static getCSSTheme() {
-    localStorage.getItem('css-theme');
+  public static getCSSTheme(): string  {
+    return localStorage.getItem('css-theme');
   }
 
   public static setClient(clientId: string) {
@@ -85,5 +89,13 @@ export class LocalStorageHandler {
 
   public static getTemplate(): string {
     return localStorage.getItem('template');
+  }
+
+  public static setProvider(provider: string) {
+    localStorage.setItem('provider', provider);
+  }
+
+  public static getProvider(): string {
+    return localStorage.getItem('provider');
   }
 }

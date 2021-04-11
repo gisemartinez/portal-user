@@ -12,9 +12,9 @@ export class AuthInterceptorGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot,
               state: RouterStateSnapshot) {
-    let calledUrl = LocalStorageHandler.getCalledUrlWithParameters();
+    let calledUrl = LocalStorageHandler.getCachedUrl();
     if (!calledUrl || calledUrl.length == 0) {
-      LocalStorageHandler.setCalledUrlWithParameters(state.url);
+      LocalStorageHandler.setCachedUrl(state.url);
     }
 
           if (!LocalStorageHandler.validateLogin()) {

@@ -39,6 +39,20 @@ CREATE TABLE
     FOREIGN KEY (client_id) REFERENCES client (client_id)
 ) ENGINE = INNODB;
 
+CREATE TABLE
+    client_social_media_collected_data
+(
+    unique_id          varchar(36) NOT NULL,
+    client_id          varchar(36) NOT NULL,
+    visitor_identifier varchar(25) NOT NULL,
+    profile_data       json        NOT NULL,
+    createdAt          datetime    NOT NULL,
+    updatedAt          datetime,
+    PRIMARY KEY (unique_id),
+    FOREIGN KEY (client_id) REFERENCES client (client_id)
+) ENGINE = INNODB;
+
+
 INSERT INTO landing_template
 VALUES ('template-1', 'Products description with photos and text');
 INSERT INTO landing_template
@@ -63,7 +77,7 @@ INSERT INTO client_landing
 VALUES ('11111111-5467-408c-86d3-146e1d9275ed', 'shopping-mall', 'template-1', '
 {
   "iframeURL": "https://fabianadaversa.com/",
-  "title":"Iframe title"
+  "title": "Iframe title"
 }');
 
 -- Related inserts to auth data are kept locally

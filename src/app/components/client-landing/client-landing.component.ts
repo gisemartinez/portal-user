@@ -3,6 +3,7 @@ import {RadiusService} from "../../services/radius.service";
 import {LocalStorageHandler} from "../../guards/local-storage-handler";
 import {ClientLandingService} from "../../services/client-landing.service";
 import {AlertService} from "../../services/alert.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-client-landing',
@@ -19,12 +20,17 @@ export class ClientLandingComponent implements OnInit {
     iframeURL?: string,
     iframeTitle?: string
   }
+  iframeURL?:any
 
-  constructor(private radiusService: RadiusService, private landingService: ClientLandingService, private alertService: AlertService) {
+  constructor(private radiusService: RadiusService,
+              private landingService: ClientLandingService,
+              private alertService: AlertService,
+              private sanitizer: DomSanitizer) {
     this.landingService.getLandingDataFromClient().subscribe(
       data => {
         this.template = data.template
         this.templateConfig = data.landingChoices
+        this.iframeURL = this.sanitizer.bypassSecurityTrustResourceUrl(data.landingChoices.iframeURL)
       },
       error => {
         this.alertService.error(JSON.stringify(error));
@@ -44,6 +50,4 @@ export class ClientLandingComponent implements OnInit {
 
   ngOnInit() {
   }
-
-
 }

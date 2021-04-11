@@ -12,6 +12,7 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 
 import {SocialLoginResponse} from "../models/social-login-response";
+import {authServerBaseUrl} from "../constants/misc.const";
 
 @Injectable()
 export class SocialLoginService {
@@ -93,7 +94,9 @@ export class SocialLoginService {
 
 
   login(): Observable<Object> {
-    return this.http.post(this.authEndpoint, this.socialLoginConfig);
+    let url = authServerBaseUrl + "/auth/socialLogin/" + LocalStorageHandler.getClient() + "/" + this.socialLoginConfig.provider
+    return this.http.post(
+      url, this.socialLoginConfig);
   }
 
   private handleError(error: any): Promise<any> {

@@ -78,10 +78,12 @@ function createOneUser(req, res, next) {
 // Step 1. Exchange authorization code for access token.
 function requestOauthToken(req, res, next) {
   new Promise(function (resolve, reject) {
-    request.post(
+    request.get(
       urls.facebook.accessTokenUrl,
       {
-        form: createTokenRequest(req.body)
+        qs: {
+
+        }
       },
       function obtainAccessToken(err, response, token) {
         if (err) {

@@ -9,8 +9,10 @@ let io = require('socket.io')(server);
 let radiusCall = require('./radius_validator.js')(io);
 let googleAuth = require('./google_auth.js');
 let facebookAuth = require('./fb_auth.js');
+let socialLoginAuth = require('./social_login_auth');
 let survey = require('./survey_answers.js');
 let clientConf = require('./client_conf.js');
+let visitors = require('./visitors_collected_data');
 const db = require('./db/models');
 
 
@@ -34,7 +36,9 @@ app.get('/assets/:file', (req, res) => {
 
 app.use('/auth', googleAuth);
 app.use('/auth', facebookAuth);
+app.use('/auth', socialLoginAuth);
 app.use('/auth', survey);
+app.use('/visitors', visitors);
 app.use('/radiuscall', radiusCall);
 app.use('/conf', clientConf);
 

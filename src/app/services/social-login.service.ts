@@ -79,20 +79,17 @@ export class SocialLoginService {
   public auth(provider: string, authConfig: {
     socialMediaKeys: {
       [key: string]: {
-        clientId: string,
-        secret: string
+        clientId: string
       }
     }
   }): void {
     LocalStorageHandler.setProvider(provider)
     if (!LocalStorageHandler.validateLogin()) {
-      let externalLoginPageURL = social_urls[provider].url +
-        authConfig.socialMediaKeys[provider]['clientId'] +
+      window.location.href = social_urls[provider].url +
+        authConfig.socialMediaKeys[provider].clientId +
         '&redirect_uri=' +
         this.redirectUrl + LocalStorageHandler.getClient() +
         social_urls[provider].urlSuffix
-
-      window.location.href = externalLoginPageURL
     } else {
       window.location.href = LocalStorageHandler.getCachedUrl();
     }

@@ -3,7 +3,7 @@ let SOCIAL_LOGIN_STATIC_INFO =
     facebook: {
       loginDialog: {
         url: 'https://www.facebook.com/v2.11/dialog/oauth?client_id=',
-        suffix: '&scope=email',
+        suffix: '&scope=user_birthday, user_hometown, user_likes, user_gender, user_age_range, email, pages_show_list, public_profile',
       },//step0
       accessToken: {
         url: 'https://graph.facebook.com/v10.0/oauth/access_token',
@@ -11,8 +11,15 @@ let SOCIAL_LOGIN_STATIC_INFO =
         method: 'GET'
       },
       profile: {
-        url: 'https://graph.facebook.com/v10.0/',
-        header: 'access_token'
+        url: 'https://graph.facebook.com/v10.0/me',
+        params: function (accessToken) {
+          return {'access_token': accessToken}
+        },
+        header: () => {
+        },
+        convertProfile: (profile) => {
+          return {visitorIdentifier: profile.id, value: profile.name, rawData: profile}
+        }
       }
     },
     google: {
@@ -37,7 +44,16 @@ let SOCIAL_LOGIN_STATIC_INFO =
       },
       profile: {
         url: 'https://people.googleapis.com/v1/people/me',
-        fields: 'names,emailAddresses,ageRanges,birthdays,genders,interests,residences'
+        fields: 'names,emailAddresses,ageRanges,birthdays,genders,interests,residences',
+        params: function () {
+          return {'personFields': 'names,emailAddresses,ageRanges,birthdays,genders,interests,residences'}
+        },
+        header: function (accessToken) {
+          return {'authorization': 'Bearer ' + accessToken}
+        },
+        convertProfile: (profile) => {
+          return {visitorIdentifier: profile.resourceName, value: profile.etag, rawData: profile}
+        }
       },
       profileUrl: 'https://people.googleapis.com/v1/people/me',
       accessTokenUrl: 'https://oauth2.googleapis.com/token',

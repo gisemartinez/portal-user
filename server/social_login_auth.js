@@ -11,14 +11,8 @@ const ClientDataCollector = require('./db/models/client_social_media_collected_d
 let staticProvidersInfo = require('./const');
 
 
-function googleHeader(req) {
-  let accessToken = JSON.parse(req.body.token).access_token;
-  let headers = {'authorization': 'Bearer ' + accessToken};
-  return headers;
-}
-
 //Step 1: Fetch social login options
-function getClientAuthConf(req, res, next) {
+function getClientAuthConf(req) {
   return new Promise(function (resolve, reject) {
     ClientAuth.findOne({
       where: {
@@ -26,13 +20,13 @@ function getClientAuthConf(req, res, next) {
         loginType: 'social-login'
       }
     }).then(function (model) {
-      if (model == null) {
-        reject(new Error("Client " + req.params.clientId + "doesn't have a social login configuration"));
+        if (model == null) {
+          reject(new Error("Client " + req.params.clientId + "doesn't have a social login configuration"));
+        } else {
+          resolve({...req, config: model.dataValues});
+        }
       }
-      resolve();
-
-      next(model.dataValues);
-    })
+    )
   })
 }
 
@@ -41,9 +35,9 @@ function getClientAuthConf(req, res, next) {
 // > provider keys
 // > code received after user Accepts the profile access
 // > redirectUri
-function requestAuthToken(data, req, res, next) {
+function requestAuthToken(req) {
 
-  let clientKeys = data.loginTypeOptions.socialMediaKeys[req.params.provider] //secret,clientId
+  let clientKeys = req.config.loginTypeOptions.socialMediaKeys[req.params.provider] //secret,clientId
   let accessToken = staticProvidersInfo[req.params.provider].accessToken;
 
   let tokenOauthRequest = {
@@ -62,10 +56,9 @@ function requestAuthToken(data, req, res, next) {
           {qs: tokenOauthRequest},
           function (err, params, token) {
             if (params.statusCode !== 200) {
-              reject(new Error(body));
+              reject(new Error(req.body));
             } else {
-              resolve();
-              next(token);
+              resolve({...req, token: JSON.parse(token)});
             }
           });
         break;
@@ -79,8 +72,7 @@ function requestAuthToken(data, req, res, next) {
             if (params.statusCode !== 200) {
               reject(new Error(err));
             } else {
-              resolve();
-              next(JSON.parse(token));
+              resolve({...req, token: JSON.parse(token)});
             }
           });
         break;
@@ -91,29 +83,22 @@ function requestAuthToken(data, req, res, next) {
 }
 
 // Step 3. Fetch user profile
-function getPublicProfile(data, req, res, next) {
+function getPublicProfile(req) {
   let accessProfile = staticProvidersInfo[req.params.provider].profile;
   return new Promise(function (resolve, reject) {
     request.get(
       accessProfile.url,
       {
-        qs: {
-          personFields: accessProfile.fields
-        },
-        headers: {'authorization': 'Bearer ' + data.access_token}
+        qs: accessProfile.params(req.token.access_token),
+        headers: accessProfile.header(req.token.access_token)
       },
       function (err, response, profile) {
-        if (err) {
-          //return res.status(500).send({ message: err });
-          reject(new Error(err));
-        } else if (profile.error) {
-          //return res.status(500).send({ message: profile.error });
-          reject(new Error(profile.err));
+        let profileToJSON = JSON.parse(profile)
+        if (profileToJSON.error) {
+          reject(new Error(profile.error));
+        } else {
+          resolve({...req, profile: accessProfile.convertProfile(profileToJSON)})
         }
-        next({
-          "accessTokenData": data,
-          "profile":JSON.parse(profile)
-        });
       }
     )
   });
@@ -121,44 +106,47 @@ function getPublicProfile(data, req, res, next) {
 
 
 //Step 4: Persist user data
-function persistObtainedProfile(data, req, res, next) {
+function persistObtainedProfile(req) {
   return ClientDataCollector.findOrCreate({
     where: {
       client_id: req.params.clientId,
-      visitor_identifier: data.profile.resourceName
+      visitor_identifier: req.profile.visitorIdentifier
     },
     defaults: {
       client_id: req.params.clientId,
-      visitorIdentifier: data.profile.resourceName,
-      profileData: data.profile
+      visitorIdentifier: req.profile.visitorIdentifier,
+      profileData: req.profile.rawData
     }
   }).then(function () {
     return RadCheck.findOrCreate({
       where: {
-        username: data.profile.resourceName,
-        value: data.profile.etag
+        username: req.profile.visitorIdentifier,
+        value: req.profile.value
       }
-    });
-  })
+    })
+  }).then(()=>new Promise(function (resolve, reject){
+    resolve(req)
+  }))
 }
 
 
-
-router.post('/socialLogin/:clientId/:provider',
-  getClientAuthConf,
-  requestAuthToken,
-  getPublicProfile,
-  function (data, req, res, error) {
-    persistObtainedProfile(data, req,res, error).then(result => {
+router.post('/socialLogin/:clientId/:provider', function (req, res) {
+  getClientAuthConf(req)
+    .then(requestAuthToken)
+    .then(getPublicProfile)
+    .then(persistObtainedProfile).then(
+    function (result) {
       if (result) {
-        res.send({'username': data.profile.resourceName, 'token': data.accessTokenData.access_token});
+        res.send({'username': result.profile.visitorIdentifier, 'token': result.token.access_token});
       } else {
-        res.status(503).send({'token': req.token})
+        res.status(503).send({'token': result.accessTokenData.access_token})
       }
-    }).catch(err => {
-      res.status(503).send({'error': err.stack})
-    })
-  });
+    }
+  ).catch(err => {
+    res.status(503).send({'error': JSON.stringify(err)})
+  })
+})
+
 
 module.exports = router;
 

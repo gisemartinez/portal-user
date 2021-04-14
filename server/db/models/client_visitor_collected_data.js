@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../models');
 const Client = require('../models/client');
 
-const ClientSocialMediaCollectedData = db.define('ClientSocialMediaCollectedData', {
+const ClientVisitorCollectedData = db.define('ClientVisitorCollectedData', {
   uniqueId: {
     type: Sequelize.STRING(36),
     primaryKey: true,
@@ -13,15 +13,15 @@ const ClientSocialMediaCollectedData = db.define('ClientSocialMediaCollectedData
     type: Sequelize.STRING,
     field: 'visitor_identifier'
   },
-  profileData: {
+  rawData: {
     type: Sequelize.JSON,
-    field: 'profile_data'
+    field: 'raw_data'
   }
 }, {
-  tableName: 'client_social_media_collected_data',
+  tableName: 'client_visitor_collected_data',
   timestamps: true
 });
 
-ClientSocialMediaCollectedData.belongsTo(Client, {foreignKey: 'client_id'})
+ClientVisitorCollectedData.belongsTo(Client, {foreignKey: 'client_id'})
 
-module.exports = ClientSocialMediaCollectedData;
+module.exports = ClientVisitorCollectedData;

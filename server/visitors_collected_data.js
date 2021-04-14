@@ -1,7 +1,7 @@
 let express = require('express'),
   router = express.Router();
 
-const ClientCollectedData = require('./db/models/client_social_media_collected_data');
+const ClientCollectedData = require('./db/models/client_visitor_collected_data');
 
 function fetchCollectedData(req) {
   return ClientCollectedData.findAll({

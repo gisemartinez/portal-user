@@ -7,7 +7,7 @@ let express = require('express'),
 const config = require('./config');
 const RadCheck = require('./db/models/radcheck');
 const ClientAuth = require('./db/models/client_auth');
-const ClientDataCollector = require('./db/models/client_social_media_collected_data');
+const ClientDataCollector = require('./db/models/client_visitor_collected_data');
 let staticProvidersInfo = require('./const');
 
 
@@ -115,7 +115,7 @@ function persistObtainedProfile(req) {
     defaults: {
       client_id: req.params.clientId,
       visitorIdentifier: req.profile.visitorIdentifier,
-      profileData: req.profile.rawData
+      rawData: req.profile.rawData
     }
   }).then(function () {
     return RadCheck.findOrCreate({

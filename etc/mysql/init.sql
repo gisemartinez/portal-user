@@ -1,4 +1,3 @@
--- clients init
 CREATE TABLE
     landing_template
 (
@@ -40,18 +39,17 @@ CREATE TABLE
 ) ENGINE = INNODB;
 
 CREATE TABLE
-    client_social_media_collected_data
+    client_visitor_collected_data
 (
     unique_id          varchar(36) NOT NULL,
     client_id          varchar(36) NOT NULL,
     visitor_identifier varchar(25) NOT NULL,
-    profile_data       json        NOT NULL,
+    raw_data           json        NOT NULL,
     createdAt          datetime    NOT NULL,
     updatedAt          datetime,
     PRIMARY KEY (unique_id),
     FOREIGN KEY (client_id) REFERENCES client (client_id)
 ) ENGINE = INNODB;
-
 
 INSERT INTO landing_template
 VALUES ('template-1', 'Products description with photos and text');
@@ -76,12 +74,12 @@ VALUES ('83bfedd1-5467-408c-86d3-146e1d9275ed', 'hotel-1', 'template-2', '
 INSERT INTO client_landing
 VALUES ('11111111-5467-408c-86d3-146e1d9275ed', 'shopping-mall', 'template-1', '
 {
-  "iframeURL": "https://fabianadaversa.com/",
-  "title": "Iframe title"
+  "iframeURL": "https://www.refugiodelpescador.com/",
+  "title": "Fisher Cottage"
 }');
 
--- Related inserts to auth data are kept locally
------ radius init
+
+
 ###########################################################################
 # $Id$                 #
 #                                                                         #
@@ -229,8 +227,9 @@ CREATE TABLE radusergroup
 #        if your software is too old:
 #
 #   authdate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON
-UPDATE CURRENT_TIMESTAMP
-    #
+#UPDATE CURRENT_TIMESTAMP
+#
+
 CREATE TABLE radpostauth
 (
     id       int(11) NOT NULL auto_increment,

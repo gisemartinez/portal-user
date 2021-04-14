@@ -34,7 +34,7 @@ export class SurveyControlService {
       identifier: Math.random().toString(36).substring(7),
       answers: form.getRawValue()
     }
-    this.http.post(authServerBaseUrl + '/auth/survey', postData).subscribe(_ => {
+    this.http.post(authServerBaseUrl + '/auth/survey/'+LocalStorageHandler.getClient(), postData).subscribe(_ => {
         LocalStorageHandler.ackSocialLogin();
         LocalStorageHandler.setUsername(postData.identifier);
         this.surveyAnswered.next(true);

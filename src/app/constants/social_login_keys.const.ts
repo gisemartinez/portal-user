@@ -8,7 +8,6 @@ export const social_urls:{[key:string]:SocialLoginData }= {
     constants.google.loginDialog.suffix
   ),
   'facebook' : new SocialLoginData (
-
     constants.facebook.loginDialog.url,
     constants.facebook.loginDialog.suffix
   ),

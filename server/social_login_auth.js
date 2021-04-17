@@ -143,7 +143,7 @@ router.post('/socialLogin/:clientId/:provider', function (req, res) {
       }
     }
   ).catch(err => {
-    res.status(503).send({'error': JSON.stringify(err)})
+    res.status(503).send({'error': err.stack})
   })
 })
 

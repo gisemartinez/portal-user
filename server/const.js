@@ -3,7 +3,7 @@ let SOCIAL_LOGIN_STATIC_INFO =
     facebook: {
       loginDialog: {
         url: 'https://www.facebook.com/v2.11/dialog/oauth?client_id=',
-        suffix: '&scope=user_birthday, user_hometown, user_likes, user_gender, user_age_range, email, pages_show_list, public_profile',
+        suffix: '&scope=user_birthday, user_hometown, user_likes, user_gender, user_age_range, email, public_profile',
       },//step0
       accessToken: {
         url: 'https://graph.facebook.com/v10.0/oauth/access_token',
@@ -13,7 +13,7 @@ let SOCIAL_LOGIN_STATIC_INFO =
       profile: {
         url: 'https://graph.facebook.com/v10.0/me',
         params: function (accessToken) {
-          return {'access_token': accessToken}
+          return {'access_token': accessToken, 'fields':'name,birthday,hometown,likes,gender,age_range,email'}
         },
         header: () => {
         },
@@ -44,7 +44,6 @@ let SOCIAL_LOGIN_STATIC_INFO =
       },
       profile: {
         url: 'https://people.googleapis.com/v1/people/me',
-        fields: 'names,emailAddresses,ageRanges,birthdays,genders,interests,residences',
         params: function () {
           return {'personFields': 'names,emailAddresses,ageRanges,birthdays,genders,interests,residences'}
         },

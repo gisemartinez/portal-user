@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {LocalStorageHandler} from "./guards/local-storage-handler";
 
 @Component({
   selector: 'app-root',

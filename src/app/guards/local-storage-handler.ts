@@ -83,6 +83,14 @@ export class LocalStorageHandler {
     return localStorage.getItem('client');
   }
 
+  public static setClientName(clientName: string) {
+    localStorage.setItem('clientName', clientName);
+  }
+
+  public static getClientName(): string {
+    return localStorage.getItem('clientName');
+  }
+
   public static setTemplate(template: string) {
     localStorage.setItem('template', template);
   }

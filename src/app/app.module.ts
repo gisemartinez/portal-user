@@ -1,4 +1,4 @@
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, Title} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
@@ -59,7 +59,13 @@ import {ClientLandingService} from "./services/client-landing.service";
     ReactiveFormsModule,
     ScrollingModule
   ],
-  providers: [SurveyControlService, AuthService, QuestionService, SocialLoginService, ClientLandingService,
+  providers: [
+    AuthService,
+    ClientLandingService,
+    QuestionService,
+    SocialLoginService,
+    SurveyControlService,
+    Title
   ],
   bootstrap: [AppComponent]
 })

@@ -19,7 +19,13 @@ function fetchClientAuth( req, res, next ){
     where: {
       client_id: req.params.clientId
     }
-  })
+  }).then(clientAuth=>
+    clientAuth.getClient().then( client =>
+      new Promise(function (resolve, reject){
+        resolve({'authData':clientAuth, 'clientData': client })
+      }
+    )
+   ))
 }
 router.get('/clientLanding/:clientId',
   function ( req, res ){

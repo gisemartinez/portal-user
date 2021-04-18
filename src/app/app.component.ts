@@ -7,6 +7,6 @@ import {LocalStorageHandler} from "./guards/local-storage-handler";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Portal User';
+  title = LocalStorageHandler.getClient() || 'Portal Access not found';
   navIsVisible=true;
 }

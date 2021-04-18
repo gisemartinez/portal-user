@@ -69,8 +69,92 @@ VALUES ('f498fe98-cc9f-4691-8216-cc98000fc789', 'hotel-1', 'survey', '
 {
   "surveyForm": {
     "id": "hotel-1",
-    "title": "Podes obtener conexión a internet de manera gratuita, si nos ayudás con la siguiente encuesta",
+    "title": "Queremos ofrecerte el mejor servicio pero para eso necesitamos conocer tu impresión de nuestras instalaciones.No te preocupes, es totalmente anónima",
     "fields": [
+      {
+        "id": "1571507819",
+        "type": "rating",
+        "config": {
+          "key": "rating",
+          "label": "¿Cómo puntuarías la atención recibida al registrarse en el hotel (check in)?",
+          "otherOptions": {
+            "maximum": 5
+          },
+          "order": 1
+        }
+      },
+      {
+        "id": "1571508049",
+        "type": "checkbox",
+        "config": {
+          "label": "¿Por qué nos elegiste?",
+          "otherOptions": [
+            {
+              "index": 0,
+              "key": "Precio"
+            },
+            {
+              "index": 1,
+              "key": "Ubicación"
+            },
+            {
+              "index": 2,
+              "key": "Disponibilidad"
+            },
+            {
+              "index": 3,
+              "key": "Comodidades (restaurant, gimnasio, servicio al cuarto, wifi, televisión, etc)"
+            }
+          ],
+          "order": 2
+        }
+      },
+      {
+        "id": "1618755094",
+        "type": "radio",
+        "config": {
+          "key": "yes-no",
+          "label": "¿Cómo nos conociste?",
+          "otherOptions": [
+            {
+              "key": "Busqueda en internet"
+            },
+            {
+              "key": "Publicidad en televisión"
+            },
+            {
+              "key": "Publicidad en redes sociales"
+            },
+            {
+              "key": "Agencia"
+            },
+            {
+              "key": "A través de un amigo"
+            }
+          ],
+          "order": 3
+        }
+      },
+      {
+        "id": "1571508048",
+        "type": "radio",
+        "config": {
+          "key": "yes-no",
+          "label": "¿Cómo realizaste la reserva?",
+          "otherOptions": [
+            {
+              "key": "Por teléfono"
+            },
+            {
+              "key": "Por la página web del hotel"
+            },
+            {
+              "key": "A través de una agencia"
+            }
+          ],
+          "order": 4
+        }
+      },
       {
         "id": "1571507840",
         "type": "textbox",
@@ -79,42 +163,59 @@ VALUES ('f498fe98-cc9f-4691-8216-cc98000fc789', 'hotel-1', 'survey', '
           "otherOptions": {
             "textType": "text"
           },
-          "label": "Lo que quieras describir de nuestro hotel",
+          "label": "¿Desde que lugar nos visitas?",
           "required": true,
-          "value": "Recepción, bar, etc",
-          "order": 1
+          "value": "Buenos Aires, Argentina",
+          "order": 5
         }
       },
       {
-        "id": "1571507819",
-        "type": "rating",
-        "config": {
-          "key": "rating",
-          "label": "¿Cómo calificaría la atención recibida al registrarse en el hotel (check in)?",
-          "otherOptions": {
-            "maximum": 5
-          },
-          "order": 2
-        }
-      },
-      {
-        "id": "1571508048",
+        "id": "1618754905",
         "type": "radio",
         "config": {
           "key": "yes-no",
-          "label": "Volverias a elegirnos para hospedarte?",
+          "label": "¿Con qué motivo nos visitas?",
           "otherOptions": [
             {
-              "key": "Sí"
+              "key": "Trabajo"
             },
             {
-              "key": "No sé"
+              "key": "Viaje en pareja"
             },
             {
-              "key": "Puede ser .."
+              "key": "Viaje en familia"
+            },
+            {
+              "key": "Viaje con amistades"
+            },
+            {
+              "key": "Otro motivo"
             }
           ],
-          "order": 3
+          "order": 6
+        }
+      },
+      {
+        "id": "1618756289",
+        "type": "radio",
+        "config": {
+          "key": "yes-no",
+          "label": "¿Rango de edad que te describe a vos o la mayoría de las personas que viajan con vos?",
+          "otherOptions": [
+            {
+              "key": "18-24"
+            },
+            {
+              "key": "25-39"
+            },
+            {
+              "key": "40-55"
+            },
+            {
+              "key": "55 en adelante"
+            }
+          ],
+          "order": 7
         }
       },
       {
@@ -125,70 +226,16 @@ VALUES ('f498fe98-cc9f-4691-8216-cc98000fc789', 'hotel-1', 'survey', '
           "otherOptions": {
             "textType": "text"
           },
-          "label": "Queres dejarnos alguna sugerencia?",
+          "label": "¿Hay algo más que le gustaría decir o sugerir al hotel que no te hayamos preguntado en esta encuesta?",
           "value": "..",
           "required": false,
-          "order": 4
-        }
-      },
-      {
-        "id": "1571508821",
-        "type": "textbox",
-        "config": {
-          "key": "textbox",
-          "otherOptions": {
-            "textType": "text"
-          },
-          "label": "Como nos encontraste?",
-          "required": false,
-          "value": "Redes sociales",
-          "order": 5
-        }
-      },
-      {
-        "id": "1571508049",
-        "type": "checkbox",
-        "config": {
-          "label": "El vestido era de color",
-          "otherOptions": [
-            {
-              "index": 0,
-              "key": "Azul"
-            },
-            {
-              "index": 1,
-              "key": "Dorado"
-            },
-            {
-              "index": 2,
-              "key": "No sé"
-            }
-          ],
-          "order": 6
-        }
-      },
-      {
-        "id": "1617627751",
-        "type": "selector",
-        "config": {
-          "label": "Volverias a elegirnos?",
-          "otherOptions": [
-            {
-              "key": "Azul"
-            },
-            {
-              "key": "No sé"
-            },
-            {
-              "key": "Puede ser .."
-            }
-          ],
-          "order": 7
+          "order": 8
         }
       }
     ]
   }
-}');
+}
+');
 
 INSERT INTO client_auth
 VALUES ('b56b48aa-3fda-41a0-8608-d14209a6a956', 'shopping-mall', 'social-login', '
@@ -210,7 +257,7 @@ VALUES ('b56b48aa-3fda-41a0-8608-d14209a6a956', 'shopping-mall', 'social-login',
 }');
 
 INSERT INTO client_landing
-VALUES ('83bfedd1-5467-408c-86d3-146e1d9275ed', 'hotel-1', 'template-2', '
+VALUES ('83bfedd1-5467-408c-86d3-146e1d9275ed', 'shopping-mall', 'template-1', '
 {
   "leftColumn": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis at consectetur lorem donec massa. Non consectetur a erat nam at lectus urna duis. Quis blandit turpis cursus in hac. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Tristique senectus et netus et malesuada fames ac turpis. Dolor morbi non arcu risus quis varius quam quisque. Fames ac turpis egestas maecenas pharetra convallis posuere morbi. Sed augue lacus viverra vitae congue eu consequat ac. Curabitur vitae nunc sed velit dignissim. At lectus urna duis convallis convallis tellus id. Consequat ac felis donec et odio pellentesque diam.",
   "middleColumn": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis at consectetur lorem donec massa. Non consectetur a erat nam at lectus urna duis. Quis blandit turpis cursus in hac. Orci phasellus egestas tellus rutrum tellus pellentesque eu tincidunt. Tristique senectus et netus et malesuada fames ac turpis. Dolor morbi non arcu risus quis varius quam quisque. Fames ac turpis egestas maecenas pharetra convallis posuere morbi. Sed augue lacus viverra vitae congue eu consequat ac. Curabitur vitae nunc sed velit dignissim. At lectus urna duis convallis convallis tellus id. Consequat ac felis donec et odio pellentesque diam.",
@@ -218,7 +265,7 @@ VALUES ('83bfedd1-5467-408c-86d3-146e1d9275ed', 'hotel-1', 'template-2', '
 }');
 
 INSERT INTO client_landing
-VALUES ('11111111-5467-408c-86d3-146e1d9275ed', 'shopping-mall', 'template-1', '
+VALUES ('11111111-5467-408c-86d3-146e1d9275ed', 'hotel-1', 'template-2', '
 {
   "iframeURL": "https://www.refugiodelpescador.com/",
   "title": "Fisher Cottage"

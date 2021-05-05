@@ -45,7 +45,7 @@ export class QuestionService {
             return new SurveyRatebox(options, obj.config.otherOptions);
           }
           case 'textbox' : {
-            return new SurveyTextBox(options, obj.config.otherOptions)
+            return new SurveyTextBox(options)
           }
           case 'radio': {
             return new SurveyRadioQuestion(options, obj.config.otherOptions)

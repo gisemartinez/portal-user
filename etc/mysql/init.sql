@@ -77,9 +77,11 @@ VALUES ('f498fe98-cc9f-4691-8216-cc98000fc789', 'hotel-1', 'survey', '
         "config": {
           "key": "rating",
           "label": "¿Cómo puntuarías la atención recibida al registrarse en el hotel (check in)?",
-          "otherOptions": {
-            "maximum": 5
-          },
+          "otherOptions": [
+            {
+              "maximum": 5
+            }
+          ],
           "order": 1
         }
       },
@@ -113,7 +115,6 @@ VALUES ('f498fe98-cc9f-4691-8216-cc98000fc789', 'hotel-1', 'survey', '
         "id": "1618755094",
         "type": "radio",
         "config": {
-          "key": "yes-no",
           "label": "¿Cómo nos conociste?",
           "otherOptions": [
             {
@@ -139,7 +140,6 @@ VALUES ('f498fe98-cc9f-4691-8216-cc98000fc789', 'hotel-1', 'survey', '
         "id": "1571508048",
         "type": "radio",
         "config": {
-          "key": "yes-no",
           "label": "¿Cómo realizaste la reserva?",
           "otherOptions": [
             {
@@ -159,10 +159,7 @@ VALUES ('f498fe98-cc9f-4691-8216-cc98000fc789', 'hotel-1', 'survey', '
         "id": "1571507840",
         "type": "textbox",
         "config": {
-          "key": "textbox",
-          "otherOptions": {
-            "textType": "text"
-          },
+          "otherOptions": [],
           "label": "¿Desde que lugar nos visitas?",
           "required": true,
           "value": "Buenos Aires, Argentina",
@@ -173,7 +170,6 @@ VALUES ('f498fe98-cc9f-4691-8216-cc98000fc789', 'hotel-1', 'survey', '
         "id": "1618754905",
         "type": "radio",
         "config": {
-          "key": "yes-no",
           "label": "¿Con qué motivo nos visitas?",
           "otherOptions": [
             {
@@ -199,7 +195,6 @@ VALUES ('f498fe98-cc9f-4691-8216-cc98000fc789', 'hotel-1', 'survey', '
         "id": "1618756289",
         "type": "radio",
         "config": {
-          "key": "yes-no",
           "label": "¿Rango de edad que te describe a vos o la mayoría de las personas que viajan con vos?",
           "otherOptions": [
             {
@@ -222,10 +217,7 @@ VALUES ('f498fe98-cc9f-4691-8216-cc98000fc789', 'hotel-1', 'survey', '
         "id": "1571507880",
         "type": "textbox",
         "config": {
-          "key": "textbox",
-          "otherOptions": {
-            "textType": "text"
-          },
+          "otherOptions": [],
           "label": "¿Hay algo más que le gustaría decir o sugerir al hotel que no te hayamos preguntado en esta encuesta?",
           "value": "..",
           "required": false,

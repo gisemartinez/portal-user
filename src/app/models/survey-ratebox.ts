@@ -4,8 +4,8 @@ export class SurveyRatebox extends SurveyInputBase<string> {
   controlType = 'rating';
   maximum: number;
 
-  constructor(options: {} = {}, otherOptions: { maximum: number }) {
+  constructor(options: {} = {}, otherOptions: [{ maximum: number }]) {
     super(options);
-    this.maximum = otherOptions.maximum || 10;
+    this.maximum = otherOptions[0].maximum || 10;
   }
 }
